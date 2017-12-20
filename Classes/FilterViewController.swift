@@ -11,18 +11,17 @@ import Firebase
 
 class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
-  
     @IBOutlet weak var pvCollege: UIPickerView!
     
     @IBOutlet weak var pvMateType: UIPickerView!
     
     override func viewDidLoad() {
-        
+
         pvCollege.delegate = self
         pvCollege.dataSource = self
         pvMateType.delegate = self
         pvMateType.dataSource = self
-        
+
         super.viewDidLoad()
     }
     
@@ -30,6 +29,7 @@ class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     //picker views
     //consider changing to text view picker view
     //www.youtube.com/watch?v=QdLFd3wNqV8
+    
     let mateTypes = [
             "All",
             "Freshman",
@@ -53,12 +53,12 @@ class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             "College of Health Sciences",
             "College of Nursing"
         ]
-    
+
         func numberOfComponents(in pickerView: UIPickerView) -> Int
         {
             return 1
         }
-    
+
         func pickerView(_ pickerView:UIPickerView, numberOfRowsInComponent component: Int) -> Int
         {
             var countrows : Int = mateTypes.count
@@ -67,7 +67,7 @@ class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             }
             return countrows
         }
-    
+
         func pickerView(_ pickerView:UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
         {
             if pickerView == pvMateType {
@@ -77,16 +77,16 @@ class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 let titleRow = colleges[row]
                 return titleRow
             }
-            
+
             return " "
         }
-    
+
         func pickerView(_ pickerView:UIPickerView, didSelectRow row: Int, inComponent component: Int)
         {
 
         }
 
-    //Throwing error... fix this
+    
     @IBAction func btnSignOut(_ sender: UIBarButtonItem) {
         do {
             try Auth.auth().signOut()
