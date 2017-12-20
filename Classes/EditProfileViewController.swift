@@ -14,10 +14,15 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
     //create outlets
     @IBOutlet weak var tbFirstName: UITextField!
     @IBOutlet weak var tbLastName: UITextField!
+    @IBOutlet weak var imgProfilePicture: UIImageView!
     @IBOutlet weak var pvMateType: UIPickerView!
     @IBOutlet weak var pvCollege: UIPickerView!
     
-    let ref = Database.database()
+    let dataRef = Database.database()
+    let storageRef = Storage.storage().reference()
+    var userProfileImage: UIImage?
+    let uid = Auth.auth().currentUser?.uid
+
     
 //    pvCollege.selectRow(3, inComponent: 0, animated: true)
 //    pvMateType.selectRow(5, inComponent: 0, animated: true)
@@ -81,9 +86,8 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
   
     override func viewWillAppear(_ animated: Bool) {
-        let uid = Auth.auth().currentUser?.uid
         
-        ref.reference().child("USERS/\(uid!)").observe(.value, with: { snapshot in
+        dataRef.reference().child("USERS/\(uid!)").observe(.value, with: { snapshot in
             // get the entire snapshot dictionary
             if let dictionary = snapshot.value as? [String: Any]
             {
@@ -176,9 +180,38 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
         pvMateType.dataSource = self
     }
     
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
+        profileImgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if error != nil {
+                let errorDesc = error?.localizedDescription
+                if errorDesc == "Image does not exist." {
+                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
+                    let imagePath = "imgProfilePictures/\(self.uid!).png"
+                    
+                    let metadata = StorageMetadata()
+                    metadata.contentType = "image/png"
+                    
+                    self.storageRef.child(imagePath)
+                        .putData(profileImageData!, metadata: metadata) { (metadata, error) in
+                            if let error = error {
+                                print ("Uploading Error: \(error)")
+                                return
+                            }
+                    }
+                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
+                } else {
+                    return
+                }
+            } else {
+                self.userProfileImage = UIImage(data: data!)
+                self.imgProfilePicture.image = self.userProfileImage
+            }
+        }
         
     }
     
@@ -192,6 +225,7 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
         }
+        else {
         
         let uid = Auth.auth().currentUser?.uid
     
@@ -213,12 +247,15 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
              "mateType" : mateType
             ]
         
-            ref.reference().child("USERS/\(uid!)").setValue(userValues)
+            dataRef.reference().child("USERS/\(uid!)").setValue(userValues)
             
             //segue to PledgeViewController
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "SelfProfileViewController")
             self.present(vc!, animated: true, completion: nil)
+        }
     }
+    
+    
     
     
     
