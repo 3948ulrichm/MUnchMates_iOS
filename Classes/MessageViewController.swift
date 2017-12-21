@@ -26,12 +26,16 @@ class MessageViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    //awebber testing git push
     @IBAction func panPerformed(_ sender: UIPanGestureRecognizer) {
     
+        //for when the user is swiping to the right
         if (sender.state == .began || sender.state == .changed) {
             
+            //the translation is our variable for speed of movment
             let translation = sender.translation(in: self.view).x
     
+            //if translation is positive, or being dragged on screen - once it hits 20 it will automatically pull the rest of the way out
             if (translation > 0) {
                 if(sidebarViewConstraint.constant < 20){
                     UIView.animate(withDuration: 0.2, animations: {
@@ -40,6 +44,7 @@ class MessageViewController: UIViewController {
                     })
                 }
             }else {
+                //if translation is negative, or being dragged off screen - it will automatically pull the rest of the way out until it is hidden at -180
                 if(sidebarViewConstraint.constant > -180){
                     UIView.animate(withDuration: 0.2, animations: {
                         self.sidebarViewConstraint.constant += translation / 10
@@ -50,12 +55,14 @@ class MessageViewController: UIViewController {
             
         }else if sender.state == .ended {
             
+            //once the sidebar hits -20 it will automatically hide off screen
             if(sidebarViewConstraint.constant < -20){
                 UIView.animate(withDuration: 0.2, animations: {
                     self.sidebarViewConstraint.constant = -180
                     self.view.layoutIfNeeded()
                 })
             }else {
+                //if it doesn't hit -20 it will come back out on screen
                 UIView.animate(withDuration: 0.2, animations: {
                     self.sidebarViewConstraint.constant = 0
                     self.view.layoutIfNeeded()

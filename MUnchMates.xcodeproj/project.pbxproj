@@ -193,6 +193,7 @@
 				TargetAttributes = {
 					94F8FCC71F8B406100663F8C = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = K2KP89LE5C;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
@@ -454,7 +455,7 @@
 			baseConfigurationReference = BD58C56E7AC9F942E767BC68 /* Pods-MUnchMates.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = K2KP89LE5C;
 				INFOPLIST_FILE = MUnchMates/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MUnchMates.MUnchMates;
@@ -469,7 +470,7 @@
 			baseConfigurationReference = 19F86FB723A230B3435610C4 /* Pods-MUnchMates.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = K2KP89LE5C;
 				INFOPLIST_FILE = MUnchMates/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MUnchMates.MUnchMates;

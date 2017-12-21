@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Bjt-ZW-QNZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Bjt-ZW-QNZ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -517,12 +517,12 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="nVY-zq-TGb" id="wUr-6Q-ju6"/>
-                        <segue destination="nDP-0g-Qnd" kind="show" identifier="selectedUserDetails" id="EVM-8k-0NG"/>
+                        <segue destination="nDP-0g-Qnd" kind="show" identifier="selectedUserDetails" id="6BK-N8-TgK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EXZ-Lu-cUx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="557.60000000000002" y="545.57721139430294"/>
+            <point key="canvasLocation" x="335" y="600"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="XjB-co-LDI">
@@ -635,19 +635,20 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Message"/>
                                 <connections>
-                                    <segue destination="fLv-RY-IOE" kind="show" id="pDc-3x-poH"/>
+                                    <segue destination="fLv-RY-IOE" kind="show" id="l9a-DX-Nks"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="V5A-az-HRu"/>
                     <connections>
                         <outlet property="lblNameProfileSearch" destination="u6T-Ae-haz" id="QhL-HU-9kr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V9Z-qc-GMM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1317.5999999999999" y="545.57721139430294"/>
+            <point key="canvasLocation" x="1663" y="501"/>
         </scene>
         <!--Message View Controller-->
         <scene sceneID="rxO-da-gtc">
@@ -720,18 +721,7 @@
                             <outletCollection property="gestureRecognizers" destination="29J-J8-b8a" appends="YES" id="5c5-Kc-76z"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" id="8uJ-rg-E1z">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="px8-Or-TyG">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WSz-zu-qdx">
-                                <rect key="frame" x="16" y="7" width="34" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back"/>
-                            </button>
-                            <connections>
-                                <segue destination="DDO-1w-nNP" kind="show" id="N6j-r0-KLX"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="8uJ-rg-E1z"/>
                     <connections>
                         <outlet property="blurView" destination="c3k-nJ-P0z" id="dKv-eX-roZ"/>
                         <outlet property="sideView" destination="CbI-D3-Z1b" id="XK8-A3-0V1"/>
@@ -745,7 +735,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3150" y="541"/>
+            <point key="canvasLocation" x="3020" y="536"/>
         </scene>
         <!--Edit Profile View Controller-->
         <scene sceneID="6XZ-OB-Wpv">
@@ -912,8 +902,6 @@
         <image name="tempProfilePic" width="726" height="726"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bOR-0v-PRy"/>
-        <segue reference="N6j-r0-KLX"/>
         <segue reference="0jO-RF-aqg"/>
         <segue reference="f5m-Rm-m4g"/>
     </inferredMetricsTieBreakers>
