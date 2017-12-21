@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		237F89DF9EF5E316BD3E7433 /* Pods_MUnchMates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16A7AE623155DB055339E71C /* Pods_MUnchMates.framework */; };
+		49C08FF81FEB45B700AFB599 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C08FF71FEB45B700AFB599 /* MessageViewController.swift */; };
 		942868741FE32DE5009557C9 /* SearchUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942868731FE32DE5009557C9 /* SearchUsers.swift */; };
 		94606E921FE8B6BF00C0AA8E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94606E911FE8B6BF00C0AA8E /* LoginViewController.swift */; };
 		94606E9B1FE8B6DA00C0AA8E /* SearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94606E931FE8B6D900C0AA8E /* SearchListViewController.swift */; };
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		16A7AE623155DB055339E71C /* Pods_MUnchMates.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MUnchMates.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		19F86FB723A230B3435610C4 /* Pods-MUnchMates.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUnchMates.release.xcconfig"; path = "Pods/Target Support Files/Pods-MUnchMates/Pods-MUnchMates.release.xcconfig"; sourceTree = "<group>"; };
+		49C08FF71FEB45B700AFB599 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageViewController.swift; path = Classes/MessageViewController.swift; sourceTree = "<group>"; };
 		942868731FE32DE5009557C9 /* SearchUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUsers.swift; sourceTree = "<group>"; };
 		94606E911FE8B6BF00C0AA8E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Classes/LoginViewController.swift; sourceTree = "<group>"; };
 		94606E931FE8B6D900C0AA8E /* SearchListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchListViewController.swift; path = Classes/SearchListViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				94606E931FE8B6D900C0AA8E /* SearchListViewController.swift */,
 				94606E9A1FE8B6DA00C0AA8E /* SelfProfileViewController.swift */,
 				94606E911FE8B6BF00C0AA8E /* LoginViewController.swift */,
+				49C08FF71FEB45B700AFB599 /* MessageViewController.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				94606E9E1FE8B6DA00C0AA8E /* EditProfileViewController.swift in Sources */,
 				94606EA11FE8B6DA00C0AA8E /* SearchListTableViewCell.swift in Sources */,
 				94606E9B1FE8B6DA00C0AA8E /* SearchListViewController.swift in Sources */,
+				49C08FF81FEB45B700AFB599 /* MessageViewController.swift in Sources */,
 				94606EA01FE8B6DA00C0AA8E /* RegisterViewController.swift in Sources */,
 				94F8FCD41F8B406100663F8C /* MUnchMates.xcdatamodeld in Sources */,
 				94606E9F1FE8B6DA00C0AA8E /* FilterViewController.swift in Sources */,
@@ -450,6 +454,7 @@
 			baseConfigurationReference = BD58C56E7AC9F942E767BC68 /* Pods-MUnchMates.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MUnchMates/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MUnchMates.MUnchMates;
@@ -464,6 +469,7 @@
 			baseConfigurationReference = 19F86FB723A230B3435610C4 /* Pods-MUnchMates.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MUnchMates/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MUnchMates.MUnchMates;

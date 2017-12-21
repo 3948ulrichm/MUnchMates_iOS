@@ -16,6 +16,7 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
     let cellId = "SearchListCell"
     var users: [SearchUsers] = []
     let uid = Auth.auth().currentUser?.uid
+    var selectedUser = SearchUsers()
     
     override func viewDidLoad() {
     
@@ -56,4 +57,28 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
         
     }
+    
+    //awebber - variables to take the values from table and set to a string variable. will use to create a user object and send to details screen
+    var firstName:String = ""
+    var lastName:String = ""
+    
+    //added by awebber to add c
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        firstName = self.users[indexPath.row].firstName
+        lastName = self.users[indexPath.row].lastName
+        //category = self.users[indexPath.row].category
+        //frequency = self.users[indexPath.row].frequency
+        //date = self.users[indexPath.row].dateAddedd
+        
+        selectedUser = SearchUsers(firstName: firstName, lastName: lastName)
+        performSegue(withIdentifier: "selectedUserDetails", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "selectedUserDetails" {
+            let vc = segue.destination as! ProfileViewController
+            vc.userDetails = selectedUser
+        }
+    }
+    
 }
