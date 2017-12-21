@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Bjt-ZW-QNZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Bjt-ZW-QNZ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -268,10 +268,6 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="pvCollege" translatesAutoresizingMaskIntoConstraints="NO" id="6PN-08-FoB">
-                                <rect key="frame" x="98" y="235" width="277" height="76"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MateType:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8WW-lf-7AL">
                                 <rect key="frame" x="0.0" y="150" width="86" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -279,10 +275,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="pvMateType" translatesAutoresizingMaskIntoConstraints="NO" id="FPu-WT-6jN">
-                                <rect key="frame" x="98" y="124" width="277" height="76"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </pickerView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KkS-WR-31K">
                                 <rect key="frame" x="0.0" y="462" width="375" height="205"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -292,7 +284,11 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <items>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="aHU-1p-LrT"/>
-                                            <barButtonItem title="Select" id="eEC-aE-GIZ"/>
+                                            <barButtonItem title="Select" id="eEC-aE-GIZ">
+                                                <connections>
+                                                    <action selector="btnSelectPickerView:" destination="sy3-qQ-5Gs" id="nlq-Cb-l1x"/>
+                                                </connections>
+                                            </barButtonItem>
                                         </items>
                                     </toolbar>
                                     <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pXB-9U-fgC">
@@ -325,12 +321,32 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kH1-Km-G9p">
+                                <rect key="frame" x="106" y="147" width="269" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <state key="normal" title="All"/>
+                                <connections>
+                                    <action selector="btnMateTypePVAction:" destination="sy3-qQ-5Gs" eventType="touchUpInside" id="8x5-48-zEU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2Y-tf-0hd">
+                                <rect key="frame" x="106" y="258" width="269" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <state key="normal" title="All"/>
+                                <connections>
+                                    <action selector="btnCollegePVAction:" destination="sy3-qQ-5Gs" eventType="touchUpInside" id="wxm-k5-yZY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="pvCollege" destination="6PN-08-FoB" id="Aq0-7w-LvA"/>
-                        <outlet property="pvMateType" destination="FPu-WT-6jN" id="bY7-PA-8e7"/>
+                        <outlet property="btnCollegePV" destination="w2Y-tf-0hd" id="f3M-2M-ui3"/>
+                        <outlet property="btnMateTypePV" destination="kH1-Km-G9p" id="svc-eL-tN4"/>
+                        <outlet property="pickerView" destination="pXB-9U-fgC" id="S1y-ZU-LAn"/>
+                        <outlet property="viewPickerView" destination="KkS-WR-31K" id="iPo-rf-2JA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="584-U0-2WJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -800,11 +816,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wkw-mX-18j">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" restorationIdentifier="switchMUteMode" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wkw-mX-18j">
                                 <rect key="frame" x="268" y="128" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </switch>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="93Q-2W-9CE">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" restorationIdentifier="switchMealPlan" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="93Q-2W-9CE">
                                 <rect key="frame" x="268" y="182" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </switch>
@@ -845,6 +861,8 @@
                         <outlet property="imgProfilePicture" destination="bKg-KT-JDS" id="9Vc-lO-jYd"/>
                         <outlet property="pvCollege" destination="Mvl-nB-vjT" id="kUq-Lx-lQl"/>
                         <outlet property="pvMateType" destination="hvG-zQ-a6C" id="M9g-yY-Gxe"/>
+                        <outlet property="switchMUteMode" destination="wkw-mX-18j" id="Sqn-HT-dCj"/>
+                        <outlet property="switchMealPlan" destination="93Q-2W-9CE" id="5Fj-2C-5A3"/>
                         <outlet property="tbFirstName" destination="lB8-Mf-iZ8" id="3ZZ-z1-IIw"/>
                         <outlet property="tbLastName" destination="f40-3p-Q0x" id="DsX-z9-2Vv"/>
                     </connections>
@@ -902,7 +920,7 @@
         <image name="tempProfilePic" width="726" height="726"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0jO-RF-aqg"/>
+        <segue reference="tUk-lq-Myf"/>
         <segue reference="f5m-Rm-m4g"/>
     </inferredMetricsTieBreakers>
 </document>

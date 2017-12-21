@@ -10,82 +10,112 @@ import UIKit
 import Firebase
 
 class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+        
     
-    @IBOutlet weak var pvCollege: UIPickerView!
-    
-    @IBOutlet weak var pvMateType: UIPickerView!
+    @IBOutlet weak var btnMateTypePV: UIButton!
+    @IBOutlet weak var btnCollegePV: UIButton!
+    @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var viewPickerView: UIView!
     
     override func viewDidLoad() {
 
-        pvCollege.delegate = self
-        pvCollege.dataSource = self
-        pvMateType.delegate = self
-        pvMateType.dataSource = self
+        viewPickerView.isHidden = true
+        
+        pickerView.delegate = self
+        pickerView.dataSource = self
 
         super.viewDidLoad()
     }
+
+    @IBAction func btnMateTypePVAction(_ sender: Any) {
+        
+        if viewPickerView.isHidden == true {
+            viewPickerView.isHidden = false
+        }
+        
+    }
+    
+    @IBAction func btnCollegePVAction(_ sender: Any) {
+        
+        if viewPickerView.isHidden == true {
+            viewPickerView.isHidden = false
+        }
+        
+    }
+    
+    var mateTypes = [
+        "All",
+        "Freshman",
+        "Sophomore",
+        "Junior",
+        "Senior",
+        "Graduate Student",
+        "Professor",
+        "Administrator",
+        "Jesuit",
+        "Other"
+    ]
+    
+    var colleges = [
+        "All",
+        "College of Arts and Sciences",
+        "College of Business",
+        "College of Communication",
+        "College of Education",
+        "College of Engineering",
+        "College of Health Sciences",
+        "College of Nursing"
+    ]
     
     
-    //picker views
-    //consider changing to text view picker view
-    //www.youtube.com/watch?v=QdLFd3wNqV8
     
-    let mateTypes = [
-            "All",
-            "Freshman",
-            "Sophomore",
-            "Junior",
-            "Senior",
-            "Graduate Student",
-            "Professor",
-            "Administrator",
-            "Jesuit",
-            "Other"
-        ]
+    //picker view
+        //populate button with text selected in pickerview
+    func numberOfComponents(in pickerView: UIPickerView) -> Int
+    {
+        return 1
+    }
     
-    let colleges = [
-            "All",
-            "College of Arts and Sciences",
-            "College of Business",
-            "College of Communication",
-            "College of Education",
-            "College of Engineering",
-            "College of Health Sciences",
-            "College of Nursing"
-        ]
+    func pickerView(_ pickerView:UIPickerView, numberOfRowsInComponent component: Int) -> Int
+    {
+        //TRYING TO CALL ARRAY BASED ON SELECTED BUTTON
+//        if btnMateTypePVAction(Any).touchInside = true {
+//            var countrows = mateTypes.count
+//        }
+//        else if btnCollegePVAction(Any).touchInside = true {
+//            var countrows = colleges.count
+//        }
+//        else {
+//            var countrows = 0
+//        }
+//        return countrows
+        var countrows = mateTypes.count
+        return countrows
+        
+    }
+    
+    func pickerView(_ pickerView:UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
+    {
+        let titleRow = mateTypes[row]
+        return titleRow
+    }
+    
+    func pickerView(_ pickerView:UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
 
-        func numberOfComponents(in pickerView: UIPickerView) -> Int
-        {
-            return 1
-        }
-
-        func pickerView(_ pickerView:UIPickerView, numberOfRowsInComponent component: Int) -> Int
-        {
-            var countrows : Int = mateTypes.count
-            if pickerView == pvCollege {
-                countrows = self.colleges.count
-            }
-            return countrows
-        }
-
-        func pickerView(_ pickerView:UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
-        {
-            if pickerView == pvMateType {
-                let titleRow = mateTypes[row]
-                return titleRow
-            } else if pickerView == pvCollege {
-                let titleRow = colleges[row]
-                return titleRow
-            }
-
-            return " "
-        }
-
-        func pickerView(_ pickerView:UIPickerView, didSelectRow row: Int, inComponent component: Int)
-        {
-
-        }
-
+    }
+    
+    @IBAction func btnSelectPickerView(_ sender: Any) {
+        
+        btnMateTypePV.setTitle(mateTypes[pickerView.selectedRow(inComponent: 0)], for: .normal)
+        btnCollegePV.setTitle(mateTypes[pickerView.selectedRow(inComponent: 0)], for: .normal)
+        viewPickerView.isHidden = true
+        
+    }
+    
+    
+    
+    
     
     @IBAction func btnSignOut(_ sender: UIBarButtonItem) {
         do {

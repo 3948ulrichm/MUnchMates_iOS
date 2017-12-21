@@ -15,6 +15,10 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var tbFirstName: UITextField!
     @IBOutlet weak var tbLastName: UITextField!
     @IBOutlet weak var imgProfilePicture: UIImageView!
+    @IBOutlet weak var switchMUteMode: UISwitch!
+    @IBOutlet weak var switchMealPlan: UISwitch!
+    
+    
     @IBOutlet weak var pvMateType: UIPickerView!
     @IBOutlet weak var pvCollege: UIPickerView!
     
@@ -38,7 +42,6 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
         "Professor",
         "Administrator",
         "Jesuit",
-        "Superhero",
         "Other"
     ]
     
@@ -50,8 +53,7 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
         "College of Education",
         "College of Engineering",
         "College of Health Sciences",
-        "College of Nursing",
-        "College of Comics"
+        "College of Nursing"
     ]
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int
@@ -95,9 +97,27 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
                 var lastName = (dictionary["lastName"] as? String)!
                 var mateType = (dictionary["mateType"] as? String)!
                 var college = (dictionary["college"] as? String)!
+                var mealPlan = (dictionary["mealPlan"] as? Bool)!
+                var muteMode = (dictionary["muteMode"] as? Bool)!
 
-                //                var mealPlan = (dictionary["mealPlan"] as? Bool)!
-                //                var mateType = (dictionary["mateType"] as? String)!
+                //set switches
+                //TODO
+//                    if mealPlan == true {
+//                        switchMealPlan.isOn
+//                    }
+//                    else
+//                    {
+//                        self.switchMealPlan.isOff
+//                    }
+//
+//                    if mateType == true {
+//                        set.switchMUteMode.isOn
+//                    }
+//                    else
+//                    {
+//                        self.switchMUteMode.isOff
+//                    }
+                
                 
                 //String assignments
                     self.tbFirstName.text = "\(firstName)"
@@ -105,10 +125,7 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
                 
                 //picker view assignments
                     //college pv
-                    if (college == " "){
-                        self.pvCollege.selectRow(0, inComponent: 0, animated: true)
-                    }
-                    else if (college == "College of Arts and Sciences"){
+                    if (college == "College of Arts and Sciences"){
                         self.pvCollege.selectRow(1, inComponent: 0, animated: true)
                     }
                     else if (college == "College of Business"){
@@ -129,15 +146,12 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     else if (college == "College of Nursing"){
                         self.pvCollege.selectRow(7, inComponent: 0, animated: true)
                     }
-                    else if (college == "College of Comics"){
-                        self.pvCollege.selectRow(8, inComponent: 0, animated: true)
+                    else {
+                        self.pvMateType.selectRow(0, inComponent: 0, animated: true)
                     }
                 
                     //mateType pv
-                    if (mateType == " "){
-                        self.pvMateType.selectRow(0, inComponent: 0, animated: true)
-                    }
-                    else if (mateType == "Freshman"){
+                    if (mateType == "Freshman"){
                         self.pvMateType.selectRow(1, inComponent: 0, animated: true)
                     }
                     else if (mateType == "Sophomore"){
@@ -161,11 +175,11 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     else if (mateType == "Jesuit"){
                         self.pvMateType.selectRow(8, inComponent: 0, animated: true)
                     }
-                    else if (mateType == "Superhero"){
+                    else if (mateType == "Other"){
                         self.pvMateType.selectRow(9, inComponent: 0, animated: true)
                     }
-                    else if (mateType == "Other"){
-                        self.pvMateType.selectRow(10, inComponent: 0, animated: true)
+                    else {
+                    self.pvMateType.selectRow(0, inComponent: 0, animated: true)
                     }
                 
                 //Bool assignments
@@ -217,7 +231,6 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     @IBAction func btnSave(_ sender: UIBarButtonItem) {
        //CHECK if firstName or lastName text fields are blank
-        //currently an alert pops up but the Db still updates with just a first name or last name... FIX this so the Db doesnt update if there is only one name
         if self.tbFirstName.text == "" || self.tbLastName.text == "" {
             let alertController = UIAlertController(title: "Error!", message: "Please ensure your first and last name are filled in!", preferredStyle: UIAlertControllerStyle.alert)
             let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
@@ -229,14 +242,38 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
         
         let uid = Auth.auth().currentUser?.uid
     
+        //switches
+            //TODO -- get switches to save in Db
+//            var muteMode: String!
+//            var mealPlan: String!
+//
+//            //MUteMode
+//            if self.sender.isOn {
+//                var muteMode = "true"
+//            }
+//            else {
+//                var muteMode = "false"
+//            }
+//
+//            //mealPlan
+//            if self.muteMode.isOn {
+//                var mealPlan = "true"
+//            }
+//            else {
+//                var mealPlan = "false"
+//            }
+            
+            
         var firstName = self.tbFirstName.text
         var lastName = self.tbLastName.text
+        var email = Auth.auth().currentUser?.email
         var muteMode = false
         var mealPlan = false
-        var email = Auth.auth().currentUser?.email
         var college = colleges[pvCollege.selectedRow(inComponent: 0)]
         var mateType = mateTypes[pvMateType.selectedRow(inComponent: 0)]
         
+            
+            
         let userValues:[String:Any] =
             ["firstName": firstName,
              "lastName": lastName,
