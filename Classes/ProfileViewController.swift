@@ -11,8 +11,12 @@ import Firebase
 
 class ProfileViewController: UIViewController {
     
+    var userDetails = SearchUsers()
+    
+    @IBOutlet weak var lblNameProfileSearch: UILabel!
     override func viewDidLoad() {
-        let uid = Auth.auth().currentUser?.uid
+        super.viewDidLoad()
+        lblNameProfileSearch.text = userDetails.firstName + " " + userDetails.lastName
     }
     
 }

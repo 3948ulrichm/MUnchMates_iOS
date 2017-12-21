@@ -14,7 +14,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var txtEmail: UITextField!
     
     @IBOutlet weak var txtPassword: UITextField!
-        
+    
     @IBAction func btnLogin(_ sender: Any) {
 
         if let email = txtEmail.text, let password = txtPassword.text {
@@ -39,6 +39,11 @@ class LoginViewController: UIViewController {
         }
     }
     var handle: AuthStateDidChangeListenerHandle?
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        txtEmail.resignFirstResponder()
+        txtPassword.resignFirstResponder()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         handle = Auth.auth().addStateDidChangeListener(){ (auth, user) in
