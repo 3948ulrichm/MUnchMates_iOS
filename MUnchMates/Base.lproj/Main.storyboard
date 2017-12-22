@@ -385,9 +385,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="imgProfilePicture" image="tempProfilePic" translatesAutoresizingMaskIntoConstraints="NO" id="1qd-Dq-mRP">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" restorationIdentifier="imgProfilePicture" image="tempProfilePic" translatesAutoresizingMaskIntoConstraints="NO" id="1qd-Dq-mRP">
                                 <rect key="frame" x="125" y="117" width="124" height="124"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="124" id="gnU-6k-s6U"/>
+                                    <constraint firstAttribute="width" constant="124" id="lRO-6g-udI"/>
+                                </constraints>
                             </imageView>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IdT-Qz-Uot">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -920,6 +923,7 @@
         <image name="tempProfilePic" width="726" height="726"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Lyc-lU-9cv"/>
         <segue reference="tUk-lq-Myf"/>
         <segue reference="f5m-Rm-m4g"/>
     </inferredMetricsTieBreakers>

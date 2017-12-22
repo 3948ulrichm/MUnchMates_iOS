@@ -10,8 +10,12 @@ import UIKit
 import Firebase
 
 class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-        
     
+    //MARK: global variables
+    var mateTypeBool = false
+    var collegeBool = false
+    
+    //MARK: Outlets
     @IBOutlet weak var btnMateTypePV: UIButton!
     @IBOutlet weak var btnCollegePV: UIButton!
     @IBOutlet weak var pickerView: UIPickerView!
@@ -28,7 +32,7 @@ class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
 
     @IBAction func btnMateTypePVAction(_ sender: Any) {
-        
+        var mateTypeBool = true
         if viewPickerView.isHidden == true {
             viewPickerView.isHidden = false
         }
@@ -37,10 +41,10 @@ class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     @IBAction func btnCollegePVAction(_ sender: Any) {
         
+        var collegeBool = true
         if viewPickerView.isHidden == true {
             viewPickerView.isHidden = false
         }
-        
     }
     
     var mateTypes = [
@@ -78,26 +82,28 @@ class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     func pickerView(_ pickerView:UIPickerView, numberOfRowsInComponent component: Int) -> Int
     {
-        //TRYING TO CALL ARRAY BASED ON SELECTED BUTTON
-//        if btnMateTypePVAction(Any).touchInside = true {
-//            var countrows = mateTypes.count
-//        }
-//        else if btnCollegePVAction(Any).touchInside = true {
-//            var countrows = colleges.count
-//        }
-//        else {
-//            var countrows = 0
-//        }
+        if mateTypeBool == true {
+            var countrows = mateTypes.count
+            return countrows
+        }
+        else if collegeBool == true {
+            var countrows = colleges.count
+            return countrows
+        }
 //        return countrows
-        var countrows = mateTypes.count
-        return countrows
-        
     }
     
     func pickerView(_ pickerView:UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
     {
-        let titleRow = mateTypes[row]
-        return titleRow
+        if mateTypeBool == true {
+            var titleRow = mateTypes[row]
+            return titleRow
+        }
+        else if collegeBool == true {
+            var titleRow = colleges[row]
+            return titleRow
+        }
+//        return titleRow
     }
     
     func pickerView(_ pickerView:UIPickerView, didSelectRow row: Int, inComponent component: Int)
@@ -131,3 +137,14 @@ class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
 }
+
+
+/* pickerView notes
+1. create global variables (Booleans, start as false) for each item to be filtered (mateType, College, etc.)
+2. create ibactions for each button
+3. within the ibaction, change respective booleans from false to true
+4. In pickerView, populate with array that has true boolean associated with it
+
+ */
+
+
