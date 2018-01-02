@@ -16,7 +16,7 @@ class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     var collegeBool = false
     var mealPlanBool = false
     var clubsOrgsBool = false
-//    var countrows: Int?
+    var countrows: Int?
 //    var titleRow: String?
 
     //MARK: IBOutlets
@@ -98,33 +98,33 @@ class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         "College of Education",
         "College of Engineering",
         "College of Health Sciences",
-        "College of Nursing"
-//        "College of __",
-//        "College of __"
+        "College of Nursing",
+        "College of __",
+        "College of __"
     ]
     
     var mealPlans = [
         "All",
         "Yes",
-        "No"
-//        " ",
-//        " ",
-//        " ",
-//        " ",
-//        " ",
-//        " ",
-//        " "
+        "No",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " "
     ]
     
     var clubsOrgs = [
         "All",
         "Kappa Squidma",
         "Delta Chi",
-//        "Advertising Club",
-//        "Alpha Epsilon Delta",
-//        "Alpha Eta Mu Beta",
-//        "Alpha Sigma Nu",
-//        "American Medical Student Association",
+        "Advertising Club",
+        "Alpha Epsilon Delta",
+        "Alpha Eta Mu Beta",
+        "Alpha Sigma Nu",
+        "American Medical Student Association",
         "BBBS",
         "Midnight Run"
     ]
@@ -142,17 +142,17 @@ class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 //        if collegeBool == true {
 //            countrows = colleges.count
 //        }
-        if mateTypeBool == true {
-            countrows! = mateTypes.count
-        }
-        else if mealPlanBool == true {
-            countrows! = mealPlans.count
-        }
-        else if clubsOrgsBool == true {
-            countrows! = clubsOrgs.count
-        }
+//        if mateTypeBool == true {
+//            countrows! = mateTypes.count
+//        }
+//        else if mealPlanBool == true {
+//            countrows! = mealPlans.count
+//        }
+//        else if clubsOrgsBool == true {
+//            countrows! = clubsOrgs.count
+//        }
 //        else {
-//            countrows = 10
+            countrows = 10
 //        }
         return countrows!
     }

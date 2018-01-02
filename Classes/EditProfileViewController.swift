@@ -8,19 +8,77 @@
 
 import UIKit
 import Firebase
+//import os.log
 
-class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
+class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPickerViewDataSource,  UIImagePickerControllerDelegate,  UINavigationControllerDelegate {
+    
     //create outlets
     @IBOutlet weak var tbFirstName: UITextField!
     @IBOutlet weak var tbLastName: UITextField!
     @IBOutlet weak var imgProfilePicture: UIImageView!
-    @IBOutlet weak var switchMUteMode: UISwitch!
-    @IBOutlet weak var switchMealPlan: UISwitch!
-    
-    
+
     @IBOutlet weak var pvMateType: UIPickerView!
     @IBOutlet weak var pvCollege: UIPickerView!
+    
+    
+    //switch outlets (for saving values)
+    var muteModeBool:Bool = false
+    @IBAction func switchMuteMode(_ sender: Any) {
+        if (sender as AnyObject).isOn == true {
+            muteModeBool = true
+        }
+        else {
+            muteModeBool = false
+        }
+    }
+    
+    var mealPlanBool:Bool = false
+    @IBAction func switchMealPlan(_ sender: Any) {
+        if (sender as AnyObject).isOn == true {
+            mealPlanBool = true
+        }
+        else {
+            mealPlanBool = false
+        }
+    }
+    
+    //change profile image
+    
+    @IBAction func btnChangeProfileImage(_ sender: Any) {
+        //create instance of Image picker controller
+        let picker = UIImagePickerController()
+        //set delegate
+        picker.delegate = self
+        //set details
+        //is the picture going to be editable(zoom)?
+        picker.allowsEditing = true
+        //what is the source type
+        picker.sourceType = .photoLibrary
+        //set the media type
+        picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        //show photoLibrary
+        present(picker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        //create holder variable for chosen image
+        var chosenImage = UIImage()
+        //save image into variable
+        print(info)
+        chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        //update image view
+        imgProfilePicture.image = chosenImage
+        //dismiss
+        dismiss(animated: true, completion: nil)
+    }
+    
+    //what happens when the user hits cancel?
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     
     let dataRef = Database.database()
     let storageRef = Storage.storage().reference()
@@ -101,21 +159,21 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
                 var muteMode = (dictionary["muteMode"] as? Bool)!
 
                 //set switches
-                //TODO
-//                    if mealPlan == true {
-//                        switchMealPlan.isOn
+                //TODO: Load swith on/off based on t/f/ value in Db
+//                if mealPlan == true {
+//                    switchMealPlan.setOn
 //                    }
 //                    else
 //                    {
-//                        self.switchMealPlan.isOff
+//                        switchMealPlan.isOff = true
 //                    }
 //
-//                    if mateType == true {
-//                        set.switchMUteMode.isOn
+//                    if muteMode == true {
+//                        switchMuteMode.isOn = true
 //                    }
 //                    else
 //                    {
-//                        self.switchMUteMode.isOff
+//                        switchMuteMode.isOff = true
 //                    }
                 
                 
@@ -188,45 +246,57 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
             }
         })
         
+        //load profile image
+//        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
+//        profileImgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+//            if error != nil {
+//                let errorDesc = error?.localizedDescription
+//                if errorDesc == "Image does not exist." {
+//                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
+//                    let imagePath = "imgProfilePictures/\(self.uid!).png"
+//
+//                    let metaData = StorageMetadata()
+//                    metaData.contentType = "image/png"
+//
+//                    self.storageRef.child(imagePath)
+//                        .putData(profileImageData!, metadata: metaData) { (metadata, error) in
+//                            if let error = error {
+//                                print ("Uploading Error: \(error)")
+//                                return
+//                            }
+//                    }
+//                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
+//                } else {
+//                    return
+//                }
+//            } else {
+//                self.userProfileImage = UIImage(data: data!)
+//                self.imgProfilePicture.image = self.userProfileImage
+//            }
+//        }
+        
+        
+
+        
+        //        let urlKey = "http://html.com/wp-content/uploads/flamingo.jpg"
+        //                self.imgProfilePicture.image = urlKey
+        
+        
+        
         pvCollege.delegate = self
         pvCollege.dataSource = self
         pvMateType.delegate = self
         pvMateType.dataSource = self
+        
     }
     
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
-        profileImgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-            if error != nil {
-                let errorDesc = error?.localizedDescription
-                if errorDesc == "Image does not exist." {
-                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
-                    let imagePath = "imgProfilePictures/\(self.uid!).png"
-                    
-                    let metadata = StorageMetadata()
-                    metadata.contentType = "image/png"
-                    
-                    self.storageRef.child(imagePath)
-                        .putData(profileImageData!, metadata: metadata) { (metadata, error) in
-                            if let error = error {
-                                print ("Uploading Error: \(error)")
-                                return
-                            }
-                    }
-                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
-                } else {
-                    return
-                }
-            } else {
-                self.userProfileImage = UIImage(data: data!)
-                self.imgProfilePicture.image = self.userProfileImage
-            }
-        }
-        
+
+
+//
     }
     
     @IBAction func btnSave(_ sender: UIBarButtonItem) {
@@ -242,19 +312,44 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
         
         let uid = Auth.auth().currentUser?.uid
     
+        //update image
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/png"
+            let imgProfilePictureRef =  storageRef.child("imgProfilePictures/\(self.uid!).png")
+            
+            if var uploadData = UIImagePNGRepresentation(self.imgProfilePicture.image!) {
+                
+                imgProfilePictureRef.putData(uploadData, metadata: metaData, completion:
+                    { (metadata, error) in
+                        if error != nil{
+                            print(error)
+                            return
+                        }
+                        print(metadata)
+                        var imgProfilePictureURL:String? = "\(metadata?.downloadURL())"
+                })
+            }
+            
+            
         //switches
+            
+            
+            
+            
             //TODO -- get switches to save in Db
 //            var muteMode: String!
 //            var mealPlan: String!
-//
-//            //MUteMode
-//            if self.sender.isOn {
-//                var muteMode = "true"
+
+            //MUteMode
+//            if self.switchMUteMode.isOn == true {
+//                muteMode = "true"
 //            }
 //            else {
-//                var muteMode = "false"
+//                muteMode = "false"
 //            }
 //
+//            return muteMode
+
 //            //mealPlan
 //            if self.muteMode.isOn {
 //                var mealPlan = "true"
@@ -267,11 +362,11 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
         var firstName = self.tbFirstName.text
         var lastName = self.tbLastName.text
         var email = Auth.auth().currentUser?.email
-        var muteMode = false
-        var mealPlan = false
+        var muteMode = self.muteModeBool
+        var mealPlan = self.mealPlanBool
         var college = colleges[pvCollege.selectedRow(inComponent: 0)]
         var mateType = mateTypes[pvMateType.selectedRow(inComponent: 0)]
-        
+//        var profilePictureURL = self.imgProfilePictureURL
             
             
         let userValues:[String:Any] =
@@ -282,6 +377,7 @@ class EditProfileViewController: UIViewController, UIPickerViewDelegate, UIPicke
              "email" : email,
              "college" : college,
              "mateType" : mateType
+//             "imgProfilePictureURL" : profilePictureURL
             ]
         
             dataRef.reference().child("USERS/\(uid!)").setValue(userValues)
