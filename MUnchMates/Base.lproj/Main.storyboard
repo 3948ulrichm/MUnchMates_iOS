@@ -419,12 +419,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" restorationIdentifier="imgProfilePicture" image="tempProfilePic" translatesAutoresizingMaskIntoConstraints="NO" id="1qd-Dq-mRP">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="imgProfilePicture" image="tempProfilePic" translatesAutoresizingMaskIntoConstraints="NO" id="1qd-Dq-mRP">
                                 <rect key="frame" x="125" y="117" width="124" height="124"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="124" id="gnU-6k-s6U"/>
-                                    <constraint firstAttribute="width" constant="124" id="lRO-6g-udI"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IdT-Qz-Uot">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -873,6 +870,9 @@
                                 <rect key="frame" x="13" y="219" width="106" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Change Picture"/>
+                                <connections>
+                                    <action selector="btnChangeProfileImage:" destination="qGN-jU-sOB" eventType="touchUpInside" id="Z2c-hy-t8L"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MUteMode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5K-eJ-BlC">
                                 <rect key="frame" x="139" y="133" width="86" height="21"/>
@@ -891,10 +891,18 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" restorationIdentifier="switchMUteMode" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wkw-mX-18j">
                                 <rect key="frame" x="268" y="128" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration" identifier="switchMM"/>
+                                <connections>
+                                    <action selector="switchMuteMode:" destination="qGN-jU-sOB" eventType="valueChanged" id="eWQ-5f-eu0"/>
+                                </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" restorationIdentifier="switchMealPlan" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="93Q-2W-9CE">
                                 <rect key="frame" x="268" y="182" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration" identifier="switchMP"/>
+                                <connections>
+                                    <action selector="switchMealPlan:" destination="qGN-jU-sOB" eventType="valueChanged" id="NB6-Ic-qHo"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MateType:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGq-Ad-MX6">
                                 <rect key="frame" x="13" y="323" width="79" height="21"/>
@@ -933,8 +941,6 @@
                         <outlet property="imgProfilePicture" destination="bKg-KT-JDS" id="9Vc-lO-jYd"/>
                         <outlet property="pvCollege" destination="Mvl-nB-vjT" id="kUq-Lx-lQl"/>
                         <outlet property="pvMateType" destination="hvG-zQ-a6C" id="M9g-yY-Gxe"/>
-                        <outlet property="switchMUteMode" destination="wkw-mX-18j" id="Sqn-HT-dCj"/>
-                        <outlet property="switchMealPlan" destination="93Q-2W-9CE" id="5Fj-2C-5A3"/>
                         <outlet property="tbFirstName" destination="lB8-Mf-iZ8" id="3ZZ-z1-IIw"/>
                         <outlet property="tbLastName" destination="f40-3p-Q0x" id="DsX-z9-2Vv"/>
                     </connections>
@@ -1022,6 +1028,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="xhT-6I-aZQ"/>
         <segue reference="tUk-lq-Myf"/>
-        <segue reference="f5m-Rm-m4g"/>
+        <segue reference="98b-pP-QsK"/>
     </inferredMetricsTieBreakers>
 </document>
