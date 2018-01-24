@@ -311,7 +311,7 @@
                                     <color key="titleColor" red="0.93257647752761841" green="0.69291412830352783" blue="0.23829397559165955" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
-                                    <segue destination="DDO-1w-nNP" kind="show" id="qNN-ip-YPf"/>
+                                    <action selector="btnSearch:" destination="sy3-qQ-5Gs" eventType="touchUpInside" id="iMa-pe-MAg"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="College:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x9E-BG-vbd">
@@ -509,7 +509,7 @@
         <!--Search List View Controller-->
         <scene sceneID="AN4-pl-YUa">
             <objects>
-                <viewController id="DDO-1w-nNP" customClass="SearchListViewController" customModule="MUnchMates" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchListViewController" id="DDO-1w-nNP" customClass="SearchListViewController" customModule="MUnchMates" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UXe-dD-iVw"/>
                         <viewControllerLayoutGuide type="bottom" id="xau-gW-NFk"/>
@@ -820,7 +820,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3020" y="536"/>
+            <point key="canvasLocation" x="2954" y="536"/>
         </scene>
         <!--Edit Profile View Controller-->
         <scene sceneID="6XZ-OB-Wpv">
@@ -1026,8 +1026,8 @@
         <image name="tempProfilePic" width="726" height="726"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xhT-6I-aZQ"/>
-        <segue reference="tUk-lq-Myf"/>
+        <segue reference="6BK-N8-TgK"/>
+        <segue reference="0jO-RF-aqg"/>
         <segue reference="98b-pP-QsK"/>
     </inferredMetricsTieBreakers>
 </document>
