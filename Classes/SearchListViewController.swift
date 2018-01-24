@@ -19,7 +19,6 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
     var selectedUser = SearchUsers()
     
     override func viewDidLoad() {
-    
         
         ref.reference(withPath: "USERS/").queryOrdered(byChild:"firstName").observe(.value, with:
             { snapshot in

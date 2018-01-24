@@ -39,6 +39,16 @@ class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
 
     // MARK: IBActions
+    
+    @IBAction func btnSearch(_ sender: Any) {
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchListViewController")
+        self.present(vc!, animated: true, completion: nil)
+        
+    }
+    
+    
+    
     @IBAction func btnMateTypePVAction(_ sender: Any) {
         if mateTypeBool == false {
             mateTypeBool = true
