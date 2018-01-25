@@ -27,7 +27,6 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
                 for fireAccount in snapshot.children {
                     let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
                     fireAccountArray.append(fireAccount)
-                    
                 }
                 
                 self.users = fireAccountArray
@@ -51,7 +50,18 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! SearchListTableViewCell
         let userinfo = self.users[indexPath.row]
+    
+        //Display full name
         cell.lblNameSearchList?.text = userinfo.firstName + " " + userinfo.lastName
+    
+        //Display mateType
+        cell.lblMateType?.text = "Freshman"
+    
+        //Display mealPlan
+        cell.lblMealPlan?.text = "M" //userinfo.mealPlan
+    
+        //Display profilePic
+        cell.lblProfilePic?.image
         
         return cell
         
@@ -60,11 +70,14 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
     //awebber - variables to take the values from table and set to a string variable. will use to create a user object and send to details screen
     var firstName:String = ""
     var lastName:String = ""
+    var mealPlan:String = ""
     
     //added by awebber to add c
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         firstName = self.users[indexPath.row].firstName
         lastName = self.users[indexPath.row].lastName
+    //WHY DOES ONLY firstName and lastName show up and mealPlan throws an error
+        //mealPlan = self.users[indexPath.row].mealPlan
         //category = self.users[indexPath.row].category
         //frequency = self.users[indexPath.row].frequency
         //date = self.users[indexPath.row].dateAddedd
