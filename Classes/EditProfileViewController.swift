@@ -247,33 +247,33 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
         })
         
         //load profile image
-//        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
-//        profileImgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-//            if error != nil {
-//                let errorDesc = error?.localizedDescription
-//                if errorDesc == "Image does not exist." {
-//                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
-//                    let imagePath = "imgProfilePictures/\(self.uid!).png"
-//
-//                    let metaData = StorageMetadata()
-//                    metaData.contentType = "image/png"
-//
-//                    self.storageRef.child(imagePath)
-//                        .putData(profileImageData!, metadata: metaData) { (metadata, error) in
-//                            if let error = error {
-//                                print ("Uploading Error: \(error)")
-//                                return
-//                            }
-//                    }
-//                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
-//                } else {
-//                    return
-//                }
-//            } else {
-//                self.userProfileImage = UIImage(data: data!)
-//                self.imgProfilePicture.image = self.userProfileImage
-//            }
-//        }
+        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
+        profileImgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if error != nil {
+                let errorDesc = error?.localizedDescription
+                if errorDesc == "Image does not exist." {
+                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
+                    let imagePath = "imgProfilePictures/\(self.uid!).png"
+
+                    let metaData = StorageMetadata()
+                    metaData.contentType = "image/png"
+
+                    self.storageRef.child(imagePath)
+                        .putData(profileImageData!, metadata: metaData) { (metadata, error) in
+                            if let error = error {
+                                print ("Uploading Error: \(error)")
+                                return
+                            }
+                    }
+                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
+                } else {
+                    return
+                }
+            } else {
+                self.userProfileImage = UIImage(data: data!)
+                self.imgProfilePicture.image = self.userProfileImage
+            }
+        }
         
         
 
