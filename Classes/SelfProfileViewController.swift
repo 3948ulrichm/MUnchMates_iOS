@@ -9,17 +9,21 @@
 import UIKit
 import Firebase
 
-class SelfProfileViewController: UIViewController {
+class SelfProfileViewController: UIViewController, UITableViewDelegate//, UITableViewDataSource
+{
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     
     // Properties
     let storageRef = Storage.storage().reference()
     let dataRef = Database.database().reference()
     var userProfileImage: UIImage?
     let uid = Auth.auth().currentUser?.uid
+    var clubsOrgs: [clubsOrgsStruct] = []
+    let cellId = "ClubsOrgsCell"
 
 
-    
-    
     @IBOutlet weak var lblNameProfile: UILabel!
     @IBOutlet weak var imgProfilePicture: UIImageView!
     @IBOutlet weak var lblMealPlan: UILabel!
@@ -36,6 +40,7 @@ class SelfProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         
+            //pull user data, except for clubsOrgs and profilePic
             dataRef.child("USERS/\(uid!)").observe(.value, with: { snapshot in
             // get the entire snapshot dictionary
             if let dictionary = snapshot.value as? [String: Any]
@@ -74,6 +79,7 @@ class SelfProfileViewController: UIViewController {
             }
         })
         
+        //pull profpic
         let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
         profileImgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if error != nil {
@@ -110,7 +116,53 @@ class SelfProfileViewController: UIViewController {
 //
 //            self.imgProfilePic.image = self.userProfileImage
 //        }
+        
+///////////HERE////////////clubsorgs table
+//        Database.database().reference(withPath: "USERS/\(uid!)/clubsOrgs").observe(.value, with:
+//            { snapshot in
+//                var fireAccountArray: [clubsOrgsStruct] = []
+//
+//                for fireAccount in snapshot.children {
+//                    let fireAccount = clubsOrgsStruct(snapshot: fireAccount as! DataSnapshot)
+//                    fireAccountArray.append(fireAccount)
+//                }
+//
+//                self.clubsOrgs = fireAccountArray
+//
+//                self.tableView.delegate = self;
+//                self.tableView.dataSource = self;
+//                self.tableView.reloadData()
+//        })
+//
+//        super.viewDidLoad()
+//    }
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return clubsOrgs.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! SelfProfileTableViewCell
+//        let clubsorgsinfo = self.clubsOrgs[indexPath.row]
+        
+        //Display full name
+//        cell.lblClubsOrgs?.text = clubsorgsinfo.name1
+//
+//        return cell
+        
     }
+    
+    var name1:String = ""
+    
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        name1 = self.clubsOrgs[indexPath.row].name1
+
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -55,10 +55,15 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.lblNameSearchList?.text = userinfo.firstName + " " + userinfo.lastName
     
         //Display mateType
-        cell.lblMateType?.text = "Freshman"
+        cell.lblMateType?.text = userinfo.mateType
     
         //Display mealPlan
-        cell.lblMealPlan?.text = "M" //userinfo.mealPlan
+        if userinfo.mealPlan == true {
+            cell.lblMealPlan?.text = "M"
+        }
+        else {
+            cell.lblMealPlan?.text = " "
+        }
     
         //Display profilePic
         cell.lblProfilePic?.image
@@ -70,19 +75,22 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
     //awebber - variables to take the values from table and set to a string variable. will use to create a user object and send to details screen
     var firstName:String = ""
     var lastName:String = ""
-    var mealPlan:String = ""
+    var mealPlan:Bool = true
+    var mateType:String = ""
     
     //added by awebber to add c
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         firstName = self.users[indexPath.row].firstName
         lastName = self.users[indexPath.row].lastName
+        mealPlan = self.users[indexPath.row].mealPlan
+        mateType = self.users[indexPath.row].mateType
     //WHY DOES ONLY firstName and lastName show up and mealPlan throws an error
         //mealPlan = self.users[indexPath.row].mealPlan
         //category = self.users[indexPath.row].category
         //frequency = self.users[indexPath.row].frequency
         //date = self.users[indexPath.row].dateAddedd
         
-        selectedUser = SearchUsers(firstName: firstName, lastName: lastName)
+        selectedUser = SearchUsers(firstName: firstName, lastName: lastName,  mealPlan: mealPlan, mateType: mateType)
         performSegue(withIdentifier: "selectedUserDetails", sender: self)
     }
     
