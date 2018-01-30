@@ -10,28 +10,33 @@ import Foundation
 import Firebase
 
 struct clubsOrgsStruct {
-    let name1: String
+    let cname: String
+    //let cid: String
     let ref: DatabaseReference?
     
     init() {
-        self.name1 = " "
+        self.cname = " "
+        //self.cid = " "
         self.ref = nil
     }
     
-    init(name1: String) {
-        self.name1 = name1
+    init(cname: String, cid: String) {
+        self.cname = cname
+        //self.cid = cid
         self.ref = nil
     }
     
     init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! [String: AnyObject]
-        name1 = snapshotValue["name1"] as! String
+        cname = snapshotValue["cname"] as! String
+        //cid = snapshotValue["cid"] as! String
         ref = snapshot.ref
     }
     
     func toAnyObject() -> Any {
         return [
-            "name1": name1 as Any
+            "cname": cname as Any
+            //,"cid": cid as Any
         ]
     }
 }

@@ -9,11 +9,10 @@
 import UIKit
 import Firebase
 
-class SelfProfileViewController: UIViewController, UITableViewDelegate//, UITableViewDataSource
+class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
     
     @IBOutlet weak var tableView: UITableView!
-    
     
     // Properties
     let storageRef = Storage.storage().reference()
@@ -21,6 +20,7 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate//, UITabl
     var userProfileImage: UIImage?
     let uid = Auth.auth().currentUser?.uid
     var clubsOrgs: [clubsOrgsStruct] = []
+    var selectedClubOrg = clubsOrgsStruct()
     let cellId = "ClubsOrgsCell"
 
 
@@ -40,6 +40,26 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate//, UITabl
     
     override func viewDidLoad() {
         
+            //display clubsOrgs
+            dataRef.child("USERS/\(uid!)/clubsOrgs/").queryOrdered(byChild:"cname").observe(.value, with:
+            { snapshot in
+                
+                var fireAccountArray: [clubsOrgsStruct] = []
+                
+                for fireAccount in snapshot.children {
+                    let fireAccount = clubsOrgsStruct(snapshot: fireAccount as! DataSnapshot)
+                    fireAccountArray.append(fireAccount)
+                }
+                
+                self.clubsOrgs = fireAccountArray
+                
+                self.tableView.delegate = self
+                self.tableView.dataSource = self
+                self.tableView.reloadData()
+
+            })
+        
+        
             //pull user data, except for clubsOrgs and profilePic
             dataRef.child("USERS/\(uid!)").observe(.value, with: { snapshot in
             // get the entire snapshot dictionary
@@ -54,12 +74,12 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate//, UITabl
                 
                 //String assignments
                     self.lblNameProfile.text = "\(fullName)"
-//                    self.lblEmailProfile.text = "\(email)"
+                //  self.lblEmailProfile.text = "\(email)"
                     self.lblMateType.text = "\(mateType)"
                     self.lblCollegeProfile.text = "\(college)"
                 
                 //Bool assignments
-                    //mealPlan
+                    // mealPlan
                     if mealPlan == true {
                         self.lblMealPlan.text = "Meal Plan"
                     }
@@ -107,65 +127,44 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate//, UITabl
                 self.imgProfilePicture.image = self.userProfileImage
             }
         }
-            
-//        func displayContent() {
-//            self.spinner.stopAnimating()
-//
-//            self.navigationItem.title = self.userInfo?.company
-//
-//
-//            self.imgProfilePic.image = self.userProfileImage
-//        }
         
-///////////HERE////////////clubsorgs table
-//        Database.database().reference(withPath: "USERS/\(uid!)/clubsOrgs").observe(.value, with:
-//            { snapshot in
-//                var fireAccountArray: [clubsOrgsStruct] = []
-//
-//                for fireAccount in snapshot.children {
-//                    let fireAccount = clubsOrgsStruct(snapshot: fireAccount as! DataSnapshot)
-//                    fireAccountArray.append(fireAccount)
-//                }
-//
-//                self.clubsOrgs = fireAccountArray
-//
-//                self.tableView.delegate = self;
-//                self.tableView.dataSource = self;
-//                self.tableView.reloadData()
-//        })
-//
-//        super.viewDidLoad()
-//    }
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return clubsOrgs.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! SelfProfileTableViewCell
-//        let clubsorgsinfo = self.clubsOrgs[indexPath.row]
+
+        super.viewDidLoad()
         
-        //Display full name
-//        cell.lblClubsOrgs?.text = clubsorgsinfo.name1
-//
-//        return cell
+        }
+    
+    //table view - clubsOrgs
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return clubsOrgs.count
+    }   
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! SelfProfileTableViewCell
+        let clubOrgInfo = self.clubsOrgs[indexPath.row]
+        
+        //Display club / org
+        cell.lblClubsOrgs?.text = clubOrgInfo.cname
+        return cell
         
     }
     
-    var name1:String = ""
+    var cname:String = ""
     
-
+    //added by awebber to add c
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        name1 = self.clubsOrgs[indexPath.row].name1
-
+        cname = self.clubsOrgs[indexPath.row].cname
+        
+        //selectedClubOrg = clubsOrgsStruct(cname: cname)
+        
     }
     
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
     }
 }

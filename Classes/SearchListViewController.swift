@@ -31,14 +31,15 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
                 
                 self.users = fireAccountArray
                 
-                self.tableView.delegate = self;
-                self.tableView.dataSource = self;
+                self.tableView.delegate = self
+                self.tableView.dataSource = self
                 self.tableView.reloadData()
         })
         
         super.viewDidLoad()
     }
     
+    //set up table view
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -84,11 +85,6 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         lastName = self.users[indexPath.row].lastName
         mealPlan = self.users[indexPath.row].mealPlan
         mateType = self.users[indexPath.row].mateType
-    //WHY DOES ONLY firstName and lastName show up and mealPlan throws an error
-        //mealPlan = self.users[indexPath.row].mealPlan
-        //category = self.users[indexPath.row].category
-        //frequency = self.users[indexPath.row].frequency
-        //date = self.users[indexPath.row].dateAddedd
         
         selectedUser = SearchUsers(firstName: firstName, lastName: lastName,  mealPlan: mealPlan, mateType: mateType)
         performSegue(withIdentifier: "selectedUserDetails", sender: self)

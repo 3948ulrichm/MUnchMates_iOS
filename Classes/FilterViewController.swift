@@ -148,7 +148,7 @@ class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 
     func pickerView(_ pickerView:UIPickerView, numberOfRowsInComponent component: Int) -> Int
     {
-        var countrows : Int? = colleges.count
+        var countrows : Int? = 10
 //        if collegeBool == true {
 //            countrows = colleges.count
 //        }
@@ -162,7 +162,7 @@ class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 //            countrows! = clubsOrgs.count
 //        }
 //        else {
-            countrows = 10
+            //countrows = 10
 //        }
         return countrows!
     }
