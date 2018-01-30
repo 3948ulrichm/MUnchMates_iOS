@@ -22,6 +22,8 @@
 		94A4F4241F8C564E00A82C0E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94A4F4231F8C564E00A82C0E /* GoogleService-Info.plist */; };
 		94CDC3A5201AC8E9008BEE25 /* SelfProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CDC3A4201AC8E9008BEE25 /* SelfProfileTableViewCell.swift */; };
 		94CDC3A7201ADFD6008BEE25 /* clubsOrgsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CDC3A6201ADFD6008BEE25 /* clubsOrgsStruct.swift */; };
+		94E3F34120206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3F34020206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift */; };
+		94E3F34320206AE600CF2FFD /* AddDeleteClubsOrgsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3F34220206AE600CF2FFD /* AddDeleteClubsOrgsTableViewCell.swift */; };
 		94F8FCCC1F8B406100663F8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F8FCCB1F8B406100663F8C /* AppDelegate.swift */; };
 		94F8FCCE1F8B406100663F8C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F8FCCD1F8B406100663F8C /* ViewController.swift */; };
 		94F8FCD11F8B406100663F8C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94F8FCCF1F8B406100663F8C /* Main.storyboard */; };
@@ -48,6 +50,8 @@
 		94A4F4231F8C564E00A82C0E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		94CDC3A4201AC8E9008BEE25 /* SelfProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelfProfileTableViewCell.swift; path = Classes/SelfProfileTableViewCell.swift; sourceTree = "<group>"; };
 		94CDC3A6201ADFD6008BEE25 /* clubsOrgsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clubsOrgsStruct.swift; sourceTree = "<group>"; };
+		94E3F34020206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddDeleteClubsOrgsViewController.swift; path = Classes/AddDeleteClubsOrgsViewController.swift; sourceTree = "<group>"; };
+		94E3F34220206AE600CF2FFD /* AddDeleteClubsOrgsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeleteClubsOrgsTableViewCell.swift; sourceTree = "<group>"; };
 		94F8FCC81F8B406100663F8C /* MUnchMates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MUnchMates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94F8FCCB1F8B406100663F8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94F8FCCD1F8B406100663F8C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -160,6 +164,8 @@
 				94606E9A1FE8B6DA00C0AA8E /* SelfProfileViewController.swift */,
 				94606E911FE8B6BF00C0AA8E /* LoginViewController.swift */,
 				49C08FF71FEB45B700AFB599 /* MessageViewController.swift */,
+				94E3F34020206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift */,
+				94E3F34220206AE600CF2FFD /* AddDeleteClubsOrgsTableViewCell.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -323,7 +329,9 @@
 				94F8FCD41F8B406100663F8C /* MUnchMates.xcdatamodeld in Sources */,
 				94606E9F1FE8B6DA00C0AA8E /* FilterViewController.swift in Sources */,
 				94606EA21FE8B6DA00C0AA8E /* SelfProfileViewController.swift in Sources */,
+				94E3F34320206AE600CF2FFD /* AddDeleteClubsOrgsTableViewCell.swift in Sources */,
 				942868741FE32DE5009557C9 /* SearchUsers.swift in Sources */,
+				94E3F34120206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift in Sources */,
 				94F8FCCE1F8B406100663F8C /* ViewController.swift in Sources */,
 				94F8FCCC1F8B406100663F8C /* AppDelegate.swift in Sources */,
 			);
