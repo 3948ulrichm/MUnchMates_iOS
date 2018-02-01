@@ -18,6 +18,10 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
     let uid = Auth.auth().currentUser?.uid
     var selectedUser = SearchUsers()
     
+    
+    
+    
+    
     override func viewDidLoad() {
         
         ref.reference(withPath: "USERS/").queryOrdered(byChild:"firstName").observe(.value, with:

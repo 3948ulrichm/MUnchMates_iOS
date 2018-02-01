@@ -72,7 +72,6 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
     }
     
     //change profile image
-    
     @IBAction func btnChangeProfileImage(_ sender: Any) {
         //create instance of Image picker controller
         let picker = UIImagePickerController()
@@ -290,39 +289,44 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
         })
         
         //load profile image
-        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
-        profileImgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-            if error != nil {
-                let errorDesc = error?.localizedDescription
-                if errorDesc == "Image does not exist." {
-                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
-                    let imagePath = "imgProfilePictures/\(self.uid!).png"
-
-                    let metaData = StorageMetadata()
-                    metaData.contentType = "image/png"
-
-                    self.storageRef.child(imagePath)
-                        .putData(profileImageData!, metadata: metaData) { (metadata, error) in
-                            if let error = error {
-                                print ("Uploading Error: \(error)")
-                                return
-                            }
-                    }
-                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
-                } else {
-                    return
-                }
-            } else {
-                self.userProfileImage = UIImage(data: data!)
-                self.imgProfilePicture.image = self.userProfileImage
+        //TODO - reach into FB and get url displayed below, put it into variable, and use variable below
+        if let url = NSURL(string: "https://firebasestorage.googleapis.com/v0/b/munch-mates-marquette.appspot.com/o/imgProfilePictures%2FFONO4mt4CPgNxlXDGv5YMh8pFZo2.png?alt=media&token=b62a293d-c2ce-491b-b2d2-5447c532a5bb") {
+            if let data = NSData(contentsOf: url as URL) {
+                imgProfilePicture.contentMode = UIViewContentMode.scaleAspectFit
+                imgProfilePicture.image = UIImage(data: data as Data)
             }
         }
         
         
-
+//        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
+//        profileImgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+//            if error != nil {
+//                let errorDesc = error?.localizedDescription
+//                if errorDesc == "Image does not exist." {
+//                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
+//                    let imagePath = "imgProfilePictures/\(self.uid!).png"
+//
+//                    let metaData = StorageMetadata()
+//                    metaData.contentType = "image/png"
+//
+//                    self.storageRef.child(imagePath)
+//                        .putData(profileImageData!, metadata: metaData) { (metadata, error) in
+//                            if let error = error {
+//                                print ("Uploading Error: \(error)")
+//                                return
+//                            }
+//                    }
+//                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
+//                } else {
+//                    return
+//                }
+//            } else {
+//                self.userProfileImage = UIImage(data: data!)
+//                self.imgProfilePicture.image = self.userProfileImage
+//            }
+//        }
         
-        //        let urlKey = "http://html.com/wp-content/uploads/flamingo.jpg"
-        //                self.imgProfilePicture.image = urlKey
+        
         
         
         pickerView.delegate = self
