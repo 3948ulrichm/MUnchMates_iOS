@@ -420,7 +420,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="imgProfilePicture" image="tempProfilePic" translatesAutoresizingMaskIntoConstraints="NO" id="1qd-Dq-mRP">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="imgProfilePicture" image="tempProfilePic" translatesAutoresizingMaskIntoConstraints="NO" id="1qd-Dq-mRP">
                                 <rect key="frame" x="125" y="117" width="124" height="124"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -496,7 +496,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="lblClubsOrgs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ivl-cj-pIU">
                                                     <rect key="frame" x="0.0" y="11" width="375" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -529,6 +529,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="doP-Dz-U7s"/>
                     <connections>
                         <outlet property="imgProfilePicture" destination="1qd-Dq-mRP" id="ZJm-2F-tCa"/>
                         <outlet property="lblCollegeProfile" destination="zGe-GU-bc9" id="tRr-Td-wA0"/>
@@ -608,10 +609,10 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="imgProfilePic" destination="dTs-K0-6kw" id="Wcw-wz-kDA"/>
                                             <outlet property="lblMateType" destination="Qqn-uS-hpo" id="FmU-gt-gxF"/>
                                             <outlet property="lblMealPlan" destination="RC8-je-AqG" id="SjJ-ht-d0f"/>
                                             <outlet property="lblNameSearchList" destination="eJU-qw-ESc" id="MSD-nu-yWM"/>
-                                            <outlet property="lblProfilePic" destination="dTs-K0-6kw" id="CTU-OR-LwW"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -832,14 +833,14 @@
                                 <items>
                                     <navigationItem title="Title" id="fts-c7-egc">
                                         <barButtonItem key="leftBarButtonItem" style="plain" id="mr9-lt-8kD">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="W1j-dU-7MQ">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="W1j-dU-7MQ">
                                                 <rect key="frame" x="16" y="7" width="79" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="&lt;Messages"/>
                                             </button>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="plain" id="fbN-vl-yHi">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dxh-yY-iEg">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dxh-yY-iEg">
                                                 <rect key="frame" x="278" y="7" width="81" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="View Profile"/>
@@ -961,6 +962,16 @@
                                         <barButtonItem key="leftBarButtonItem" title="Save" id="KE3-Fn-Pzd">
                                             <connections>
                                                 <action selector="btnSave:" destination="qGN-jU-sOB" id="1ju-pi-7oh"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" style="plain" id="x7I-iL-hL9">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ym8-RR-2y4">
+                                                <rect key="frame" x="311" y="7" width="48" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Cancel"/>
+                                            </button>
+                                            <connections>
+                                                <action selector="btnCancel:" destination="qGN-jU-sOB" id="N4x-Ji-vC2"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -1187,9 +1198,9 @@
         <image name="tempProfilePic" width="726" height="726"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6BK-N8-TgK"/>
-        <segue reference="uHT-U0-oD3"/>
-        <segue reference="tUk-lq-Myf"/>
+        <segue reference="xhT-6I-aZQ"/>
+        <segue reference="PaC-lv-eFz"/>
+        <segue reference="0jO-RF-aqg"/>
         <segue reference="qx5-in-bi8"/>
     </inferredMetricsTieBreakers>
 </document>
