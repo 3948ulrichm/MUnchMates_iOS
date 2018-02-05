@@ -12,19 +12,28 @@ import Firebase
 class SearchListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     
-    let ref = Database.database()
+    let storageRef = Storage.storage().reference()
+    let dataRef = Database.database()
     let cellId = "SearchListCell"
-    var users: [SearchUsers] = []
     let uid = Auth.auth().currentUser?.uid
+    var userProfileImage: UIImage?
+    
+    //SearchUsers Struct
+    var users: [SearchUsers] = []
     var selectedUser = SearchUsers()
     
+    //SearchUsersProfilePic Struct
+    var usersProfilePic: [SearchUsersProfilePic] = []
+    var selectedUserProfilePic = SearchUsersProfilePic()
     
-    
-    
+    //SearchUsersUid Struct
+    var usersUid: [SearchUsersUid] = []
+    var selectedUserUid = SearchUsersUid()
     
     override func viewDidLoad() {
         
-        ref.reference(withPath: "USERS/").queryOrdered(byChild:"firstName").observe(.value, with:
+        //Populate SearchUsers Struct
+        dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"firstName").observeSingleEvent(of: .value, with:
             { snapshot in
                 var fireAccountArray: [SearchUsers] = []
                 
@@ -39,6 +48,56 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.tableView.dataSource = self
                 self.tableView.reloadData()
         })
+        
+        //Populate SearchUsersUid Struct (TODO - get pictures to show up based on uid)
+//        dataRef.reference(withPath: "USERS").observeSingleEvent(of: .value, with:
+//            { snapshot in
+//                var fireAccountArrayUid: [SearchUsersUid] = []
+//
+//                for fireAccountUid in snapshot.children {
+//                    let fireAccountUid = SearchUsersUid(snapshot: fireAccountUid as! DataSnapshot)
+//                    fireAccountArrayUid.append(fireAccountUid)
+//                }
+//
+//                self.usersUid = fireAccountArrayUid
+//
+//                self.tableView.delegate = self
+//                self.tableView.dataSource = self
+//                self.tableView.reloadData()
+//        })
+        
+        //Populate SearchUsersProfilePic Struct
+        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
+        profileImgRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+            if error != nil {
+                let errorDesc = error?.localizedDescription
+                if errorDesc == "Image does not exist." {
+                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
+                    let imagePath = "imgProfilePictures/\(self.uid!).png"
+                    
+                    let metaData = StorageMetadata()
+                    metaData.contentType = "image/png"
+                    
+                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
+                }
+            } else {
+                self.userProfileImage = UIImage(data: data!)
+            }
+            
+//            var fireAccountArrayProfilePic: [SearchUsersProfilePic] = []
+//
+//            for fireAccountProfilePic in snapshot.children {
+//                let fireAccountProfilePic = SearchUsers(snapshot: fireAccountProfilePic as! DataSnapshot)
+//                fireAccountArray.append(fireAccount)
+//            }
+//
+//            self.usersProfilePic = fireAccountArrayProfilePic
+//
+            self.tableView.delegate = self
+            self.tableView.dataSource = self
+            self.tableView.reloadData()
+            
+        }
         
         super.viewDidLoad()
     }
@@ -71,17 +130,18 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     
         //Display profilePic
-        cell.lblProfilePic?.image
-        
+        //let imgProfilePicUid = userinfo.uid
+        cell.imgProfilePic.image = userProfileImage
         return cell
-        
+
     }
     
     //awebber - variables to take the values from table and set to a string variable. will use to create a user object and send to details screen
-    var firstName:String = ""
-    var lastName:String = ""
+    var firstName:String = " "
+    var lastName:String = " "
     var mealPlan:Bool = true
-    var mateType:String = ""
+    var mateType:String = " "
+    var imgProfilePic:UIImageView? = nil
     
     //added by awebber to add c
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -89,8 +149,13 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         lastName = self.users[indexPath.row].lastName
         mealPlan = self.users[indexPath.row].mealPlan
         mateType = self.users[indexPath.row].mateType
+        //imgProfilePic = self.usersProfilePic[indexPath.row].imgProfilePic
+        //searchUid = self.usersUid[indexPath.row].searchUid
         
         selectedUser = SearchUsers(firstName: firstName, lastName: lastName,  mealPlan: mealPlan, mateType: mateType)
+        //selectedUserProfilePic = SearchUsersProfilePic(imgProfilePic: imgProfilePic!)
+        //selectedUserUid = SearchUsersUid(searchUid:searchUid)
+        
         performSegue(withIdentifier: "selectedUserDetails", sender: self)
     }
     
@@ -100,5 +165,4 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
             vc.userDetails = selectedUser
         }
     }
-    
 }

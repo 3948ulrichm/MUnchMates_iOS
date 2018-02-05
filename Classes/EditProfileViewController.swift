@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-//import os.log
 
 class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPickerViewDataSource,  UIImagePickerControllerDelegate,  UINavigationControllerDelegate {
     
@@ -88,6 +87,20 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
         present(picker, animated: true, completion: nil)
     }
     
+    //cancel
+    @IBAction func btnCancel(_ sender: Any) {
+        //segue to PledgeViewController
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SelfProfileViewController")
+        self.present(vc!, animated: true, completion: nil)
+    }
+    
+    
+    //MARK - variables
+    let dataRef = Database.database()
+    let storageRef = Storage.storage().reference()
+    var userProfileImage: UIImage?
+    let uid = Auth.auth().currentUser?.uid
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         //create holder variable for chosen image
@@ -107,10 +120,7 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
     }
     
     
-    let dataRef = Database.database()
-    let storageRef = Storage.storage().reference()
-    var userProfileImage: UIImage?
-    let uid = Auth.auth().currentUser?.uid
+
 
     
 //    pvCollege.selectRow(3, inComponent: 0, animated: true)
@@ -288,14 +298,7 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
             }
         })
         
-        //load profile image
-        //TODO - reach into FB and get url displayed below, put it into variable, and use variable below
-        if let url = NSURL(string: "https://firebasestorage.googleapis.com/v0/b/munch-mates-marquette.appspot.com/o/imgProfilePictures%2FFONO4mt4CPgNxlXDGv5YMh8pFZo2.png?alt=media&token=b62a293d-c2ce-491b-b2d2-5447c532a5bb") {
-            if let data = NSData(contentsOf: url as URL) {
-                imgProfilePicture.contentMode = UIViewContentMode.scaleAspectFit
-                imgProfilePicture.image = UIImage(data: data as Data)
-            }
-        }
+
         
         
 //        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
@@ -326,17 +329,70 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
 //            }
 //        }
         
-        
-        
+    
         
         pickerView.delegate = self
         pickerView.dataSource = self
         
     }
     
-    
+////////////////////LOAD INFOMRATION TO VIEW CONTROLLER//////////////////
     override func viewDidLoad() {
         
+        dataRef.reference().child("USERS/\(uid!)").observe(.value, with: { snapshot in
+            // get the entire snapshot dictionary
+            if let dictionary = snapshot.value as? [String: Any]
+            {
+                var mateType = (dictionary["mateType"] as? String)!
+                var college = (dictionary["college"] as? String)!
+                
+                //Button assignments
+                    self.btnCollegePV.setTitle("\(college)", for: .normal)
+                    self.btnMateTypePV.setTitle("\(mateType)", for: .normal)
+            }
+        })
+
+        //load profile image
+        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
+        profileImgRef.getData(maxSize: 50 * 1024 * 1024) { data, error in
+            if error != nil {
+                let errorDesc = error?.localizedDescription
+                if errorDesc == "Image does not exist." {
+                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
+                    let imagePath = "imgProfilePictures/\(self.uid!).png"
+                    
+                    let metaData = StorageMetadata()
+                    metaData.contentType = "image/png"
+                    
+                    self.storageRef.child(imagePath)
+                        .putData(profileImageData!, metadata: metaData) { (metadata, error) in
+                            if let error = error {
+                                print ("Uploading Error: \(error)")
+                                return
+                            }
+                    }
+                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
+                } else {
+                    return
+                }
+            } else {
+                self.userProfileImage = UIImage(data: data!)
+                self.imgProfilePicture.image = self.userProfileImage
+            }
+        }
+        
+        
+        // Fetch the download URL
+//        self.btnCollegePV.setTitle("https...", for: .normal)
+
+//        if let url = NSURL(string: "\(userProfileImageURL)") {
+//            if let data = NSData(contentsOf: url as URL) {
+//                imgProfilePicture.contentMode = UIViewContentMode.scaleAspectFit
+//                imgProfilePicture.image = UIImage(data: data as Data)
+//            }
+//        }
+        
+
         viewPickerView.isHidden = true
         
         pickerView.delegate = self
@@ -346,6 +402,8 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
 
     }
     
+    
+/////////////////////////SAVING DATA INTO DATABASE/////////////////////////////
     @IBAction func btnSave(_ sender: UIBarButtonItem) {
        //CHECK if firstName or lastName text fields are blank
         if self.tbFirstName.text == "" || self.tbLastName.text == "" {
@@ -436,13 +494,7 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
     }
     
     
-    
-    
-    
-    
-    
-    
-    
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

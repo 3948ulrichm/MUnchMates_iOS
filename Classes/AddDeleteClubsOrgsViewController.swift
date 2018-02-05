@@ -25,14 +25,14 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
         ref.reference(withPath: "CLUBSORGS/").queryOrdered(byChild:"cname").observe(.value, with:
             { snapshot in
                 
-                var fireAccountArray: [clubsOrgsStruct] = []
+                var fireAccountArrayCLUBSORGS: [clubsOrgsStruct] = []
                 
                 for fireAccountCLUBSORGS in snapshot.children {
                     let fireAccountCLUBSORGS = clubsOrgsStruct(snapshot: fireAccountCLUBSORGS as! DataSnapshot)
-                    fireAccountArray.append(fireAccountCLUBSORGS)
+                    fireAccountArrayCLUBSORGS.append(fireAccountCLUBSORGS)
                 }
                 
-                self.clubsOrgsCLUBSORGS = fireAccountArray
+                self.clubsOrgsCLUBSORGS = fireAccountArrayCLUBSORGS
 
                 self.tableView.delegate = self
                 self.tableView.dataSource = self
@@ -40,24 +40,24 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
         })
         
         
-        //load checkmarks for clubs the user has saved
-        ref.reference(withPath:"USERS/\(uid!)/clubsOrgs/").queryOrdered(byChild:"cname").observe(.value, with:
-            { snapshot in
-                
-                var fireAccountArrayUSERS: [clubsOrgsStruct] = []
-                
-                for fireAccountUSERS in snapshot.children {
-                    let fireAccountUSERS = clubsOrgsStruct(snapshot: fireAccountUSERS as! DataSnapshot)
-                    fireAccountArrayUSERS.append(fireAccountUSERS)
-                }
-                
-                self.clubsOrgsUSERS = fireAccountArrayUSERS
-                
-                self.tableView.delegate = self
-                self.tableView.dataSource = self
-                self.tableView.reloadData()
-                
-        })
+        //TODO - load checkmarks for clubs the user has saved
+//        ref.reference(withPath:"USERS/\(uid!)/clubsOrgs/").queryOrdered(byChild:"cname").observe(.value, with:
+//            { snapshot in
+//
+//                var fireAccountArrayUSERS: [clubsOrgsStruct] = []
+//
+//                for fireAccountUSERS in snapshot.children {
+//                    let fireAccountUSERS = clubsOrgsStruct(snapshot: fireAccountUSERS as! DataSnapshot)
+//                    fireAccountArrayUSERS.append(fireAccountUSERS)
+//                }
+//
+//                self.clubsOrgsUSERS = fireAccountArrayUSERS
+//
+//                self.tableView.delegate = self
+//                self.tableView.dataSource = self
+//                self.tableView.reloadData()
+//
+//        })
         
         super.viewDidLoad()
 
@@ -75,24 +75,22 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
         return clubsOrgsCLUBSORGS.count
     }
 
-    
     //What is in each cell?
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! AddDeleteClubsOrgsTableViewCell
         let clubOrgInfo = self.clubsOrgsCLUBSORGS[indexPath.row]
         
         //Display club / org
-        var lblClubsOrgs = cell.lblClubsOrgs?.text
-        lblClubsOrgs = clubOrgInfo.cname
+        cell.lblClubsOrgs?.text = clubOrgInfo.cname
         
         return cell
 
-    //DISPLAY CHECKMARKS IF USER IS IN CLUB
+    //TODO - DISPLAY CHECKMARKS IF USER IS IN CLUB
     
     }
     
     var cnameCLUBSORGS:String = ""
-    var cnameUSERS:String = ""
+    //var cnameUSERS:String = ""
     
     //What happens if you select a row
     //add checkmarks (youtu.be/5MZ-WJuSdpg)
