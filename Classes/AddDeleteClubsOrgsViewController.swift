@@ -15,24 +15,23 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
     //MARK: Properties
     let ref = Database.database()
     let cellId = "AddDeleteClubsOrgsCell"
-    var clubsOrgsCLUBSORGS: [clubsOrgsStruct] = []
-    var clubsOrgsUSERS: [clubsOrgsStruct] = []
+    var clubsOrgs: [clubsOrgsStruct] = []
+    var selectedClubsOrgs = clubsOrgsStruct()
     let uid = Auth.auth().currentUser?.uid
-    var selectedClubOrg = clubsOrgsStruct()
 
     override func viewDidLoad() {
         
         ref.reference(withPath: "CLUBSORGS/").queryOrdered(byChild:"cname").observe(.value, with:
             { snapshot in
                 
-                var fireAccountArrayCLUBSORGS: [clubsOrgsStruct] = []
+                var fireAccountArray: [clubsOrgsStruct] = []
                 
-                for fireAccountCLUBSORGS in snapshot.children {
-                    let fireAccountCLUBSORGS = clubsOrgsStruct(snapshot: fireAccountCLUBSORGS as! DataSnapshot)
-                    fireAccountArrayCLUBSORGS.append(fireAccountCLUBSORGS)
+                for fireAccount in snapshot.children {
+                    let fireAccount = clubsOrgsStruct(snapshot: fireAccount as! DataSnapshot)
+                    fireAccountArray.append(fireAccount)
                 }
                 
-                self.clubsOrgsCLUBSORGS = fireAccountArrayCLUBSORGS
+                self.clubsOrgs = fireAccountArray
 
                 self.tableView.delegate = self
                 self.tableView.dataSource = self
@@ -51,7 +50,7 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
 //                    fireAccountArrayUSERS.append(fireAccountUSERS)
 //                }
 //
-//                self.clubsOrgsUSERS = fireAccountArrayUSERS
+//                self.clubsOrgs = fireAccountArrayUSERS
 //
 //                self.tableView.delegate = self
 //                self.tableView.dataSource = self
@@ -72,13 +71,13 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
     
     //number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return clubsOrgsCLUBSORGS.count
+        return clubsOrgs.count
     }
 
     //What is in each cell?
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! AddDeleteClubsOrgsTableViewCell
-        let clubOrgInfo = self.clubsOrgsCLUBSORGS[indexPath.row]
+        let clubOrgInfo = self.clubsOrgs[indexPath.row]
         
         //Display club / org
         cell.lblClubsOrgs?.text = clubOrgInfo.cname
@@ -89,19 +88,32 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
     
     }
     
-    var cnameCLUBSORGS:String = ""
-    //var cnameUSERS:String = ""
+    var cname:String = " "
+    var cid:String = " "
     
     //What happens if you select a row
     //add checkmarks (youtu.be/5MZ-WJuSdpg)
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+//        if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCellAccessoryType.checkmark {
+//            tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
+//            }
+//        else {
+//            tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
+//        }
         
-        if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCellAccessoryType.checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
-            }
-        else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
+        cid = self.clubsOrgs[indexPath.row].cid
+        cname = self.clubsOrgs[indexPath.row].cname
+        
+        selectedClubsOrgs = clubsOrgsStruct(cname: cname, cid: cid)
+        
+        performSegue(withIdentifier: "saveClubsOrgs", sender: self)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "saveClubsOrgs" {
+            let vc = segue.destination as! EditProfileViewController
+            vc.clubsOrgsDetails = selectedClubsOrgs
         }
     }
     
