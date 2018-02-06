@@ -101,16 +101,16 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
         })
         
         //pull profpic
-        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
-        profileImgRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).jpg")
+        profileImgRef.getData(maxSize: 50 * 1024 * 1024) { data, error in
             if error != nil {
                 let errorDesc = error?.localizedDescription
                 if errorDesc == "Image does not exist." {
-                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
-                    let imagePath = "imgProfilePictures/\(self.uid!).png"
+                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).jpg")!) as Data?
+                    let imagePath = "imgProfilePictures/\(self.uid!).jpg"
                     
                     let metaData = StorageMetadata()
-                    metaData.contentType = "image/png"
+                    metaData.contentType = "image/jpg"
                     
                     self.storageRef.child(imagePath)
                         .putData(profileImageData!, metadata: metaData) { (metadata, error) in
@@ -119,7 +119,7 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
                                 return
                             }
                     }
-                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
+                    self.userProfileImage = UIImage(named: "\(self.uid!).jpg")
                 } else {
                     return
                 }
@@ -138,16 +138,16 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
 //            }
 //        }
 
-//        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
+//        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).jpg")
 //        profileImgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
 //            if error != nil {
 //                let errorDesc = error?.localizedDescription
 //                if errorDesc == "Image does not exist." {
-//                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
-//                    let imagePath = "imgProfilePictures/\(self.uid!).png"
+//                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).jpg")!) as Data?
+//                    let imagePath = "imgProfilePictures/\(self.uid!).jpg"
 //
 //                    let metadata = StorageMetadata()
-//                    metadata.contentType = "image/png"
+//                    metadata.contentType = "image/jpg"
 //
 //                    self.storageRef.child(imagePath)
 //                        .putData(profileImageData!, metadata: metadata) { (metadata, error) in
@@ -156,7 +156,7 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
 //                                return
 //                            }
 //                    }
-//                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
+//                    self.userProfileImage = UIImage(named: "\(self.uid!).jpg")
 //                } else {
 //                    return
 //                }

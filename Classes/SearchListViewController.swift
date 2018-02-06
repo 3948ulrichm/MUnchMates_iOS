@@ -12,7 +12,7 @@ import Firebase
 class SearchListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     
-    let storageRef = Storage.storage().reference()
+    let storageRef = Storage.storage()
     let dataRef = Database.database()
     let cellId = "SearchListCell"
     let uid = Auth.auth().currentUser?.uid
@@ -67,18 +67,20 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
 //        })
         
         //Populate SearchUsersProfilePic Struct
-        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
+//        let uidSearchImage = dataRef.reference(withPath: "USERS/").value("uid") as? String
+//        return uidSearchImage!
+        let profileImgRef = storageRef.reference().child("imgProfilePictures/\(self.uid!).jpg")
         profileImgRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
             if error != nil {
                 let errorDesc = error?.localizedDescription
                 if errorDesc == "Image does not exist." {
-                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
-                    let imagePath = "imgProfilePictures/\(self.uid!).png"
+                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).jpg")!) as Data?
+                    let imagePath = "imgProfilePictures/\(self.uid!).jpg"
                     
                     let metaData = StorageMetadata()
-                    metaData.contentType = "image/png"
+                    metaData.contentType = "image/jpg"
                     
-                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
+                    self.userProfileImage = UIImage(named: "\(self.uid!).jpg")
                 }
             } else {
                 self.userProfileImage = UIImage(data: data!)

@@ -17,6 +17,16 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var txtLastName: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
+    @IBOutlet weak var switchMealPlan: UISwitch!
+    var mealPlanBool: Bool = false
+    @IBAction func switchMealPlanAction(_ sender: Any) {
+        if (sender as AnyObject).isOn == true {
+            mealPlanBool = true
+        }
+        else {
+            mealPlanBool = false
+        }
+    }
     @IBAction func btnRegister_TouchUpInside(_ sender: Any) {
    
         //CHECK that no fields are nil
@@ -29,17 +39,18 @@ class RegisterViewController: UIViewController {
                 var email = txtEmail.text?.lowercased(),
                 let password = txtPassword.text,
                 let muteMode:Bool = false,
-                let mealPlan:Bool = false,
-                var mateType:String = " ",
-                var college:String = " "
+                let mealPlan:Bool = self.mealPlanBool,
+                var mateType:String = "¯\\_(ツ)_/¯",
+                var college:String = "¯\\_(ツ)_/¯"
             {
 
-                
                 //CHECK that email is marquette email address
                 if email.lowercased().hasSuffix("marquette.edu") || email.lowercased().hasSuffix("mu.edu") {
                     
                     //ADD: CHECK if email is already in database
-                    
+                    //var fbEmail = Auth.auth().fetchProviders(email)
+                    //if email != fbEmail {
+                        
                     
                         //CHECK that password has more than five characters
                         if password.count > 5 {
@@ -49,7 +60,8 @@ class RegisterViewController: UIViewController {
                             
                             //add user to Firebase Database
                             if user != nil {
-                                let userValues:[String:Any] = ["firstName": firstName, "lastName": lastName, "email": email, "muteMode": muteMode, "mealPlan": mealPlan, "mateType": mateType, "college": college]
+                                let uid: String? = (Auth.auth().currentUser?.uid)!
+                                let userValues:[String:Any] = ["firstName": firstName, "lastName": lastName, "email": email, "muteMode": muteMode, "mealPlan": mealPlan, "mateType": mateType, "college": college, "uid": uid!]
                                 self.userNodeRef.child((user?.uid)!).updateChildValues(userValues , withCompletionBlock: {(userDBError, userDBRef) in
                                 })
                                 
@@ -58,11 +70,15 @@ class RegisterViewController: UIViewController {
                                 self.present(vc!, animated: true, completion: nil)
                             }
                             else {
-                                //ADD: check error and show error message
+                                //NOTE - While this message will display for any error, for now this is the message that will be displayed because it will be the most common reason for a registration error
+                                let alertController = UIAlertController(title: "Registration Error!", message: "Email already exists in database! If you have not previously made an account with this address contact MUnchMatesMarquette@gmail.com", preferredStyle: UIAlertControllerStyle.alert)
+                                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
                                 }
-                                })
-                        }
-                        
+                                alertController.addAction(okAction)
+                                self.present(alertController, animated: true, completion: nil)
+                            }
+                        })}
+                            
                         //ALERT for password needing more than 5 characters
                         else {
                             let alertController = UIAlertController(title: "Registration Error!", message: "Password must be greater than 5 characters!", preferredStyle: UIAlertControllerStyle.alert)
@@ -72,19 +88,28 @@ class RegisterViewController: UIViewController {
                             self.present(alertController, animated: true, completion: nil)
                         }
                     }
-                    
-                    //ALERT for needing a marquette email address
-                    else {
-                        let alertController = UIAlertController(title: "Registration Error!", message: "Must contain marquette.edu or mu.edu email address!", preferredStyle: UIAlertControllerStyle.alert)
-                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
-                        }
-                        alertController.addAction(okAction)
-                        self.present(alertController, animated: true, completion: nil)
-                }
+                
                 //ALERT for email already being in the Db
-
+//                else{
+//                    let alertController = UIAlertController(title: "Registration Error!", message: "Email already exists in database! If you have not previously made an account with this address contact MUnchMatesMarquette@gmail.com", preferredStyle: UIAlertControllerStyle.alert)
+//                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
+//                    }
+//                    alertController.addAction(okAction)
+//                    self.present(alertController, animated: true, completion: nil)
+//                }
+            //}
+                    
+            //ALERT for needing a marquette email address
+                else {
+                    let alertController = UIAlertController(title: "Registration Error!", message: "Must contain marquette.edu or mu.edu email address!", preferredStyle: UIAlertControllerStyle.alert)
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
+                    }
+                    alertController.addAction(okAction)
+                    self.present(alertController, animated: true, completion: nil)
+                }
             }
         }
+
             
         //ALERT for needing all text fields populated
         else {
@@ -95,7 +120,7 @@ class RegisterViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
         }
     }
-
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         

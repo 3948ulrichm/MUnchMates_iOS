@@ -15,7 +15,7 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
     var mateTypeBool = false
     var collegeBool = false
     var countrows: Int?
-    
+    var clubsOrgsDetails = clubsOrgsStruct()
     
     //create outlets
     @IBOutlet weak var tbFirstName: UITextField!
@@ -51,6 +51,7 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
 
     //switch outlets (for saving values)
     var muteModeBool:Bool = false
+    @IBOutlet weak var switchMuteModeOutlet: UISwitch!
     @IBAction func switchMuteMode(_ sender: Any) {
         if (sender as AnyObject).isOn == true {
             muteModeBool = true
@@ -61,6 +62,7 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
     }
     
     var mealPlanBool:Bool = false
+    @IBOutlet weak var switchMealPlanOutlet: UISwitch!
     @IBAction func switchMealPlan(_ sender: Any) {
         if (sender as AnyObject).isOn == true {
             mealPlanBool = true
@@ -89,7 +91,6 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
     
     //cancel
     @IBAction func btnCancel(_ sender: Any) {
-        //segue to PledgeViewController
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "SelfProfileViewController")
         self.present(vc!, animated: true, completion: nil)
     }
@@ -203,30 +204,42 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
             // get the entire snapshot dictionary
             if let dictionary = snapshot.value as? [String: Any]
             {
+                //MARK - Local Variables
                 var firstName = (dictionary["firstName"] as? String)!
                 var lastName = (dictionary["lastName"] as? String)!
                 var mateType = (dictionary["mateType"] as? String)!
                 var college = (dictionary["college"] as? String)!
-                var mealPlan = (dictionary["mealPlan"] as? Bool)!
-                var muteMode = (dictionary["muteMode"] as? Bool)!
+                var mealPlan = (dictionary["mealPlan"] as! Bool)
+                var muteMode = (dictionary["muteMode"] as! Bool)
 
                 //set switches
                 //TODO: Load swith on/off based on t/f/ value in Db
-//                if mealPlan == true {
-//                    switchMealPlan.setOn
-//                    }
-//                    else
-//                    {
-//                        switchMealPlan.isOff = true
-//                    }
-//
-//                    if muteMode == true {
-//                        switchMuteMode.isOn = true
-//                    }
-//                    else
-//                    {
-//                        switchMuteMode.isOff = true
-//                    }
+                if mealPlan == true && mealPlan != nil {
+                    self.switchMealPlanOutlet.setOn(true,
+                                                    animated: false)
+                }
+                else {
+                    self.switchMealPlanOutlet.setOn(false,
+                                                    animated: false)
+                }
+                //                    else
+                //                    {
+                //                    self.switchMealPlanOutlet.isOff
+                //                    }
+                
+                if muteMode == true {
+                    self.switchMuteModeOutlet.setOn(true,
+                                                    animated: false)
+                }
+                else {
+                    self.switchMuteModeOutlet.setOn(false,
+                                                    animated: false)
+                }
+                
+                //                    else
+                //                    {
+                //                        switchMuteModeOutlet.isOff
+                //                    }
                 
                 
                 //String assignments
@@ -291,26 +304,24 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
                     else {
                     self.pickerView.selectRow(0, inComponent: 0, animated: true)
                     }
-                
-                //Bool assignments
-                    //add switches
-                
             }
         })
         
 
         
+
         
-//        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
+        
+//        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).jpg")
 //        profileImgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
 //            if error != nil {
 //                let errorDesc = error?.localizedDescription
 //                if errorDesc == "Image does not exist." {
-//                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
-//                    let imagePath = "imgProfilePictures/\(self.uid!).png"
+//                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).jpg")!) as Data?
+//                    let imagePath = "imgProfilePictures/\(self.uid!).jpg"
 //
 //                    let metaData = StorageMetadata()
-//                    metaData.contentType = "image/png"
+//                    metaData.contentType = "image/jpg"
 //
 //                    self.storageRef.child(imagePath)
 //                        .putData(profileImageData!, metadata: metaData) { (metadata, error) in
@@ -319,7 +330,7 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
 //                                return
 //                            }
 //                    }
-//                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
+//                    self.userProfileImage = UIImage(named: "\(self.uid!).jpg")
 //                } else {
 //                    return
 //                }
@@ -345,24 +356,32 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
             {
                 var mateType = (dictionary["mateType"] as? String)!
                 var college = (dictionary["college"] as? String)!
-                
+                var mealPlan = (dictionary["mealPlan"] as? Bool)!
+                var muteMode = (dictionary["muteMode"] as? Bool)!
+
                 //Button assignments
                     self.btnCollegePV.setTitle("\(college)", for: .normal)
                     self.btnMateTypePV.setTitle("\(mateType)", for: .normal)
+                
+                //switch assignments
+                if mealPlan == true {
+                    
+                }
+                
             }
         })
 
         //load profile image
-        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
+        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).jpg")
         profileImgRef.getData(maxSize: 50 * 1024 * 1024) { data, error in
             if error != nil {
                 let errorDesc = error?.localizedDescription
                 if errorDesc == "Image does not exist." {
-                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
-                    let imagePath = "imgProfilePictures/\(self.uid!).png"
+                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).jpg")!) as Data?
+                    let imagePath = "imgProfilePictures/\(self.uid!).jpg"
                     
                     let metaData = StorageMetadata()
-                    metaData.contentType = "image/png"
+                    metaData.contentType = "image/jpg"
                     
                     self.storageRef.child(imagePath)
                         .putData(profileImageData!, metadata: metaData) { (metadata, error) in
@@ -371,7 +390,7 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
                                 return
                             }
                     }
-                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
+                    self.userProfileImage = UIImage(named: "\(self.uid!).jpg")
                 } else {
                     return
                 }
@@ -415,12 +434,12 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
         }
         else {
         
-        let uid = Auth.auth().currentUser?.uid
+        //let uid = Auth.auth().currentUser?.uid
     
         //update image
             let metaData = StorageMetadata()
-            metaData.contentType = "image/png"
-            let imgProfilePictureRef =  storageRef.child("imgProfilePictures/\(self.uid!).png")
+            metaData.contentType = "image/jpg"
+            let imgProfilePictureRef =  storageRef.child("imgProfilePictures/\(self.uid!).jpg")
             
             if var uploadData = UIImagePNGRepresentation(self.imgProfilePicture.image!) {
                 
@@ -463,7 +482,7 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
 //                var mealPlan = "false"
 //            }
             
-            
+        //insert User info in Db
         var firstName = self.tbFirstName.text
         var lastName = self.tbLastName.text
         var email = Auth.auth().currentUser?.email
@@ -471,8 +490,6 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
         var mealPlan = self.mealPlanBool
         var college = colleges[pickerView.selectedRow(inComponent: 0)]
         var mateType = mateTypes[pickerView.selectedRow(inComponent: 0)]
-//        var profilePictureURL = self.imgProfilePictureURL
-            
             
         let userValues:[String:Any] =
             ["firstName": firstName,
@@ -481,12 +498,24 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
              "mealPlan" : mealPlan,
              "email" : email,
              "college" : college,
-             "mateType" : mateType
-//             "imgProfilePictureURL" : profilePictureURL
+             "mateType" : mateType,
+             "uid":uid
             ]
         
             dataRef.reference().child("USERS/\(uid!)").setValue(userValues)
             
+            //Insert clubs org info into Db
+            let cnameValue = clubsOrgsDetails.cname
+            let cidValue = clubsOrgsDetails.cid
+            let clubsOrgsValues:[String:Any] =
+                [
+                    "cname":cnameValue,
+                    "cid":cidValue
+                ]
+            
+            dataRef.reference().child("USERS/\(uid!)/clubsOrgs/\(cidValue)/").setValue(clubsOrgsValues)
+            
+        
             //segue to PledgeViewController
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "SelfProfileViewController")
             self.present(vc!, animated: true, completion: nil)
