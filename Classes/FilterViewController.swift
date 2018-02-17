@@ -39,6 +39,16 @@ class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
 
     // MARK: IBActions
+    
+    @IBAction func btnSearch(_ sender: Any) {
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchListViewController")
+        self.present(vc!, animated: true, completion: nil)
+        
+    }
+    
+    
+    
     @IBAction func btnMateTypePVAction(_ sender: Any) {
         if mateTypeBool == false {
             mateTypeBool = true
@@ -138,7 +148,7 @@ class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 
     func pickerView(_ pickerView:UIPickerView, numberOfRowsInComponent component: Int) -> Int
     {
-        var countrows : Int? = colleges.count
+        var countrows : Int? = 10
 //        if collegeBool == true {
 //            countrows = colleges.count
 //        }
@@ -152,7 +162,7 @@ class FilterViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 //            countrows! = clubsOrgs.count
 //        }
 //        else {
-            countrows = 10
+            //countrows = 10
 //        }
         return countrows!
     }

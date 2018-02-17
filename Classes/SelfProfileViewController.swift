@@ -9,17 +9,21 @@
 import UIKit
 import Firebase
 
-class SelfProfileViewController: UIViewController {
+class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
+{
+    
+    @IBOutlet weak var tableView: UITableView!
     
     // Properties
     let storageRef = Storage.storage().reference()
     let dataRef = Database.database().reference()
     var userProfileImage: UIImage?
     let uid = Auth.auth().currentUser?.uid
+    var clubsOrgs: [clubsOrgsStruct] = []
+    var selfUserClubsOrgs = clubsOrgsStruct()
+    let cellId = "ClubsOrgsCell"
 
 
-    
-    
     @IBOutlet weak var lblNameProfile: UILabel!
     @IBOutlet weak var imgProfilePicture: UIImageView!
     @IBOutlet weak var lblMealPlan: UILabel!
@@ -27,15 +31,39 @@ class SelfProfileViewController: UIViewController {
 //    @IBOutlet weak var lblEmailProfile: UILabel!
     @IBOutlet weak var lblMateType: UILabel!
     @IBOutlet weak var lblCollegeProfile: UILabel!
-    
+    @IBOutlet weak var lblHometown: UILabel!
     
     //Methods
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidLoad()  {
+        
+        super.viewDidLoad()
         
     }
     
-    override func viewDidLoad() {
+////////////LOAD INFORMATION TO SCREEN///////////////////
+    override func viewWillAppear(_ animated: Bool) {
         
+            //display clubsOrgs
+            dataRef.child("USERS/\(uid!)/clubsOrgs/").queryOrdered(byChild:"cname").observe(.value, with:
+            { snapshot in
+                
+                var fireAccountArray: [clubsOrgsStruct] = []
+                
+                for fireAccount in snapshot.children {
+                    let fireAccount = clubsOrgsStruct(snapshot: fireAccount as! DataSnapshot)
+                    fireAccountArray.append(fireAccount)
+                }
+                
+                self.clubsOrgs = fireAccountArray
+                
+                self.tableView.delegate = self
+                self.tableView.dataSource = self
+                self.tableView.reloadData()
+
+            })
+        
+        
+            //pull user data, except for clubsOrgs and profilePic
             dataRef.child("USERS/\(uid!)").observe(.value, with: { snapshot in
             // get the entire snapshot dictionary
             if let dictionary = snapshot.value as? [String: Any]
@@ -47,14 +75,44 @@ class SelfProfileViewController: UIViewController {
                 var mateType = (dictionary["mateType"] as? String)!
                 var college = (dictionary["college"] as? String)!
                 
+                //assign hometown
+                //if neither blank
+                var hometown:String?
+                if (dictionary["city"] as? String)! != "" && (dictionary["stateCountry"] as? String)! != "" {
+                    hometown = (dictionary["city"] as? String)! + ", " + (dictionary["stateCountry"] as? String)!
+                    self.lblHometown.text = "\(hometown!)"
+                }
+                //if city blank, stateCountry not
+                else if (dictionary["city"] as? String)! == "" && (dictionary["stateCountry"] as? String)! != "" {
+                    var hometown = (dictionary["stateCountry"] as? String)!
+                    self.lblHometown.text = "\(hometown)"
+                }
+                //if stateCountry blank, city not
+                else if (dictionary["city"] as? String)! != "" && (dictionary["stateCountry"] as? String)! == "" {
+                    var hometown = (dictionary["city"] as? String)!
+                    self.lblHometown.text = "\(hometown)"
+                }
+                //if city and stateCountry are blank (or anything else)
+                else {
+                    var hometown = ""
+                    self.lblHometown.text = "\(hometown)"
+                }
+                
+                
+                //var city = (dictionary["city"] as? String)!
+                //var stateCountry = (dictionary["stateCountry"] as? String)!
+                
+                
+
+                
                 //String assignments
                     self.lblNameProfile.text = "\(fullName)"
-//                    self.lblEmailProfile.text = "\(email)"
+                //  self.lblEmailProfile.text = "\(email)"
                     self.lblMateType.text = "\(mateType)"
                     self.lblCollegeProfile.text = "\(college)"
                 
                 //Bool assignments
-                    //mealPlan
+                    // mealPlan
                     if mealPlan == true {
                         self.lblMealPlan.text = "Meal Plan"
                     }
@@ -74,25 +132,26 @@ class SelfProfileViewController: UIViewController {
             }
         })
         
-        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
-        profileImgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+        //pull profpic
+        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).jpg")
+        profileImgRef.getData(maxSize: 50 * 1024 * 1024) { data, error in
             if error != nil {
                 let errorDesc = error?.localizedDescription
                 if errorDesc == "Image does not exist." {
-                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
-                    let imagePath = "imgProfilePictures/\(self.uid!).png"
+                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).jpg")!) as Data?
+                    let imagePath = "imgProfilePictures/\(self.uid!).jpg"
                     
-                    let metadata = StorageMetadata()
-                    metadata.contentType = "image/png"
+                    let metaData = StorageMetadata()
+                    metaData.contentType = "image/jpg"
                     
                     self.storageRef.child(imagePath)
-                        .putData(profileImageData!, metadata: metadata) { (metadata, error) in
+                        .putData(profileImageData!, metadata: metaData) { (metadata, error) in
                             if let error = error {
                                 print ("Uploading Error: \(error)")
                                 return
                             }
                     }
-                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
+                    self.userProfileImage = UIImage(named: "\(self.uid!).jpg")
                 } else {
                     return
                 }
@@ -101,19 +160,97 @@ class SelfProfileViewController: UIViewController {
                 self.imgProfilePicture.image = self.userProfileImage
             }
         }
-            
-//        func displayContent() {
-//            self.spinner.stopAnimating()
-//
-//            self.navigationItem.title = self.userInfo?.company
-//
-//
-//            self.imgProfilePic.image = self.userProfileImage
+        
+        
+        //URL method
+//        if let url = NSURL(string: "https...") {
+//            if let data = NSData(contentsOf: url as URL) {
+//                imgProfilePicture.contentMode = UIViewContentMode.scaleAspectFit
+//                imgProfilePicture.image = UIImage(data: data as Data)
+//            }
 //        }
+
+//        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).jpg")
+//        profileImgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+//            if error != nil {
+//                let errorDesc = error?.localizedDescription
+//                if errorDesc == "Image does not exist." {
+//                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).jpg")!) as Data?
+//                    let imagePath = "imgProfilePictures/\(self.uid!).jpg"
+//
+//                    let metadata = StorageMetadata()
+//                    metadata.contentType = "image/jpg"
+//
+//                    self.storageRef.child(imagePath)
+//                        .putData(profileImageData!, metadata: metadata) { (metadata, error) in
+//                            if let error = error {
+//                                print ("Uploading Error: \(error)")
+//                                return
+//                            }
+//                    }
+//                    self.userProfileImage = UIImage(named: "\(self.uid!).jpg")
+//                } else {
+//                    return
+//                }
+//            } else {
+//                self.userProfileImage = UIImage(data: data!)
+//                self.imgProfilePicture.image = self.userProfileImage
+//            }
+//        }
+        
+
+
+        
+        }
+    
+    //table view - clubsOrgs
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return clubsOrgs.count
+    }   
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! SelfProfileTableViewCell
+        let clubOrgInfo = self.clubsOrgs[indexPath.row]
+        
+        //Display club / org
+        cell.lblClubsOrgs?.text = clubOrgInfo.cname
+        return cell
+        
     }
-}
+    
+
+        
+        //What happens if you select a row
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            
+
+            
+        }
+    
+//    var cname:String = " "
+//    var cid:String = " "
+//
+//    cid = self.clubsOrgs[indexPath.row].cid
+//    cname = self.clubsOrgs[indexPath.row].cname
+//
+//    selfUserClubsOrgs = clubsOrgsStruct(cname: cname, cid: cid)
+//
+//    performSegue(withIdentifier: "toEditProfile", sender: self)
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toEditProfile" {
+            let vc = segue.destination as! EditProfileViewController
+            vc.clubsOrgsDetails = selfUserClubsOrgs
+        }
+    }
+    
+    
+        override func didReceiveMemoryWarning() {
+            super.didReceiveMemoryWarning()
+
+        }
+    }
