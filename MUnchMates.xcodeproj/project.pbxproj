@@ -113,20 +113,12 @@
 		94D3F90A1FD39554004D3369 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				94F487F620282FC300E3444F /* Search */,
-				94CDC3A6201ADFD6008BEE25 /* clubsOrgsStruct.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		94F487F620282FC300E3444F /* Search */ = {
-			isa = PBXGroup;
-			children = (
 				942868731FE32DE5009557C9 /* SearchUsers.swift */,
 				94F487F4202824B000E3444F /* SearchUsersProfilePic.swift */,
 				94F487F720282FE100E3444F /* SearchUsersUid.swift */,
+				94CDC3A6201ADFD6008BEE25 /* clubsOrgsStruct.swift */,
 			);
-			path = Search;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		94F8FCBF1F8B406100663F8C = {
