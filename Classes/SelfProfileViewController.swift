@@ -20,7 +20,7 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
     var userProfileImage: UIImage?
     let uid = Auth.auth().currentUser?.uid
     var clubsOrgs: [clubsOrgsStruct] = []
-    var selectedClubOrg = clubsOrgsStruct()
+    var selfUserClubsOrgs = clubsOrgsStruct()
     let cellId = "ClubsOrgsCell"
 
 
@@ -31,15 +31,17 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
 //    @IBOutlet weak var lblEmailProfile: UILabel!
     @IBOutlet weak var lblMateType: UILabel!
     @IBOutlet weak var lblCollegeProfile: UILabel!
-    
+    @IBOutlet weak var lblHometown: UILabel!
     
     //Methods
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidLoad()  {
+        
+        super.viewDidLoad()
         
     }
     
 ////////////LOAD INFORMATION TO SCREEN///////////////////
-    override func viewDidLoad() {
+    override func viewWillAppear(_ animated: Bool) {
         
             //display clubsOrgs
             dataRef.child("USERS/\(uid!)/clubsOrgs/").queryOrdered(byChild:"cname").observe(.value, with:
@@ -72,6 +74,36 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
                 var email = (dictionary["email"] as? String)!
                 var mateType = (dictionary["mateType"] as? String)!
                 var college = (dictionary["college"] as? String)!
+                
+                //assign hometown
+                //if neither blank
+                var hometown:String?
+                if (dictionary["city"] as? String)! != "" && (dictionary["stateCountry"] as? String)! != "" {
+                    hometown = (dictionary["city"] as? String)! + ", " + (dictionary["stateCountry"] as? String)!
+                    self.lblHometown.text = "\(hometown!)"
+                }
+                //if city blank, stateCountry not
+                else if (dictionary["city"] as? String)! == "" && (dictionary["stateCountry"] as? String)! != "" {
+                    var hometown = (dictionary["stateCountry"] as? String)!
+                    self.lblHometown.text = "\(hometown)"
+                }
+                //if stateCountry blank, city not
+                else if (dictionary["city"] as? String)! != "" && (dictionary["stateCountry"] as? String)! == "" {
+                    var hometown = (dictionary["city"] as? String)!
+                    self.lblHometown.text = "\(hometown)"
+                }
+                //if city and stateCountry are blank (or anything else)
+                else {
+                    var hometown = ""
+                    self.lblHometown.text = "\(hometown)"
+                }
+                
+                
+                //var city = (dictionary["city"] as? String)!
+                //var stateCountry = (dictionary["stateCountry"] as? String)!
+                
+                
+
                 
                 //String assignments
                     self.lblNameProfile.text = "\(fullName)"
@@ -167,7 +199,7 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
 //        }
         
 
-        super.viewDidLoad()
+
         
         }
     
@@ -190,19 +222,35 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
-    var cname:String = " "
-    
-    //added by awebber to add c
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        cname = self.clubsOrgs[indexPath.row].cname
-        
-        //selectedClubOrg = clubsOrgsStruct(cname: cname)
-        
-    }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
 
+        
+        //What happens if you select a row
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            
+
+            
+        }
+    
+//    var cname:String = " "
+//    var cid:String = " "
+//
+//    cid = self.clubsOrgs[indexPath.row].cid
+//    cname = self.clubsOrgs[indexPath.row].cname
+//
+//    selfUserClubsOrgs = clubsOrgsStruct(cname: cname, cid: cid)
+//
+//    performSegue(withIdentifier: "toEditProfile", sender: self)
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toEditProfile" {
+            let vc = segue.destination as! EditProfileViewController
+            vc.clubsOrgsDetails = selfUserClubsOrgs
+        }
     }
-}
+    
+    
+        override func didReceiveMemoryWarning() {
+            super.didReceiveMemoryWarning()
+
+        }
+    }

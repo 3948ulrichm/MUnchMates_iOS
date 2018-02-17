@@ -69,6 +69,7 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         //Populate SearchUsersProfilePic Struct
 //        let uidSearchImage = dataRef.reference(withPath: "USERS/").value("uid") as? String
 //        return uidSearchImage!
+        
         let profileImgRef = storageRef.reference().child("imgProfilePictures/\(self.uid!).jpg")
         profileImgRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
             if error != nil {
@@ -100,9 +101,9 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
             self.tableView.reloadData()
             
         }
-        
-        super.viewDidLoad()
+            super.viewDidLoad()
     }
+    
     
     //set up table view
     func numberOfSections(in tableView: UITableView) -> Int {

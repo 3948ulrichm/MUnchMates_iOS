@@ -21,7 +21,7 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
 
     override func viewDidLoad() {
         
-        ref.reference(withPath: "CLUBSORGS/").queryOrdered(byChild:"cname").observe(.value, with:
+        ref.reference(withPath: "LISTS/clubsOrgs").queryOrdered(byChild:"cname").observe(.value, with:
             { snapshot in
                 
                 var fireAccountArray: [clubsOrgsStruct] = []
@@ -94,19 +94,19 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
     //What happens if you select a row
     //add checkmarks (youtu.be/5MZ-WJuSdpg)
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCellAccessoryType.checkmark {
-//            tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
-//            }
-//        else {
-//            tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
-//        }
+        if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCellAccessoryType.checkmark {
+            tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
+            }
+        else {
+            tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
+        }
         
-        cid = self.clubsOrgs[indexPath.row].cid
-        cname = self.clubsOrgs[indexPath.row].cname
-        
-        selectedClubsOrgs = clubsOrgsStruct(cname: cname, cid: cid)
-        
-        performSegue(withIdentifier: "saveClubsOrgs", sender: self)
+//        cid = self.clubsOrgs[indexPath.row].cid
+//        cname = self.clubsOrgs[indexPath.row].cname
+//
+//        selectedClubsOrgs = clubsOrgsStruct(cname: cname, cid: cid)
+//
+//        performSegue(withIdentifier: "saveClubsOrgs", sender: self)
         
     }
     

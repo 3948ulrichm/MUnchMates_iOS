@@ -16,6 +16,8 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
     var collegeBool = false
     var countrows: Int?
     var clubsOrgsDetails = clubsOrgsStruct()
+    var selfUserClubsOrgs = clubsOrgsStruct()
+    
     
     //create outlets
     @IBOutlet weak var tbFirstName: UITextField!
@@ -25,6 +27,8 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
     @IBOutlet weak var btnCollegePV: UIButton!
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var viewPickerView: UIView!
+    @IBOutlet weak var tbCity: UITextField!
+    @IBOutlet weak var tbStateCountry: UITextField!
     
     
     //unhide pickerView
@@ -102,13 +106,16 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
     var userProfileImage: UIImage?
     let uid = Auth.auth().currentUser?.uid
     
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        
         
         //create holder variable for chosen image
         var chosenImage = UIImage()
         //save image into variable
         print(info)
-        chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        chosenImage = info[UIImagePickerControllerEditedImage] as! UIImage
         //update image view
         imgProfilePicture.image = chosenImage
         //dismiss
@@ -149,9 +156,9 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
         "College of Education",
         "College of Engineering",
         "College of Health Sciences",
-        "College of Nursing",
-        "College of __",
-        "College of __"
+        "College of Nursing"//,
+//        "College of __",
+//        "College of __"
     ]
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int
@@ -211,6 +218,8 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
                 var college = (dictionary["college"] as? String)!
                 var mealPlan = (dictionary["mealPlan"] as! Bool)
                 var muteMode = (dictionary["muteMode"] as! Bool)
+                var city = (dictionary["city"] as? String)!
+                var stateCountry = (dictionary["stateCountry"] as? String)!
 
                 //set switches
                 //TODO: Load swith on/off based on t/f/ value in Db
@@ -245,6 +254,9 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
                 //String assignments
                     self.tbFirstName.text = "\(firstName)"
                     self.tbLastName.text = "\(lastName)"
+                    self.tbCity.text = "\(city)"
+                    self.tbStateCountry.text = "\(stateCountry)"
+
                 
                 //picker view assignments
                     //college pv
@@ -455,33 +467,6 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
             }
             
             
-        //switches
-            
-            
-            
-            
-            //TODO -- get switches to save in Db
-//            var muteMode: String!
-//            var mealPlan: String!
-
-            //MUteMode
-//            if self.switchMUteMode.isOn == true {
-//                muteMode = "true"
-//            }
-//            else {
-//                muteMode = "false"
-//            }
-//
-//            return muteMode
-
-//            //mealPlan
-//            if self.muteMode.isOn {
-//                var mealPlan = "true"
-//            }
-//            else {
-//                var mealPlan = "false"
-//            }
-            
         //insert User info in Db
         var firstName = self.tbFirstName.text
         var lastName = self.tbLastName.text
@@ -490,6 +475,8 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
         var mealPlan = self.mealPlanBool
         var college = colleges[pickerView.selectedRow(inComponent: 0)]
         var mateType = mateTypes[pickerView.selectedRow(inComponent: 0)]
+        var city = self.tbCity.text
+        var stateCountry = self.tbStateCountry.text
             
         let userValues:[String:Any] =
             ["firstName": firstName,
@@ -499,7 +486,9 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
              "email" : email,
              "college" : college,
              "mateType" : mateType,
-             "uid":uid
+             "uid":uid,
+             "city":city,
+             "stateCountry":stateCountry
             ]
         
             dataRef.reference().child("USERS/\(uid!)").setValue(userValues)
