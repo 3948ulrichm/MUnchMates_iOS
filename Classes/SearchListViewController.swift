@@ -348,8 +348,6 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         lastName = self.users[indexPath.row].lastName
         mealPlan = self.users[indexPath.row].mealPlan
         mateType = self.users[indexPath.row].mateType
-        userID = self.users[indexPath.row].uid
-        //imgProfilePic = self.usersProfilePic[indexPath.row].imgProfilePic
         uid = self.users[indexPath.row].uid
         
         selectedUser = SearchUsers(firstName: firstName, lastName: lastName,  mealPlan: mealPlan, mateType: mateType, college:college,uid:uid)
