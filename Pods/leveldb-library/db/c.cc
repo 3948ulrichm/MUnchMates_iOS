@@ -264,16 +264,16 @@ void leveldb_approximate_sizes(
   delete[] ranges;
 }
 
-//void leveldb_compact_range(
-//    leveldb_t* db,
-//    const char* start_key, size_t start_key_len,
-//    const char* limit_key, size_t limit_key_len) {
-//  Slice a, b;
-//  db->rep->CompactRange(
-//      // Pass NULL Slice if corresponding "const char*" is NULL
-//                        static_cast<void>(    (start_key ? (static_cast<void>()(a = Slice(start_key, start_key_len)), &a: NULL),
-//                        (limit_key ? (static_cast<void>(b = Slice(limit_key, limit_key_len)), &b) : NULL));
-//}
+void leveldb_compact_range(
+    leveldb_t* db,
+    const char* start_key, size_t start_key_len,
+    const char* limit_key, size_t limit_key_len) {
+  Slice a, b;
+  db->rep->CompactRange(
+      // Pass NULL Slice if corresponding "const char*" is NULL
+      (start_key ? (a = Slice(start_key, start_key_len), &a) : NULL),
+      (limit_key ? (b = Slice(limit_key, limit_key_len), &b) : NULL));
+}
 
 void leveldb_destroy_db(
     const leveldb_options_t* options,
