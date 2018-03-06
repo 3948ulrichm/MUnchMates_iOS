@@ -65,8 +65,18 @@ class RegisterViewController: UIViewController {
                             //add user to Firebase Database
                             if user != nil {
                                 let uid: String? = (Auth.auth().currentUser?.uid)!
-                                let userValues:[String:Any] = ["firstName": firstName, "lastName": lastName, "email": email, "muteMode": muteMode, "mealPlan": mealPlan, "mateType": mateType, "college": college, "uid": uid!,"city":city, "stateCountry":stateCountry]
-                                self.userNodeRef.child((user?.uid)!).updateChildValues(userValues , withCompletionBlock: {(userDBError, userDBRef) in
+                                let userValues:[String:Any] =
+                                    ["firstName": firstName,
+                                     "lastName": lastName,
+                                     "email": email,
+                                     "muteMode": muteMode,
+                                     "mealPlan": mealPlan,
+                                     "mateType": mateType,
+                                     "college": college,
+                                     "uid": uid!,
+                                     "city":city,
+                                     "stateCountry":stateCountry]
+                                self.userNodeRef.child((user?.uid)!).updateChildValues(userValues, withCompletionBlock: {(userDBError, userDBRef) in
                                 })
                                 
                                 let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()

@@ -25,7 +25,7 @@ struct SearchUsersUid {
     
     init(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as! [String: AnyObject]
-        searchUid = snapshotValue["USERS"] as! String
+        searchUid = snapshotValue["uid"] as! String
         ref = snapshot.ref
     }
     
