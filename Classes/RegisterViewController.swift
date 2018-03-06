@@ -19,6 +19,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var switchMealPlan: UISwitch!
     var mealPlanBool: Bool = false
+    let userT = Auth.auth().currentUser
     @IBAction func switchMealPlanAction(_ sender: Any) {
         if (sender as AnyObject).isOn == true {
             mealPlanBool = true
@@ -27,6 +28,7 @@ class RegisterViewController: UIViewController {
             mealPlanBool = false
         }
     }
+    
     @IBAction func btnRegister_TouchUpInside(_ sender: Any) {
    
         //CHECK that no fields are nil
@@ -34,16 +36,16 @@ class RegisterViewController: UIViewController {
             
             //put text field values into strings
             if
-                var firstName = txtFirstName.text,
-                var lastName = txtLastName.text,
-                var email = txtEmail.text?.lowercased(),
+                let firstName = txtFirstName.text,
+                let lastName = txtLastName.text,
+                let email = txtEmail.text?.lowercased(),
                 let password = txtPassword.text,
                 let muteMode:Bool = false,
                 let mealPlan:Bool = self.mealPlanBool,
-                var mateType:String = "¯\\_(ツ)_/¯",
-                var college:String = "¯\\_(ツ)_/¯",
-                var city:String = "",
-                var stateCountry:String = ""
+                let mateType:String = "¯\\_(ツ)_/¯",
+                let college:String = "¯\\_(ツ)_/¯",
+                let city:String = "",
+                let stateCountry:String = ""
             {
 
                 //CHECK that email is marquette email address
@@ -77,6 +79,12 @@ class RegisterViewController: UIViewController {
                                 self.userNodeRef.child((user?.uid)!).updateChildValues(userValues, withCompletionBlock: {(userDBError, userDBRef) in
                                 })
                                 
+                                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                                changeRequest?.displayName = firstName + " " + lastName
+                                changeRequest?.commitChanges { (error) in
+                                    // ...
+                                }
+                                
                                 //segue to PledgeViewController
                                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "PledgeViewController")
                                 self.present(vc!, animated: true, completion: nil)
@@ -101,6 +109,8 @@ class RegisterViewController: UIViewController {
                         }
                     }
                 
+                    
+                    
                 //ALERT for email already being in the Db
 //                else{
 //                    let alertController = UIAlertController(title: "Registration Error!", message: "Email already exists in database! If you have not previously made an account with this address contact MUnchMatesMarquette@gmail.com", preferredStyle: UIAlertControllerStyle.alert)
@@ -131,6 +141,9 @@ class RegisterViewController: UIViewController {
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
         }
+        
+        
+        
     }
         
     override func viewDidLoad() {
