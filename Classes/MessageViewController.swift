@@ -50,8 +50,9 @@ class MessageViewController: JSQMessagesViewController {
                 let lName = (dictionary["lastName"] as? String)!
                 let mealPlan = (dictionary["mealPlan"] as? Bool)!
                 let mateType = (dictionary["mateType"] as? String)!
+                let college = (dictionary["college"] as? String)!
                 let userID = (dictionary["uid"] as? String)!
-                let sendingUser = SearchUsers(firstName: fName, lastName: lName, mealPlan: mealPlan, mateType: mateType, uid: userID)
+                let sendingUser = SearchUsers(firstName: fName, lastName: lName, mealPlan: mealPlan, mateType: mateType, college: college, uid: userID)
                 self.senderUser = sendingUser
             }
         })
