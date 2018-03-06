@@ -15,7 +15,7 @@ struct SearchUsers {
     let mealPlan: Bool
     let mateType: String
     let college: String
-    let searchUid: String
+    let uid: String
     let ref: DatabaseReference?
     
     init() {
@@ -24,18 +24,18 @@ struct SearchUsers {
         self.mealPlan = true
         self.mateType = " "
         self.college = " "
-        self.searchUid = " "
+        self.uid = " "
         self.ref = nil
     }
     
     init(firstName: String, lastName: String, mealPlan: Bool,
-         mateType: String, college:String, searchUid:String){//, imgProfilePic: UIImageView) {
+         mateType: String, college:String, uid:String){//, imgProfilePic: UIImageView) {
         self.firstName = firstName
         self.lastName = lastName
         self.mealPlan = mealPlan
         self.mateType = mateType
         self.college = college
-        self.searchUid = searchUid
+        self.uid = uid
         self.ref = nil
     }
     
@@ -46,7 +46,7 @@ struct SearchUsers {
         mealPlan = (snapshotValue["mealPlan"] as? Bool)!
         mateType = snapshotValue["mateType"] as! String
         college = snapshotValue["college"] as! String
-        searchUid = snapshotValue["uid"] as! String
+        uid = snapshotValue["uid"] as! String
         ref = snapshot.ref
     }
     
@@ -57,7 +57,7 @@ struct SearchUsers {
             "mealPlan": mealPlan as Any,
             "mateType": mateType as Any,
             "college": college as Any,
-            "searchUid": searchUid as Any
+            "uid": uid as Any
         ]
     }
 }
