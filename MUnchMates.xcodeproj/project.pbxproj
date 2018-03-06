@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		237F89DF9EF5E316BD3E7433 /* Pods_MUnchMates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16A7AE623155DB055339E71C /* Pods_MUnchMates.framework */; };
+		49890AEE20154E050035427E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49890AED20154E050035427E /* Constants.swift */; };
 		49C08FF81FEB45B700AFB599 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C08FF71FEB45B700AFB599 /* MessageViewController.swift */; };
 		94188BA02039185100AE5F9A /* FilterStructCollege.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94188B9F2039185100AE5F9A /* FilterStructCollege.swift */; };
 		942868741FE32DE5009557C9 /* SearchUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942868731FE32DE5009557C9 /* SearchUsers.swift */; };
@@ -47,6 +48,8 @@
 /* Begin PBXFileReference section */
 		16A7AE623155DB055339E71C /* Pods_MUnchMates.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MUnchMates.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		19F86FB723A230B3435610C4 /* Pods-MUnchMates.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUnchMates.release.xcconfig"; path = "Pods/Target Support Files/Pods-MUnchMates/Pods-MUnchMates.release.xcconfig"; sourceTree = "<group>"; };
+		496DA4BF20154B8A00E8FDF5 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		49890AED20154E050035427E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		49C08FF71FEB45B700AFB599 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageViewController.swift; path = Classes/MessageViewController.swift; sourceTree = "<group>"; };
 		94188B9F2039185100AE5F9A /* FilterStructCollege.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterStructCollege.swift; sourceTree = "<group>"; };
 		942868731FE32DE5009557C9 /* SearchUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUsers.swift; sourceTree = "<group>"; };
@@ -127,6 +130,8 @@
 		};
 		94D08E7A1FE8B83D00E1F48F /* Products */ = {
 			isa = PBXGroup;
+			children = (
+			);
 			name = Products;
 			sourceTree = "<group>";
 		};
@@ -134,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				942868731FE32DE5009557C9 /* SearchUsers.swift */,
+				49890AED20154E050035427E /* Constants.swift */,
 				94F487F4202824B000E3444F /* SearchUsersProfilePic.swift */,
 				94F487F720282FE100E3444F /* SearchUsersUid.swift */,
 				9447308F2042731A00E13DC0 /* clubsOrgsStruct.swift */,
@@ -151,6 +157,7 @@
 		94F8FCBF1F8B406100663F8C = {
 			isa = PBXGroup;
 			children = (
+				496DA4BF20154B8A00E8FDF5 /* Bridging-Header.h */,
 				94F8FCE01F8B528200663F8C /* Classes */,
 				94D3F90A1FD39554004D3369 /* Models */,
 				94F8FCCA1F8B406100663F8C /* MUnchMates */,
@@ -328,6 +335,8 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-MUnchMates/Pods-MUnchMates-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -336,6 +345,8 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -361,6 +372,7 @@
 				94606E9E1FE8B6DA00C0AA8E /* EditProfileViewController.swift in Sources */,
 				94606EA11FE8B6DA00C0AA8E /* SearchListTableViewCell.swift in Sources */,
 				945BC85320394D42000538D9 /* FilterStructMateType.swift in Sources */,
+				49890AEE20154E050035427E /* Constants.swift in Sources */,
 				94606E9B1FE8B6DA00C0AA8E /* SearchListViewController.swift in Sources */,
 				49C08FF81FEB45B700AFB599 /* MessageViewController.swift in Sources */,
 				94606EA01FE8B6DA00C0AA8E /* RegisterViewController.swift in Sources */,
@@ -524,6 +536,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MUnchMates.MUnchMates;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 			};
@@ -539,6 +552,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MUnchMates.MUnchMates;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 			};
