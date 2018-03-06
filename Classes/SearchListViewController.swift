@@ -144,6 +144,7 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
     var lastName:String = " "
     var mealPlan:Bool = true
     var mateType:String = " "
+    var userID:String = " "
     var imgProfilePic:UIImageView? = nil
     
     //added by awebber to add c
@@ -152,10 +153,11 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         lastName = self.users[indexPath.row].lastName
         mealPlan = self.users[indexPath.row].mealPlan
         mateType = self.users[indexPath.row].mateType
+        userID = self.users[indexPath.row].uid
         //imgProfilePic = self.usersProfilePic[indexPath.row].imgProfilePic
         //searchUid = self.usersUid[indexPath.row].searchUid
         
-        selectedUser = SearchUsers(firstName: firstName, lastName: lastName,  mealPlan: mealPlan, mateType: mateType)
+        selectedUser = SearchUsers(firstName: firstName, lastName: lastName,  mealPlan: mealPlan, mateType: mateType, uid: userID)
         //selectedUserProfilePic = SearchUsersProfilePic(imgProfilePic: imgProfilePic!)
         //selectedUserUid = SearchUsersUid(searchUid:searchUid)
         
