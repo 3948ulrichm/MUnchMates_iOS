@@ -176,6 +176,20 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     @IBAction func btnBack(_ sender: Any) {
     
+    @IBAction func btnMessagePressed(_ sender: Any) {
+//        let vc = segue.destination as! MessageViewController
+//        vc.toUser = userDetails
+        
+        let myVC = storyboard?.instantiateViewController(withIdentifier: "Message") as! MessageViewController
+        myVC.toUser = userDetails
+        self.present(myVC, animated: true)
+        
+//        if let navigator = navigationController {
+//            navigator.pushViewController(myVC, animated: true)
+//        }
+    }
+    
+    
         var mateTypeSearch:String = filterDataProfile.mateTypeSearch!
         var collegeSearch:String = filterDataProfile.collegeSearch!
         var mealPlanSearch:String = filterDataProfile.mealPlanSearch!
@@ -201,5 +215,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
 }
 
