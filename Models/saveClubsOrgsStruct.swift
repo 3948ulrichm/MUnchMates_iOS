@@ -1,5 +1,5 @@
 //
-//  clubsOrgsStruct.swift
+//  saveClubsOrgsStruct.swift
 //  MUnchMates
 //
 //  Created by Michael Ulrich on 2/24/18.
@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-struct clubsOrgsStruct {
+struct saveClubsOrgsStruct {
     let clubsOrgsName: String
     let clubsOrgsId: String
     let ref: DatabaseReference?
@@ -40,4 +40,3 @@ struct clubsOrgsStruct {
         ]
     }
 }
-
