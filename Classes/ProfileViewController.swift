@@ -44,7 +44,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     ////////////LOAD INFORMATION TO SCREEN///////////////////
     override func viewWillAppear(_ animated: Bool) {
 
-        let uid:String = userDetails.searchUid
+        let uid:String = userDetails.uid
 
         //display clubsOrgs
         dataRef.child("USERS/\(uid)/clubsOrgs/").queryOrdered(byChild:"clubsOrgsName").observe(.value, with:
