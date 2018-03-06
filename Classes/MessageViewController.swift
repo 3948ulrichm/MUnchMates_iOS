@@ -16,10 +16,14 @@ class MessageViewController: JSQMessagesViewController {
     @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var sideView: UIView!
     
+    var toUser = SearchUsers()
+    
     var messages = [JSQMessage]()
     var senderUser = SearchUsers()
     let uid = Auth.auth().currentUser?.uid
     let user = Auth.auth().currentUser
+    let nameT = Auth.auth().currentUser?.displayName
+    var conversationID: Int?
     
     lazy var outgoingBubble: JSQMessagesBubbleImage = {
         return JSQMessagesBubbleImageFactory()!.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleBlue())
@@ -44,22 +48,26 @@ class MessageViewController: JSQMessagesViewController {
             {
                 let fName = (dictionary["firstName"] as? String)! // + " " + (dictionary["lastName"] as? String)!
                 let lName = (dictionary["lastName"] as? String)!
-                var SENDIT = SearchUsers(firstName: fName, lastName: lName)
-                self.senderUser = SENDIT
-            
+                let mealPlan = (dictionary["mealPlan"] as? Bool)!
+                let mateType = (dictionary["mateType"] as? String)!
+                let userID = (dictionary["uid"] as? String)!
+                let sendingUser = SearchUsers(firstName: fName, lastName: lName, mealPlan: mealPlan, mateType: mateType, uid: userID)
+                self.senderUser = sendingUser
             }
         })
         
-        if  let id = defaults.string(forKey: "jsq_id"),
-            let name = defaults.string(forKey: "jsq_name")
+        
+        
+        if  let id = uid//defaults.string(forKey: "jsq_id"),
+            //let name = senderUser.firstName//defaults.string(forKey: "jsq_name")
         {
             senderId = id
-            senderDisplayName = name
+            senderDisplayName = user?.displayName//user?.email
         }
         else
         {
             senderId = uid//String(arc4random_uniform(999999))
-            senderDisplayName = senderUser.firstName
+            senderDisplayName = user?.displayName
 
             defaults.set(senderId, forKey: "jsq_id")
             //defaults.set(senderDisplayName, forKey: "jsq_id")
@@ -67,21 +75,32 @@ class MessageViewController: JSQMessagesViewController {
 
             showDisplayNameDialog()
         }
-
-        title = "Chat: \(senderDisplayName!)"
         
+        title = "Chat: \(senderDisplayName!)"
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showDisplayNameDialog))
         tapGesture.numberOfTapsRequired = 1
-        
+
         navigationController?.navigationBar.addGestureRecognizer(tapGesture)
-        
+
         inputToolbar.contentView.leftBarButtonItem = nil
         collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
         
-        //observe new messages (populate)
-        let query = Constants.refs.databaseChats.queryLimited(toLast: 10)
+        if(toUser.uid == "1dcXCrbu1sMfeV8X8WrBJErpmQS2"){
+            conversationID = 3
+        }else{
+            conversationID = 1
+        }
+        //1dcXCrbu1sMfeV8X8WrBJErpmQS2
         
+        //conversationID = 1
+        
+        //observe new messages (populate)
+        //change ref to point to conversation if found, or make new one
+        //let query = Constants.refs.databaseChats.queryLimited(toLast: 10)
+        let query = Constants.refs.databaseRoot.child("CONVERSATIONS/\(conversationID!)/messages/")
+
         _ = query.observe(.childAdded, with: { [weak self] snapshot in
             
             if  let data        = snapshot.value as? [String: String],
@@ -98,6 +117,8 @@ class MessageViewController: JSQMessagesViewController {
                 }
             }
         })
+        
+        
         
         //for menu
         blurView.layer.cornerRadius = 15
@@ -122,11 +143,11 @@ class MessageViewController: JSQMessagesViewController {
             {
                 textField.text = name
             }
-            else
-            {
-                let names = ["Ford", "Arthur", "Zaphod", "Trillian", "Slartibartfast", "Humma Kavula", "Deep Thought"]
-                textField.text = names[Int(arc4random_uniform(UInt32(names.count)))]
-            }
+//            else
+//            {
+//                let names = ["Ford", "Arthur", "Zaphod", "Trillian", "Slartibartfast", "Humma Kavula", "Deep Thought"]
+//                textField.text = names[Int(arc4random_uniform(UInt32(names.count)))]
+//            }
         }
         
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self, weak alert] _ in
@@ -177,7 +198,8 @@ class MessageViewController: JSQMessagesViewController {
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!)
     {
-        let ref = Constants.refs.databaseChats.childByAutoId()
+        //change ref to point to correct conversation
+        let ref = Constants.refs.databaseRoot.child("CONVERSATIONS/\(conversationID!)/messages/").childByAutoId()
         
         let message = ["sender_id": senderId, "name": senderDisplayName, "text": text]
         

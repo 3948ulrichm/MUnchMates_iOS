@@ -19,5 +19,19 @@ class ProfileViewController: UIViewController {
         lblNameProfileSearch.text = userDetails.firstName + " " + userDetails.lastName
     }
     
+    @IBAction func btnMessagePressed(_ sender: Any) {
+//        let vc = segue.destination as! MessageViewController
+//        vc.toUser = userDetails
+        
+        let myVC = storyboard?.instantiateViewController(withIdentifier: "Message") as! MessageViewController
+        myVC.toUser = userDetails
+        self.present(myVC, animated: true)
+        
+//        if let navigator = navigationController {
+//            navigator.pushViewController(myVC, animated: true)
+//        }
+    }
+    
+    
 }
 
