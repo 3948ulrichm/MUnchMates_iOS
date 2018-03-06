@@ -17,8 +17,8 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
     let storageRef = Storage.storage()
     let dataRef = Database.database()
     let cellId = "SearchListCell"
-    let uid = Auth.auth().currentUser?.uid
-//    let searchUid:String = ""
+    let uidSelf = Auth.auth().currentUser?.uid
+//    let uid:String = ""
     var userProfileImage: UIImage?
     
     //filterData struct
@@ -243,7 +243,7 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         self.testLabel.text = String(filterMateType.count)
 
         
-        //Populate SearchUsersUid Struct (TODO - get pictures to show up based on uid)
+        //Populate SearchUsersUid Struct (TODO - get pictures to show up based on uidSelf)
 //        dataRef.reference(withPath: "USERS").observeSingleEvent(of: .value, with:
 //            { snapshot in
 //                var fireAccountArrayUid: [SearchUsersUid] = []
@@ -261,21 +261,21 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
 //        })
         
         //Populate SearchUsersProfilePic Struct
-//        let uidSearchImage = dataRef.reference(withPath: "USERS/").value("uid") as? String
+//        let uidSearchImage = dataRef.reference(withPath: "USERS/").value("uidSelf") as? String
 //        return uidSearchImage!
         
-        let profileImgRef = storageRef.reference().child("imgProfilePictures/\(self.uid!).png")
+        let profileImgRef = storageRef.reference().child("imgProfilePictures/\(self.uidSelf!).png")
         profileImgRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
             if error != nil {
                 let errorDesc = error?.localizedDescription
                 if errorDesc == "Image does not exist." {
-                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
-                    let imagePath = "imgProfilePictures/\(self.uid!).png"
+                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uidSelf!).png")!) as Data?
+                    let imagePath = "imgProfilePictures/\(self.uidSelf!).png"
                     
                     let metaData = StorageMetadata()
                     metaData.contentType = "image/png"
                     
-                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
+                    self.userProfileImage = UIImage(named: "\(self.uidSelf!).png")
                 }
             } else {
                 self.userProfileImage = UIImage(data: data!)
@@ -327,7 +327,7 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     
         //Display profilePic
-        //let imgProfilePicUid = userinfo.uid
+        //let imgProfilePicUid = userinfo.uidSelf
         cell.imgProfilePic.image = userProfileImage
         return cell
 
@@ -339,7 +339,7 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
     var mealPlan:Bool = true
     var college:String = " "
     var mateType:String = " "
-    var searchUid:String = " "
+    var uid:String = " "
     var imgProfilePic:UIImageView? = nil
     
     //added by awebber to add c
@@ -349,11 +349,11 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         mealPlan = self.users[indexPath.row].mealPlan
         mateType = self.users[indexPath.row].mateType
         //imgProfilePic = self.usersProfilePic[indexPath.row].imgProfilePic
-        searchUid = self.users[indexPath.row].searchUid
+        uid = self.users[indexPath.row].uid
         
-        selectedUser = SearchUsers(firstName: firstName, lastName: lastName,  mealPlan: mealPlan, mateType: mateType, college:college,searchUid:searchUid)
+        selectedUser = SearchUsers(firstName: firstName, lastName: lastName,  mealPlan: mealPlan, mateType: mateType, college:college,uid:uid)
         //selectedUserProfilePic = SearchUsersProfilePic(imgProfilePic: imgProfilePic!)
-        //selectedUserUid = SearchUsersUid(searchUid:searchUid)
+        //selectedUserUid = SearchUsersUid(uid:uid)
         
         var mateTypeSearch:String = filterDataSearch.mateTypeSearch!
         var collegeSearch:String = filterDataSearch.collegeSearch!
