@@ -1074,7 +1074,7 @@
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="plain" id="x7I-iL-hL9">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ym8-RR-2y4">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ym8-RR-2y4">
                                                 <rect key="frame" x="311" y="7" width="48" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Cancel"/>
