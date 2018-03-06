@@ -1,27 +1,25 @@
 //
-//  AddDeleteClubsOrgsTableViewCell.swift
+//  ProfileTableViewCell.swift
 //  MUnchMates
 //
-//  Created by Michael Ulrich on 1/30/18.
+//  Created by Michael Ulrich on 3/2/18.
 //  Copyright © 2018 Michael Ulrich. All rights reserved.
 //
 
 import UIKit
 
-class AddDeleteClubsOrgsTableViewCell: UITableViewCell {
+class ProfileTableViewCell: UITableViewCell {
     
     @IBOutlet weak var lblClubsOrgs: UILabel!
-    @IBOutlet weak var switchClubsOrgs: UISwitch!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
     }
-    
 }

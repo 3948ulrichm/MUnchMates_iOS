@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPickerViewDataSource,  UIImagePickerControllerDelegate,  UINavigationControllerDelegate {
+class EditProfileViewController: UIViewController,  UITableViewDelegate, UITableViewDataSource,  UIImagePickerControllerDelegate,  UINavigationControllerDelegate {
     
     //MARK: global variables
     var mateTypeBool = false
@@ -17,7 +17,18 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
     var countrows: Int?
     var clubsOrgsDetails = clubsOrgsStruct()
     var selfUserClubsOrgs = clubsOrgsStruct()
+    let ref = Database.database()
+    let cellId = "EditProfileButtonName"
+    //mateType
+    var mateTypeStruct: [FilterStructMateType] = []
+    var selectedFilterValueMateType = FilterStructMateType()
+    //college
+    var collegeStruct: [FilterStructCollege] = []
+    var selectedFilterValueCollege = FilterStructCollege()
     
+    //store clubs orgs to be saved
+    var saveClubsOrgs: [saveClubsOrgsStruct] = []
+    var saveClubsOrgsEditProfile = saveClubsOrgsStruct()
     
     //create outlets
     @IBOutlet weak var tbFirstName: UITextField!
@@ -25,30 +36,120 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
     @IBOutlet weak var imgProfilePicture: UIImageView!
     @IBOutlet weak var btnMateTypePV: UIButton!
     @IBOutlet weak var btnCollegePV: UIButton!
-    @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var viewPickerView: UIView!
     @IBOutlet weak var tbCity: UITextField!
     @IBOutlet weak var tbStateCountry: UITextField!
+    @IBOutlet weak var tableView: UITableView!
     
     
     //unhide pickerView
         //mateType
     @IBAction func btnMateTypeAction(_ sender: Any) {
-        if mateTypeBool == false {
-            mateTypeBool = true
-        }
+        mateTypeBool = true
+        collegeBool = false
         if viewPickerView.isHidden == true {
             viewPickerView.isHidden = false
+        }
+        if mateTypeBool == true
+        {
+            ref.reference(withPath: "LISTS/mateTypes").queryOrdered(byChild:"mateTypeId").observe(.value, with:
+                { snapshot in
+                    
+                    var fireAccountArray: [FilterStructMateType] = []
+                    
+                    for fireAccount in snapshot.children {
+                        let fireAccount = FilterStructMateType(snapshot: fireAccount as! DataSnapshot)
+                        fireAccountArray.append(fireAccount)
+                    }
+                    
+                    self.mateTypeStruct = fireAccountArray
+                    self.tableView.delegate = self
+                    self.tableView.dataSource = self
+                    self.tableView.reloadData()
+            })
         }
     }
     
         //college
     @IBAction func btnCollegeAction(_ sender: Any) {
-        if collegeBool == false {
-            collegeBool = true
-        }
+        mateTypeBool = false
+        collegeBool = true
         if viewPickerView.isHidden == true {
             viewPickerView.isHidden = false
+        }
+        if collegeBool == true
+        {
+            ref.reference(withPath: "LISTS/colleges").queryOrdered(byChild:"collegeName").observe(.value, with:
+                { snapshot in
+                    
+                    var fireAccountArray: [FilterStructCollege] = []
+                    
+                    for fireAccount in snapshot.children {
+                        let fireAccount = FilterStructCollege(snapshot: fireAccount as! DataSnapshot)
+                        fireAccountArray.append(fireAccount)
+                    }
+                    
+                    self.collegeStruct = fireAccountArray
+                    
+                    self.tableView.delegate = self
+                    self.tableView.dataSource = self
+                    self.tableView.reloadData()
+            })
+        }
+    }
+    
+    //TableView
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    //number of rows
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if mateTypeBool == true {
+            return mateTypeStruct.count
+        }
+        else if collegeBool == true {
+            return collegeStruct.count
+        }
+        else {
+            return 0
+        }
+    }
+    
+    //What is in each cell?
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! EditProfileViewCell
+        if mateTypeBool == true {
+            let mateType = self.mateTypeStruct[indexPath.row]
+            cell.lblEditProfileButtonName?.text = mateType.mateTypeName
+        }
+        else if collegeBool == true {
+            let college = self.collegeStruct[indexPath.row]
+            cell.lblEditProfileButtonName?.text = college.collegeName
+        }
+        
+        return cell
+        
+    }
+    
+    var mateTypeName:String = " "
+    var collegeName:String = " "
+    
+    //What happens if you select a row
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if mateTypeBool == true {
+            mateTypeName = self.mateTypeStruct[indexPath.row].mateTypeName!
+            selectedFilterValueMateType = FilterStructMateType(mateTypeName:mateTypeName)
+            btnMateTypePV.setTitle(mateTypeName, for: .normal)
+            viewPickerView.isHidden = true
+            mateTypeBool = false
+        }
+        else if collegeBool == true {
+            collegeName = self.collegeStruct[indexPath.row].collegeName!
+            selectedFilterValueCollege = FilterStructCollege(collegeName:collegeName)
+            btnCollegePV.setTitle(collegeName, for: .normal)
+            viewPickerView.isHidden = true
+            collegeBool = false
         }
     }
     
@@ -75,6 +176,7 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
             mealPlanBool = false
         }
     }
+
     
     //change profile image
     @IBAction func btnChangeProfileImage(_ sender: Any) {
@@ -108,9 +210,7 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
     
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        
-        
+
         //create holder variable for chosen image
         var chosenImage = UIImage()
         //save image into variable
@@ -128,80 +228,11 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
     }
     
     
-
-
-    
-//    pvCollege.selectRow(3, inComponent: 0, animated: true)
-//    pvMateType.selectRow(5, inComponent: 0, animated: true)
-    
-    //set up picker views
-    let mateTypes = [
-        " ",
-        "Freshman",
-        "Sophomore",
-        "Junior",
-        "Senior",
-        "Graudate Student",
-        "Professor",
-        "Administrator",
-        "Jesuit",
-        "Other"
-    ]
-    
-    let colleges = [
-        " ",
-        "College of Arts and Sciences",
-        "College of Business",
-        "College of Communication",
-        "College of Education",
-        "College of Engineering",
-        "College of Health Sciences",
-        "College of Nursing"//,
-//        "College of __",
-//        "College of __"
-    ]
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int
-    {
-        return 1
-    }
-    
-    func pickerView(_ pickerView:UIPickerView, numberOfRowsInComponent component: Int) -> Int
-    {
-        var countrows : Int? = 10
-        return countrows!
-    }
-    
-    func pickerView(_ pickerView:UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
-    {
-        var titleRow: String? = mateTypes[row]
-
-        if collegeBool == true {
-            titleRow! = colleges[row]
-        }
-        return titleRow!
-    }
-    
-    func pickerView(_ pickerView:UIPickerView, didSelectRow row: Int, inComponent component: Int)
-    {
-        
-    }
     
     @IBAction func btnSelect(_ sender: Any) {
-        
         viewPickerView.isHidden = true
-        
-        //mateType
-        if mateTypeBool == true {
-            btnMateTypePV.setTitle(mateTypes[pickerView.selectedRow(inComponent: 0)], for: .normal)
-            mateTypeBool = false
-        }
-        
-        //college
-        if collegeBool == true {
-            btnCollegePV.setTitle(colleges[pickerView.selectedRow(inComponent: 0)], for: .normal)
-            collegeBool = false
-        }
+        mateTypeBool = false
+        collegeBool = false
     }
     
   
@@ -221,34 +252,26 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
                 var city = (dictionary["city"] as? String)!
                 var stateCountry = (dictionary["stateCountry"] as? String)!
 
-                //set switches
-                //TODO: Load swith on/off based on t/f/ value in Db
-                if mealPlan == true && mealPlan != nil {
-                    self.switchMealPlanOutlet.setOn(true,
-                                                    animated: false)
-                }
-                else {
-                    self.switchMealPlanOutlet.setOn(false,
-                                                    animated: false)
-                }
-                //                    else
-                //                    {
-                //                    self.switchMealPlanOutlet.isOff
-                //                    }
+                //set switches and variables
+                    //mealPlan Switches
+                    if mealPlan == true && mealPlan != nil {
+                        self.switchMealPlanOutlet.setOn(true, animated: false)
+                        self.mealPlanBool = true
+                    }
+                    else {
+                        self.switchMealPlanOutlet.setOn(false, animated: false)
+                        self.mealPlanBool = false
+                    }
                 
-                if muteMode == true {
-                    self.switchMuteModeOutlet.setOn(true,
-                                                    animated: false)
-                }
-                else {
-                    self.switchMuteModeOutlet.setOn(false,
-                                                    animated: false)
-                }
-                
-                //                    else
-                //                    {
-                //                        switchMuteModeOutlet.isOff
-                //                    }
+                    //muteMode switches
+                    if muteMode == true {
+                        self.switchMuteModeOutlet.setOn(true, animated: false)
+                        self.muteModeBool = true
+                    }
+                    else {
+                        self.switchMuteModeOutlet.setOn(false, animated: false)
+                        self.muteModeBool = false
+                    }
                 
                 
                 //String assignments
@@ -256,106 +279,14 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
                     self.tbLastName.text = "\(lastName)"
                     self.tbCity.text = "\(city)"
                     self.tbStateCountry.text = "\(stateCountry)"
-
-                
-                //picker view assignments
-                    //college pv
-                    if (college == "College of Arts and Sciences"){
-                        self.pickerView.selectRow(1, inComponent: 0, animated: true)
-                    }
-                    else if (college == "College of Business"){
-                        self.pickerView.selectRow(2, inComponent: 0, animated: true)
-                    }
-                    else if (college == "College of Communication"){
-                        self.pickerView.selectRow(3, inComponent: 0, animated: true)
-                    }
-                    else if (college == "College of Education"){
-                        self.pickerView.selectRow(4, inComponent: 0, animated: true)
-                    }
-                    else if (college == "College of Engineering"){
-                        self.pickerView.selectRow(5, inComponent: 0, animated: true)
-                    }
-                    else if (college == "College of Health Sciences"){
-                        self.pickerView.selectRow(6, inComponent: 0, animated: true)
-                    }
-                    else if (college == "College of Nursing"){
-                        self.pickerView.selectRow(7, inComponent: 0, animated: true)
-                    }
-                    else {
-                        self.pickerView.selectRow(0, inComponent: 0, animated: true)
-                    }
-                
-                    //mateType pv
-                    if (mateType == "Freshman"){
-                        self.pickerView.selectRow(1, inComponent: 0, animated: true)
-                    }
-                    else if (mateType == "Sophomore"){
-                        self.pickerView.selectRow(2, inComponent: 0, animated: true)
-                    }
-                    else if (mateType == "Junior"){
-                        self.pickerView.selectRow(3, inComponent: 0, animated: true)
-                    }
-                    else if (mateType == "Senior"){
-                        self.pickerView.selectRow(4, inComponent: 0, animated: true)
-                    }
-                    else if (mateType == "Graudate Student"){
-                        self.pickerView.selectRow(5, inComponent: 0, animated: true)
-                    }
-                    else if (mateType == "Professor"){
-                        self.pickerView.selectRow(6, inComponent: 0, animated: true)
-                    }
-                    else if (mateType == "Administrator"){
-                        self.pickerView.selectRow(7, inComponent: 0, animated: true)
-                    }
-                    else if (mateType == "Jesuit"){
-                        self.pickerView.selectRow(8, inComponent: 0, animated: true)
-                    }
-                    else if (mateType == "Other"){
-                        self.pickerView.selectRow(9, inComponent: 0, animated: true)
-                    }
-                    else {
-                    self.pickerView.selectRow(0, inComponent: 0, animated: true)
-                    }
-            }
+        }
         })
         
 
-        
-
-        
-        
-//        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).jpg")
-//        profileImgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-//            if error != nil {
-//                let errorDesc = error?.localizedDescription
-//                if errorDesc == "Image does not exist." {
-//                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).jpg")!) as Data?
-//                    let imagePath = "imgProfilePictures/\(self.uid!).jpg"
-//
-//                    let metaData = StorageMetadata()
-//                    metaData.contentType = "image/jpg"
-//
-//                    self.storageRef.child(imagePath)
-//                        .putData(profileImageData!, metadata: metaData) { (metadata, error) in
-//                            if let error = error {
-//                                print ("Uploading Error: \(error)")
-//                                return
-//                            }
-//                    }
-//                    self.userProfileImage = UIImage(named: "\(self.uid!).jpg")
-//                } else {
-//                    return
-//                }
-//            } else {
-//                self.userProfileImage = UIImage(data: data!)
-//                self.imgProfilePicture.image = self.userProfileImage
-//            }
-//        }
-        
     
         
-        pickerView.delegate = self
-        pickerView.dataSource = self
+//        pickerView.delegate = self
+//        pickerView.dataSource = self
         
     }
     
@@ -368,32 +299,26 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
             {
                 var mateType = (dictionary["mateType"] as? String)!
                 var college = (dictionary["college"] as? String)!
-                var mealPlan = (dictionary["mealPlan"] as? Bool)!
-                var muteMode = (dictionary["muteMode"] as? Bool)!
-
-                //Button assignments
-                    self.btnCollegePV.setTitle("\(college)", for: .normal)
-                    self.btnMateTypePV.setTitle("\(mateType)", for: .normal)
                 
-                //switch assignments
-                if mealPlan == true {
-                    
-                }
+                //Button assignments
+                self.btnCollegePV.setTitle("\(college)", for: .normal)
+                self.btnMateTypePV.setTitle("\(mateType)", for: .normal)
                 
             }
         })
+        
 
         //load profile image
-        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).jpg")
+        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
         profileImgRef.getData(maxSize: 50 * 1024 * 1024) { data, error in
             if error != nil {
                 let errorDesc = error?.localizedDescription
                 if errorDesc == "Image does not exist." {
-                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).jpg")!) as Data?
-                    let imagePath = "imgProfilePictures/\(self.uid!).jpg"
+                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
+                    let imagePath = "imgProfilePictures/\(self.uid!).png"
                     
                     let metaData = StorageMetadata()
-                    metaData.contentType = "image/jpg"
+                    metaData.contentType = "image/png"
                     
                     self.storageRef.child(imagePath)
                         .putData(profileImageData!, metadata: metaData) { (metadata, error) in
@@ -402,7 +327,7 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
                                 return
                             }
                     }
-                    self.userProfileImage = UIImage(named: "\(self.uid!).jpg")
+                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
                 } else {
                     return
                 }
@@ -425,9 +350,7 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
         
 
         viewPickerView.isHidden = true
-        
-        pickerView.delegate = self
-        pickerView.dataSource = self
+    
         
         super.viewDidLoad()
 
@@ -450,8 +373,8 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
     
         //update image
             let metaData = StorageMetadata()
-            metaData.contentType = "image/jpg"
-            let imgProfilePictureRef =  storageRef.child("imgProfilePictures/\(self.uid!).jpg")
+            metaData.contentType = "image/png"
+            let imgProfilePictureRef =  storageRef.child("imgProfilePictures/\(self.uid!).png")
             
             if var uploadData = UIImagePNGRepresentation(self.imgProfilePicture.image!) {
                 
@@ -473,13 +396,14 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
         var email = Auth.auth().currentUser?.email
         var muteMode = self.muteModeBool
         var mealPlan = self.mealPlanBool
-        var college = colleges[pickerView.selectedRow(inComponent: 0)]
-        var mateType = mateTypes[pickerView.selectedRow(inComponent: 0)]
+        var college = self.btnCollegePV.currentTitle
+        var mateType = self.btnMateTypePV.currentTitle
         var city = self.tbCity.text
         var stateCountry = self.tbStateCountry.text
             
         let userValues:[String:Any] =
-            ["firstName": firstName,
+            [
+             "firstName": firstName,
              "lastName": lastName,
              "muteMode" : muteMode,
              "mealPlan" : mealPlan,
@@ -494,15 +418,15 @@ class EditProfileViewController: UIViewController,  UIPickerViewDelegate, UIPick
             dataRef.reference().child("USERS/\(uid!)").setValue(userValues)
             
             //Insert clubs org info into Db
-            let cnameValue = clubsOrgsDetails.cname
-            let cidValue = clubsOrgsDetails.cid
+            let clubsOrgsNameValue = clubsOrgsDetails.clubsOrgsName
+            let clubsOrgsIdValue = clubsOrgsDetails.clubsOrgsId
             let clubsOrgsValues:[String:Any] =
                 [
-                    "cname":cnameValue,
-                    "cid":cidValue
+                    "clubsOrgsName":clubsOrgsNameValue,
+                    "clubsOrgsId":clubsOrgsIdValue
                 ]
             
-            dataRef.reference().child("USERS/\(uid!)/clubsOrgs/\(cidValue)/").setValue(clubsOrgsValues)
+            dataRef.reference().child("USERS/\(uid!)/clubsOrgs/\(clubsOrgsIdValue)/").setValue(clubsOrgsValues)
             
         
             //segue to PledgeViewController
