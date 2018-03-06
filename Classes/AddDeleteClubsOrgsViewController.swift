@@ -12,16 +12,31 @@ import Firebase
 class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     
+    //@IBOutlet weak var switchClubsOrgs: UISwitch!
+    
     //MARK: Properties
     let ref = Database.database()
     let cellId = "AddDeleteClubsOrgsCell"
-    var clubsOrgs: [clubsOrgsStruct] = []
-    var selectedClubsOrgs = clubsOrgsStruct()
     let uid = Auth.auth().currentUser?.uid
+    
+    //this is to load ALL clubsOrgs to the tableView
+    var clubsOrgs: [clubsOrgsStruct] = []
+    var clubsOrgsAddDelete = clubsOrgsStruct()
+    
+    //this is used to set checkmarks with data from to send clubsorgs from AddDelete to EditProfile
+    var userClubsOrgs: [userClubsOrgsStruct] = []
+    var userClubsOrgsAddDelete = userClubsOrgsStruct()
+    
+    //saving clubs orgs. this is used to send checkmarked data to send clubsorgs from AddDelete to EditProfile
+    var saveClubsOrgs: [saveClubsOrgsStruct] = []
+    var saveClubsOrgsAddDelete = saveClubsOrgsStruct()
+    
+
+
 
     override func viewDidLoad() {
         
-        ref.reference(withPath: "LISTS/clubsOrgs").queryOrdered(byChild:"cname").observe(.value, with:
+        ref.reference(withPath: "LISTS/clubsOrgs").queryOrdered(byChild:"clubsOrgsName").observe(.value, with:
             { snapshot in
                 
                 var fireAccountArray: [clubsOrgsStruct] = []
@@ -40,7 +55,7 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
         
         
         //TODO - load checkmarks for clubs the user has saved
-//        ref.reference(withPath:"USERS/\(uid!)/clubsOrgs/").queryOrdered(byChild:"cname").observe(.value, with:
+//        ref.reference(withPath:"USERS/\(uid!)/clubsOrgs/").queryOrdered(byChild:"clubsOrgsName").observe(.value, with:
 //            { snapshot in
 //
 //                var fireAccountArrayUSERS: [clubsOrgsStruct] = []
@@ -79,17 +94,78 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! AddDeleteClubsOrgsTableViewCell
         let clubOrgInfo = self.clubsOrgs[indexPath.row]
         
+        var clubOrgName = clubOrgInfo.clubsOrgsName
+        var clubOrgId = clubOrgInfo.clubsOrgsId
+
         //Display club / org
-        cell.lblClubsOrgs?.text = clubOrgInfo.cname
+        cell.lblClubsOrgs?.text = clubOrgName
+        
+        //create array with ALL clubs orgs
+        ref.reference(withPath: "USERS/clubsOrgs").observe(.value, with:
+            { snapshot in
+                if let dictionary = snapshot.value as? [String: Any]
+                {
+                var fireAccountArray: [clubsOrgsStruct] = []
+                
+                for fireAccount in snapshot.children {
+                    let fireAccount = clubsOrgsStruct(snapshot: fireAccount as! DataSnapshot)
+                    fireAccountArray.append(fireAccount)
+                }
+                
+                
+                var clubsOrgsName = (dictionary["clubsOrgsName"] as? String)!
+
+                  //set checkmarks and variables
+                  //let checkmark =
+                
+                self.clubsOrgs = fireAccountArray
+                
+                self.tableView.delegate = self
+                self.tableView.dataSource = self
+                self.tableView.reloadData()
+                }
+        })
+        
+        //create array with USER clubs orgs
+        ref.reference(withPath: "USERS/(\(uid!))/clubsOrgs").observe(.value, with:
+            { snapshot in
+                if let dictionary = snapshot.value as? [String: Any]
+                {
+                    var fireAccountArray: [userClubsOrgsStruct] = []
+                    
+                    for fireAccount in snapshot.children {
+                        let fireAccount = userClubsOrgsStruct(snapshot: fireAccount as! DataSnapshot)
+                        fireAccountArray.append(fireAccount)
+                    }
+                    
+                    
+                    var clubsOrgsName = (dictionary["clubsOrgsName"] as? String)!
+                    
+                    self.userClubsOrgs = fireAccountArray
+                    
+                    self.tableView.delegate = self
+                    self.tableView.dataSource = self
+                    self.tableView.reloadData()
+                }
+        })
+        
+        //below was a test that showed using an array and contains we can toggle the switches for each cell depending if the user has save the club in Firebase
+            //var arrayTest = ["Kappa Sigma", "Midnight Run"]
+            //if arrayTest.contains(clubOrgName) == true {
+        
+        clubsOrgs.forEach {_ in
+            //TODO - turn switch on if clubsOrgs contains value from userClubsOrgs
+            if clubOrgName == "Kappa Sigma" {
+                cell.switchClubsOrgs.setOn(true, animated: false)
+            }
+        }
         
         return cell
 
-    //TODO - DISPLAY CHECKMARKS IF USER IS IN CLUB
-    
     }
     
-    var cname:String = " "
-    var cid:String = " "
+    var clubsOrgsName:String = " "
+    var clubsOrgsId:String = " "
     
     //What happens if you select a row
     //add checkmarks (youtu.be/5MZ-WJuSdpg)
@@ -100,20 +176,21 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
         else {
             tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
         }
+    
         
-//        cid = self.clubsOrgs[indexPath.row].cid
-//        cname = self.clubsOrgs[indexPath.row].cname
+//        clubsOrgsId = self.clubsOrgs[indexPath.row].clubsOrgsId
+//        clubsOrgsName = self.clubsOrgs[indexPath.row].clubsOrgsName
 //
-//        selectedClubsOrgs = clubsOrgsStruct(cname: cname, cid: cid)
+//        selectedClubsOrgs = clubsOrgsStruct(clubsOrgsName: clubsOrgsName, clubsOrgsId: clubsOrgsId)
 //
 //        performSegue(withIdentifier: "saveClubsOrgs", sender: self)
-        
-    }
+        }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "saveClubsOrgs" {
             let vc = segue.destination as! EditProfileViewController
-            vc.clubsOrgsDetails = selectedClubsOrgs
+            vc.saveClubsOrgsEditProfile = saveClubsOrgsAddDelete
         }
     }
     
@@ -121,5 +198,4 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
         super.didReceiveMemoryWarning()
         
     }
-    
 }

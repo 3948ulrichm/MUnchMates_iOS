@@ -19,9 +19,11 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
     let dataRef = Database.database().reference()
     var userProfileImage: UIImage?
     let uid = Auth.auth().currentUser?.uid
+    let cellId = "ClubsOrgsCell"
+
+    //MARK - struct
     var clubsOrgs: [clubsOrgsStruct] = []
     var selfUserClubsOrgs = clubsOrgsStruct()
-    let cellId = "ClubsOrgsCell"
 
 
     @IBOutlet weak var lblNameProfile: UILabel!
@@ -44,7 +46,7 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewWillAppear(_ animated: Bool) {
         
             //display clubsOrgs
-            dataRef.child("USERS/\(uid!)/clubsOrgs/").queryOrdered(byChild:"cname").observe(.value, with:
+            dataRef.child("USERS/\(uid!)/clubsOrgs/").queryOrdered(byChild:"clubsOrgsName").observe(.value, with:
             { snapshot in
                 
                 var fireAccountArray: [clubsOrgsStruct] = []
@@ -133,16 +135,16 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
         })
         
         //pull profpic
-        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).jpg")
+        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
         profileImgRef.getData(maxSize: 50 * 1024 * 1024) { data, error in
             if error != nil {
                 let errorDesc = error?.localizedDescription
                 if errorDesc == "Image does not exist." {
-                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).jpg")!) as Data?
-                    let imagePath = "imgProfilePictures/\(self.uid!).jpg"
+                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
+                    let imagePath = "imgProfilePictures/\(self.uid!).png"
                     
                     let metaData = StorageMetadata()
-                    metaData.contentType = "image/jpg"
+                    metaData.contentType = "image/png"
                     
                     self.storageRef.child(imagePath)
                         .putData(profileImageData!, metadata: metaData) { (metadata, error) in
@@ -151,7 +153,7 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
                                 return
                             }
                     }
-                    self.userProfileImage = UIImage(named: "\(self.uid!).jpg")
+                    self.userProfileImage = UIImage(named: "\(self.uid!).png")
                 } else {
                     return
                 }
@@ -160,47 +162,8 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
                 self.imgProfilePicture.image = self.userProfileImage
             }
         }
-        
-        
-        //URL method
-//        if let url = NSURL(string: "https...") {
-//            if let data = NSData(contentsOf: url as URL) {
-//                imgProfilePicture.contentMode = UIViewContentMode.scaleAspectFit
-//                imgProfilePicture.image = UIImage(data: data as Data)
-//            }
-//        }
-
-//        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).jpg")
-//        profileImgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-//            if error != nil {
-//                let errorDesc = error?.localizedDescription
-//                if errorDesc == "Image does not exist." {
-//                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).jpg")!) as Data?
-//                    let imagePath = "imgProfilePictures/\(self.uid!).jpg"
-//
-//                    let metadata = StorageMetadata()
-//                    metadata.contentType = "image/jpg"
-//
-//                    self.storageRef.child(imagePath)
-//                        .putData(profileImageData!, metadata: metadata) { (metadata, error) in
-//                            if let error = error {
-//                                print ("Uploading Error: \(error)")
-//                                return
-//                            }
-//                    }
-//                    self.userProfileImage = UIImage(named: "\(self.uid!).jpg")
-//                } else {
-//                    return
-//                }
-//            } else {
-//                self.userProfileImage = UIImage(data: data!)
-//                self.imgProfilePicture.image = self.userProfileImage
-//            }
-//        }
-        
 
 
-        
         }
     
     //table view - clubsOrgs
@@ -217,12 +180,10 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
         let clubOrgInfo = self.clubsOrgs[indexPath.row]
         
         //Display club / org
-        cell.lblClubsOrgs?.text = clubOrgInfo.cname
+        cell.lblClubsOrgs?.text = clubOrgInfo.clubsOrgsName
         return cell
         
     }
-    
-
         
         //What happens if you select a row
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
