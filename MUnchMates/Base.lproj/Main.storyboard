@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Bjt-ZW-QNZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Bjt-ZW-QNZ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -964,7 +964,7 @@
         <!--Add Delete Clubs Orgs View Controller-->
         <scene sceneID="vf1-c0-5Mv">
             <objects>
-                <viewController id="sdv-3H-aPx" customClass="AddDeleteClubsOrgsViewController" customModule="MUnchMates" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="AddDeleteClubsOrgsVC" storyboardIdentifier="AddDeleteClubsOrgsVC" id="sdv-3H-aPx" customClass="AddDeleteClubsOrgsViewController" customModule="MUnchMates" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3Jk-b8-yh1"/>
                         <viewControllerLayoutGuide type="bottom" id="ew5-ik-S0V"/>
@@ -973,7 +973,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8n6-TH-gIO">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="AddDeleteClubsOrgsTV" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8n6-TH-gIO">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -995,6 +995,9 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8P2-Tx-d9M">
                                                     <rect key="frame" x="318" y="8" width="49" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="switchToggleClubsOrgs:" destination="YHh-bJ-SOO" eventType="valueChanged" id="hcl-rf-934"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -1011,14 +1014,9 @@
                                 <color key="barTintColor" red="1" green="0.99998790029999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <items>
                                     <navigationItem id="7ba-Cz-zGH">
-                                        <barButtonItem key="leftBarButtonItem" title="Save" id="o28-Ve-nWs">
+                                        <barButtonItem key="leftBarButtonItem" title="Done" id="o28-Ve-nWs">
                                             <connections>
                                                 <segue destination="qGN-jU-sOB" kind="show" identifier="saveClubsOrgs" id="1dB-j5-7tJ"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="WbB-Yp-N17">
-                                            <connections>
-                                                <segue destination="qGN-jU-sOB" kind="show" id="6zB-AD-dFk"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -1033,7 +1031,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PNc-2m-07Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="986" y="-1144"/>
+            <point key="canvasLocation" x="25" y="-1211"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="dYe-lO-nhV">
@@ -1056,7 +1054,7 @@
         <!--Edit Profile View Controller-->
         <scene sceneID="6XZ-OB-Wpv">
             <objects>
-                <viewController id="qGN-jU-sOB" customClass="EditProfileViewController" customModule="MUnchMates" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditProfileViewController" id="qGN-jU-sOB" customClass="EditProfileViewController" customModule="MUnchMates" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kFr-je-Kaa"/>
                         <viewControllerLayoutGuide type="bottom" id="sTF-0i-pdV"/>
@@ -1077,7 +1075,7 @@
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="plain" id="x7I-iL-hL9">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ym8-RR-2y4">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ym8-RR-2y4">
                                                 <rect key="frame" x="311" y="7" width="48" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Cancel"/>
@@ -1157,7 +1155,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Delete Account"/>
                                 <connections>
-                                    <segue destination="6NC-Pp-O4I" kind="show" id="7Zw-rr-9R0"/>
+                                    <action selector="btnDeleteAccount:" destination="qGN-jU-sOB" eventType="touchUpInside" id="hoj-ED-YMp"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QX8-5Y-wEq" userLabel="View Picker View">
@@ -1359,9 +1357,9 @@
         <image name="tempProfilePic" width="726" height="726"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NoF-RU-zLN"/>
+        <segue reference="1dB-j5-7tJ"/>
         <segue reference="uCM-wr-vth"/>
-        <segue reference="0jO-RF-aqg"/>
-        <segue reference="KaK-5r-LJy"/>
+        <segue reference="tUk-lq-Myf"/>
+        <segue reference="qx5-in-bi8"/>
     </inferredMetricsTieBreakers>
 </document>

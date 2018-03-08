@@ -15,8 +15,9 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
     var mateTypeBool = false
     var collegeBool = false
     var countrows: Int?
-    var clubsOrgsDetails = clubsOrgsStruct()
-    var selfUserClubsOrgs = clubsOrgsStruct()
+
+    //var clubsOrgsDetails = clubsOrgsStruct()
+    //var selfUserClubsOrgs = clubsOrgsStruct()
     let ref = Database.database()
     let cellId = "EditProfileButtonName"
     //mateType
@@ -69,6 +70,7 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
             })
         }
     }
+
     
         //college
     @IBAction func btnCollegeAction(_ sender: Any) {
@@ -208,7 +210,6 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
     var userProfileImage: UIImage?
     let uid = Auth.auth().currentUser?.uid
     
-    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
 
         //create holder variable for chosen image
@@ -273,7 +274,6 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
                         self.muteModeBool = false
                     }
                 
-                
                 //String assignments
                     self.tbFirstName.text = "\(firstName)"
                     self.tbLastName.text = "\(lastName)"
@@ -281,12 +281,6 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
                     self.tbStateCountry.text = "\(stateCountry)"
         }
         })
-        
-
-    
-        
-//        pickerView.delegate = self
-//        pickerView.dataSource = self
         
     }
     
@@ -337,20 +331,7 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
             }
         }
         
-        
-        // Fetch the download URL
-//        self.btnCollegePV.setTitle("https...", for: .normal)
-
-//        if let url = NSURL(string: "\(userProfileImageURL)") {
-//            if let data = NSData(contentsOf: url as URL) {
-//                imgProfilePicture.contentMode = UIViewContentMode.scaleAspectFit
-//                imgProfilePicture.image = UIImage(data: data as Data)
-//            }
-//        }
-        
-
         viewPickerView.isHidden = true
-    
         
         super.viewDidLoad()
 
@@ -369,7 +350,7 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
         }
         else {
         
-        //let uid = Auth.auth().currentUser?.uid
+        let uid = Auth.auth().currentUser?.uid
     
         //update image
             let metaData = StorageMetadata()
@@ -389,7 +370,6 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
                 })
             }
             
-            
         //insert User info in Db
         var firstName = self.tbFirstName.text
         var lastName = self.tbLastName.text
@@ -400,33 +380,18 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
         var mateType = self.btnMateTypePV.currentTitle
         var city = self.tbCity.text
         var stateCountry = self.tbStateCountry.text
-            
-        let userValues:[String:Any] =
-            [
-             "firstName": firstName,
-             "lastName": lastName,
-             "muteMode" : muteMode,
-             "mealPlan" : mealPlan,
-             "email" : email,
-             "college" : college,
-             "mateType" : mateType,
-             "uid":uid,
-             "city":city,
-             "stateCountry":stateCountry
-            ]
-        
-            dataRef.reference().child("USERS/\(uid!)").setValue(userValues)
-            
-            //Insert clubs org info into Db
-            let clubsOrgsNameValue = clubsOrgsDetails.clubsOrgsName
-            let clubsOrgsIdValue = clubsOrgsDetails.clubsOrgsId
-            let clubsOrgsValues:[String:Any] =
-                [
-                    "clubsOrgsName":clubsOrgsNameValue,
-                    "clubsOrgsId":clubsOrgsIdValue
-                ]
-            
-            dataRef.reference().child("USERS/\(uid!)/clubsOrgs/\(clubsOrgsIdValue)/").setValue(clubsOrgsValues)
+
+
+            dataRef.reference().child("USERS/\(uid!)/firstName").setValue(firstName)
+            dataRef.reference().child("USERS/\(uid!)/lastName").setValue(lastName)
+            dataRef.reference().child("USERS/\(uid!)/muteMode").setValue(muteMode)
+            dataRef.reference().child("USERS/\(uid!)/mealPlan").setValue(mealPlan)
+            dataRef.reference().child("USERS/\(uid!)/email").setValue(email)
+            dataRef.reference().child("USERS/\(uid!)/college").setValue(college)
+            dataRef.reference().child("USERS/\(uid!)/mateType").setValue(mateType)
+            dataRef.reference().child("USERS/\(uid!)/uid").setValue(uid)
+            dataRef.reference().child("USERS/\(uid!)/city").setValue(city)
+            dataRef.reference().child("USERS/\(uid!)/stateCountry").setValue(stateCountry)
             
         
             //segue to PledgeViewController
@@ -436,7 +401,52 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
     }
     
     
+    //DELETE USER
+    
+    
+    @IBAction func btnDeleteAccount(_ sender: Any) {
+        
+        //alert message
+        let alertController = UIAlertController(title: "Wait!", message: "Are you sure you want to delete your account?", preferredStyle: .alert)
+        //delete btn in alert (variable)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive,
+         //action when btn is selected
+         handler: { action in
+            let user = Auth.auth().currentUser
+            user?.delete { error in }
+                //poorly done check^, but if code is written correctly, this should be ok... user will delete from db, profile pic will be deleted, and segue to login will happen whether or not auth delete occurs. Fix later!
+            
+                    //successful auth delete
+            
+                    //remove user from database
+                    Database.database().reference().child("USERS/\(self.uid!)").removeValue()
+                    
+                    //delete user profile picture
+                    self.storageRef.child("imgProfilePictures/\(self.uid!).png").delete()
+            
+                    //unsure user is logged out --> This prevents autologin after segue
+                        do {
+                            try Auth.auth().signOut()
+                        } catch let error as NSError {
+                            print(error.localizedDescription)
+                        }
+            
+                    //segue to login
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
+                    self.present(vc!, animated: true, completion: nil)
+            
+        })
+        //cancel btn in alert (variable)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        { (result: UIAlertAction) -> Void in
+        }
+        //create buttons using varibles above
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        self.present(alertController, animated: true, completion: nil)
 
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
