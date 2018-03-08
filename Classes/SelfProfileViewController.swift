@@ -44,6 +44,7 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
 ////////////LOAD INFORMATION TO SCREEN///////////////////
     override func viewWillAppear(_ animated: Bool) {
+
         
             //display clubsOrgs
             dataRef.child("USERS/\(uid!)/clubsOrgs/").queryOrdered(byChild:"clubsOrgsName").observe(.value, with:
@@ -80,29 +81,29 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
                 //assign hometown
                 //if neither blank
                 var hometown:String?
-//                if (dictionary["city"] as? String)! != "" && (dictionary["stateCountry"] as? String)! != "" {
-//                    hometown = (dictionary["city"] as? String)! + ", " + (dictionary["stateCountry"] as? String)!
-//                    self.lblHometown.text = "\(hometown!)"
-//                }
-//                //if city blank, stateCountry not
-//                else if (dictionary["city"] as? String)! == "" && (dictionary["stateCountry"] as? String)! != "" {
-//                    var hometown = (dictionary["stateCountry"] as? String)!
-//                    self.lblHometown.text = "\(hometown)"
-//                }
-//                //if stateCountry blank, city not
-//                else if (dictionary["city"] as? String)! != "" && (dictionary["stateCountry"] as? String)! == "" {
-//                    var hometown = (dictionary["city"] as? String)!
-//                    self.lblHometown.text = "\(hometown)"
-//                }
-//                //if city and stateCountry are blank (or anything else)
-//                else {
-//                    var hometown = ""
-//                    self.lblHometown.text = "\(hometown)"
-//                }
+                if (dictionary["city"] as? String)! != "" && (dictionary["stateCountry"] as? String)! != "" {
+                    hometown = (dictionary["city"] as? String)! + ", " + (dictionary["stateCountry"] as? String)!
+                    self.lblHometown.text = "\(hometown!)"
+                }
+                //if city blank, stateCountry not
+                else if (dictionary["city"] as? String)! == "" && (dictionary["stateCountry"] as? String)! != "" {
+                    var hometown = (dictionary["stateCountry"] as? String)!
+                    self.lblHometown.text = "\(hometown)"
+                }
+                //if stateCountry blank, city not
+                else if (dictionary["city"] as? String)! != "" && (dictionary["stateCountry"] as? String)! == "" {
+                    var hometown = (dictionary["city"] as? String)!
+                    self.lblHometown.text = "\(hometown)"
+                }
+                //if city and stateCountry are blank (or anything else)
+                else {
+                    var hometown = ""
+                    self.lblHometown.text = "\(hometown)"
+                }
                 
                 
-                //var city = (dictionary["city"] as? String)!
-                //var stateCountry = (dictionary["stateCountry"] as? String)!
+                var city = (dictionary["city"] as? String)!
+                var stateCountry = (dictionary["stateCountry"] as? String)!
                 
                 
 
@@ -205,7 +206,7 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toEditProfile" {
             let vc = segue.destination as! EditProfileViewController
-            vc.clubsOrgsDetails = selfUserClubsOrgs
+            //vc.clubsOrgsDetails = selfUserClubsOrgs
         }
     }
     

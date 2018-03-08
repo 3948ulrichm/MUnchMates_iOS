@@ -57,24 +57,7 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         var collegeSearch:String = filterDataSearch.collegeSearch!
         var mealPlanSearch:String = filterDataSearch.mealPlanSearch!
         var clubsOrgsSearch:String = filterDataSearch.clubsOrgsSearch!
-        
-        
-//        var sid1:String = \(mateType)AllAllAll
-//        var sid2:String = All\(college)AllAll
-//        var sid3:String = AllAll\(mealPlan)All
-//        var sid4:String = AllAllAll\(clubsOrgs)
-//        var sid5:String = \(mateType)\(college)AllAll
-//        var sid6:String = \(mateType)All\(mealPlan)All
-//        var sid7:String = \(mateType)AllAll\(clubsOrgs)
-//        var sid8:String = All\(college)\(mealPlan)All
-//        var sid9:String = All\(college)All\(clubsOrgs)
-//        var sid10:String = AllAll\(mealPlan)\(clubsOrgs)
-//        var sid11:String = \(mateType)\(college)\(mealPlan)All
-//        var sid12:String = \(mateType)\(college)All\(clubsOrgs)
-//        var sid13:String = \(mateType)All\(mealPlan)\(clubsOrgs)
-//        var sid14:String = All\(college)\(mealPlan)\(clubsOrgs)
-//        var sid15:String = \(mateType)\(college)\(mealPlan)\(clubsOrgs)
-//        var sid16:String = AllAllAllAll
+    
     
         //filterMateType
         if mateTypeSearch == "All" {
@@ -84,6 +67,9 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
                 
                 for fireAccount in snapshot.children {
                     let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
+                    
+                    //let clubsOrgsNames = fireAccount.map(){$0.clubsOrgsName}
+                    
                     fireAccountArray.append(fireAccount)
                 }
                 
