@@ -974,9 +974,9 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-<<<<<<< HEAD
+            <<<<<<< HEAD
             <point key="canvasLocation" x="1990" y="410"/>
-=======
+            =======
             <point key="canvasLocation" x="2607" y="461"/>
         </scene>
         <!--Conversation Table View Controller-->
@@ -1021,7 +1021,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r6B-hT-d5H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1839" y="1284"/>
->>>>>>> e95b6de6a440e6926c13a4703dd6bb3b0deddaec
+            >>>>>>> e95b6de6a440e6926c13a4703dd6bb3b0deddaec
         </scene>
         <!--Add Delete Clubs Orgs View Controller-->
         <scene sceneID="vf1-c0-5Mv">
@@ -1376,11 +1376,11 @@
         <image name="tempProfilePic" width="726" height="726"/>
     </resources>
     <inferredMetricsTieBreakers>
-<<<<<<< HEAD
+        <<<<<<< HEAD
         <segue reference="1dB-j5-7tJ"/>
         <segue reference="oPy-WT-l6F"/>
         <segue reference="0jO-RF-aqg"/>
-=======
+        =======
         <segue reference="NoF-RU-zLN"/>
         <segue reference="l9a-DX-Nks"/>
         <segue reference="uCM-wr-vth"/>
@@ -1388,7 +1388,7 @@
         <segue reference="98b-pP-QsK"/>
         <segue reference="1dB-j5-7tJ"/>
         <segue reference="tUk-lq-Myf"/>
->>>>>>> e95b6de6a440e6926c13a4703dd6bb3b0deddaec
+        >>>>>>> e95b6de6a440e6926c13a4703dd6bb3b0deddaec
         <segue reference="qx5-in-bi8"/>
     </inferredMetricsTieBreakers>
 </document>
