@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import Firebase
 
 class SearchListTableViewCell: UITableViewCell {
 
+    
     @IBOutlet weak var lblNameSearchList: UILabel!
     @IBOutlet weak var lblMealPlan: UILabel!
     @IBOutlet weak var imgProfilePic: UIImageView!
+    @IBOutlet weak var lblMateTypeCollege: UILabel!
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
