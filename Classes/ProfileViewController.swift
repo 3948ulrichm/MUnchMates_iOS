@@ -21,6 +21,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     //MARK - user data and filter data
     var userDetails = SearchUsers()
+//********
+    var toUserCon = UserInConversations()
     var filterDataProfile = FilterVCToSearchVCStruct()
 
     //MARK - Struct
@@ -37,7 +39,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        toUserCon = UserInConversations(uid: userDetails.uid, userDisplayName: userDetails.firstName + " " + userDetails.lastName)
     }
 
     
@@ -210,6 +212,17 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             let vc = segue.destination as! SearchListViewController
             vc.filterDataSearch = filterDataProfile
         }
+        if segue.identifier == "ProfileToMessage" {
+            let myVC = storyboard?.instantiateViewController(withIdentifier: "Message") as! MessageViewController
+            myVC.toUser = userDetails
+            myVC.toUserCon = toUserCon
+            self.present(myVC, animated: true)
+        }
+//        if segue.identifier == "ProfileToConversation" {
+//            let myVC = storyboard?.instantiateViewController(withIdentifier: "Message") as! MessageViewController
+//            myVC.toUser = userDetails
+//            self.present(myVC, animated: true)
+//        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -426,8 +426,13 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
                     "clubsOrgsId":clubsOrgsIdValue
                 ]
             
-            dataRef.reference().child("USERS/\(uid!)/clubsOrgs/\(clubsOrgsIdValue)/").setValue(clubsOrgsValues)
+            let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+            changeRequest?.displayName = firstName! + " " + lastName!
+            changeRequest?.commitChanges { (error) in
+                // ...
+            }
             
+            dataRef.reference().child("USERS/\(uid!)/clubsOrgs/\(clubsOrgsIdValue)/").setValue(clubsOrgsValues)
         
             //segue to PledgeViewController
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "SelfProfileViewController")
