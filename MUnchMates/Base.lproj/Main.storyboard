@@ -834,6 +834,14 @@
                                     <action selector="btnMessagePressed:" destination="nDP-0g-Qnd" eventType="touchUpInside" id="j7r-Lp-QNq"/>
                                 </connections>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pXR-fj-ek7">
+                                <rect key="frame" x="314" y="404" width="44" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Convo"/>
+                                <connections>
+                                    <segue destination="pHh-tM-SHg" kind="show" id="lk5-Bn-edy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -959,7 +967,50 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2340" y="600"/>
+            <point key="canvasLocation" x="2607" y="461"/>
+        </scene>
+        <!--Conversation Table View Controller-->
+        <scene sceneID="qRx-0R-xE9">
+            <objects>
+                <tableViewController id="pHh-tM-SHg" customClass="ConversationTableViewController" customModule="MUnchMates" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="kV0-DB-w35">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="users" id="w6p-NP-Amx" customClass="ConversationTableViewCell" customModule="MUnchMates" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="w6p-NP-Amx" id="Zpg-C1-AfV">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="lblName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjc-rG-Pjb">
+                                            <rect key="frame" x="56" y="12" width="245" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="lblName" destination="sjc-rG-Pjb" id="2St-ot-GNW"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="pHh-tM-SHg" id="t3K-Vn-Qbf"/>
+                            <outlet property="delegate" destination="pHh-tM-SHg" id="Ctt-E9-2BL"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="fLv-RY-IOE" kind="show" identifier="toMessageScreen" id="bTM-ka-9bn"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r6B-hT-d5H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1839" y="1284"/>
         </scene>
         <!--Add Delete Clubs Orgs View Controller-->
         <scene sceneID="vf1-c0-5Mv">
@@ -1357,8 +1408,12 @@
         <image name="tempProfilePic" width="726" height="726"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1dB-j5-7tJ"/>
+        <segue reference="NoF-RU-zLN"/>
+        <segue reference="l9a-DX-Nks"/>
         <segue reference="uCM-wr-vth"/>
+        <segue reference="0jO-RF-aqg"/>
+        <segue reference="98b-pP-QsK"/>
+        <segue reference="1dB-j5-7tJ"/>
         <segue reference="tUk-lq-Myf"/>
         <segue reference="qx5-in-bi8"/>
     </inferredMetricsTieBreakers>

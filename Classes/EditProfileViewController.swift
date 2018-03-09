@@ -380,7 +380,37 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
         var mateType = self.btnMateTypePV.currentTitle
         var city = self.tbCity.text
         var stateCountry = self.tbStateCountry.text
-
+            
+        let userValues:[String:Any] =
+            [
+             "firstName": firstName,
+             "lastName": lastName,
+             "muteMode" : muteMode,
+             "mealPlan" : mealPlan,
+             "email" : email,
+             "college" : college,
+             "mateType" : mateType,
+             "uid":uid,
+             "city":city,
+             "stateCountry":stateCountry
+            ]
+        
+            dataRef.reference().child("USERS/\(uid!)").setValue(userValues)
+            
+            //Insert clubs org info into Db
+            let clubsOrgsNameValue = clubsOrgsDetails.clubsOrgsName
+            let clubsOrgsIdValue = clubsOrgsDetails.clubsOrgsId
+            let clubsOrgsValues:[String:Any] =
+                [
+                    "clubsOrgsName":clubsOrgsNameValue,
+                    "clubsOrgsId":clubsOrgsIdValue
+                ]
+            
+            let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+            changeRequest?.displayName = firstName! + " " + lastName!
+            changeRequest?.commitChanges { (error) in
+                // ...
+            }
 
             dataRef.reference().child("USERS/\(uid!)/firstName").setValue(firstName)
             dataRef.reference().child("USERS/\(uid!)/lastName").setValue(lastName)
@@ -393,6 +423,7 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
             dataRef.reference().child("USERS/\(uid!)/city").setValue(city)
             dataRef.reference().child("USERS/\(uid!)/stateCountry").setValue(stateCountry)
             
+            dataRef.reference().child("USERS/\(uid!)/clubsOrgs/\(clubsOrgsIdValue)/").setValue(clubsOrgsValues)
         
             //segue to PledgeViewController
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "SelfProfileViewController")
