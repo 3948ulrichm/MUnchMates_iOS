@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		237F89DF9EF5E316BD3E7433 /* Pods_MUnchMates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16A7AE623155DB055339E71C /* Pods_MUnchMates.framework */; };
+		49658F33204E537D00FED586 /* UserConversations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49658F32204E537D00FED586 /* UserConversations.swift */; };
+		49658F362052252B00FED586 /* ConversationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49658F352052252B00FED586 /* ConversationTableViewController.swift */; };
+		49658F382052259300FED586 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49658F372052259300FED586 /* ConversationTableViewCell.swift */; };
+		49658F3C20524E5B00FED586 /* UserInConversations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49658F3B20524E5B00FED586 /* UserInConversations.swift */; };
 		49890AEE20154E050035427E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49890AED20154E050035427E /* Constants.swift */; };
 		49C08FF81FEB45B700AFB599 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C08FF71FEB45B700AFB599 /* MessageViewController.swift */; };
 		94188BA02039185100AE5F9A /* FilterStructCollege.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94188B9F2039185100AE5F9A /* FilterStructCollege.swift */; };
@@ -48,6 +52,10 @@
 /* Begin PBXFileReference section */
 		16A7AE623155DB055339E71C /* Pods_MUnchMates.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MUnchMates.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		19F86FB723A230B3435610C4 /* Pods-MUnchMates.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUnchMates.release.xcconfig"; path = "Pods/Target Support Files/Pods-MUnchMates/Pods-MUnchMates.release.xcconfig"; sourceTree = "<group>"; };
+		49658F32204E537D00FED586 /* UserConversations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConversations.swift; sourceTree = "<group>"; };
+		49658F352052252B00FED586 /* ConversationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewController.swift; sourceTree = "<group>"; };
+		49658F372052259300FED586 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
+		49658F3B20524E5B00FED586 /* UserInConversations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInConversations.swift; sourceTree = "<group>"; };
 		496DA4BF20154B8A00E8FDF5 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		49890AED20154E050035427E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		49C08FF71FEB45B700AFB599 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageViewController.swift; path = Classes/MessageViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +110,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		49658F34205224F700FED586 /* Conversations */ = {
+			isa = PBXGroup;
+			children = (
+				49658F372052259300FED586 /* ConversationTableViewCell.swift */,
+				49658F352052252B00FED586 /* ConversationTableViewController.swift */,
+			);
+			name = Conversations;
+			sourceTree = "<group>";
+		};
 		7716234D9028B52D75E11688 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +156,8 @@
 			isa = PBXGroup;
 			children = (
 				942868731FE32DE5009557C9 /* SearchUsers.swift */,
+				49658F32204E537D00FED586 /* UserConversations.swift */,
+				49658F3B20524E5B00FED586 /* UserInConversations.swift */,
 				49890AED20154E050035427E /* Constants.swift */,
 				94F487F4202824B000E3444F /* SearchUsersProfilePic.swift */,
 				94F487F720282FE100E3444F /* SearchUsersUid.swift */,
@@ -193,6 +212,7 @@
 		94F8FCE01F8B528200663F8C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				49658F34205224F700FED586 /* Conversations */,
 				94606E961FE8B6D900C0AA8E /* EditProfileViewController.swift */,
 				94606E971FE8B6D900C0AA8E /* FilterViewController.swift */,
 				94606E951FE8B6D900C0AA8E /* PledgeViewController.swift */,
@@ -366,14 +386,17 @@
 				94606E921FE8B6BF00C0AA8E /* LoginViewController.swift in Sources */,
 				94606E9D1FE8B6DA00C0AA8E /* PledgeViewController.swift in Sources */,
 				945BC85520395130000538D9 /* FilterStructMealPlan.swift in Sources */,
+				49658F3C20524E5B00FED586 /* UserInConversations.swift in Sources */,
 				94603CFC204B5B5E009B30BD /* ProfileTableViewCell.swift in Sources */,
 				94CDC3A5201AC8E9008BEE25 /* SelfProfileTableViewCell.swift in Sources */,
+				49658F362052252B00FED586 /* ConversationTableViewController.swift in Sources */,
 				94606E9C1FE8B6DA00C0AA8E /* ProfileViewController.swift in Sources */,
 				94606E9E1FE8B6DA00C0AA8E /* EditProfileViewController.swift in Sources */,
 				94606EA11FE8B6DA00C0AA8E /* SearchListTableViewCell.swift in Sources */,
 				945BC85320394D42000538D9 /* FilterStructMateType.swift in Sources */,
 				49890AEE20154E050035427E /* Constants.swift in Sources */,
 				94606E9B1FE8B6DA00C0AA8E /* SearchListViewController.swift in Sources */,
+				49658F382052259300FED586 /* ConversationTableViewCell.swift in Sources */,
 				49C08FF81FEB45B700AFB599 /* MessageViewController.swift in Sources */,
 				94606EA01FE8B6DA00C0AA8E /* RegisterViewController.swift in Sources */,
 				94F487F820282FE100E3444F /* SearchUsersUid.swift in Sources */,
@@ -394,6 +417,7 @@
 				945BC85720395786000538D9 /* FilterStructClubsOrgs.swift in Sources */,
 				944730902042731A00E13DC0 /* clubsOrgsStruct.swift in Sources */,
 				94F8FCCC1F8B406100663F8C /* AppDelegate.swift in Sources */,
+				49658F33204E537D00FED586 /* UserConversations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

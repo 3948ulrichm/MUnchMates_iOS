@@ -17,13 +17,14 @@ class MessageViewController: JSQMessagesViewController {
     @IBOutlet weak var sideView: UIView!
     
     var toUser = SearchUsers()
+    var toUserCon = UserInConversations()
     
     var messages = [JSQMessage]()
     var senderUser = SearchUsers()
     let uid = Auth.auth().currentUser?.uid
     let user = Auth.auth().currentUser
-    let nameT = Auth.auth().currentUser?.displayName
-    var conversationID: Int?
+    let userDisplayName = Auth.auth().currentUser?.displayName
+    var conversationID: String?
     
     lazy var outgoingBubble: JSQMessagesBubbleImage = {
         return JSQMessagesBubbleImageFactory()!.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleBlue())
@@ -42,33 +43,63 @@ class MessageViewController: JSQMessagesViewController {
         //var fullString: String?
         //let uid = Auth.auth().currentUser?.uid
         
-        Constants.refs.databaseRoot.child("USERS/\(uid!)").observe(.value, with: { snapshot in
-            // get the entire snapshot dictionary
-            if let dictionary = snapshot.value as? [String: Any]
-            {
-                let fName = (dictionary["firstName"] as? String)! // + " " + (dictionary["lastName"] as? String)!
-                let lName = (dictionary["lastName"] as? String)!
-                let mealPlan = (dictionary["mealPlan"] as? Bool)!
-                let mateType = (dictionary["mateType"] as? String)!
-                let college = (dictionary["college"] as? String)!
-                let userID = (dictionary["uid"] as? String)!
-                let sendingUser = SearchUsers(firstName: fName, lastName: lName, mealPlan: mealPlan, mateType: mateType, college: college, uid: userID)
-                self.senderUser = sendingUser
-            }
-        })
+//        Constants.refs.databaseRoot.child("USERS/\(uid!)/conversations").observe(.value, with: { snapshot in
+//            // get the entire snapshot dictionary
+//            if let dictionary = snapshot.value as? [String: Any]
+//            {
+//                let fName = (dictionary["firstName"] as? String)! // + " " + (dictionary["lastName"] as? String)!
+//                let lName = (dictionary["lastName"] as? String)!
+//                let mealPlan = (dictionary["mealPlan"] as? Bool)!
+//                let mateType = (dictionary["mateType"] as? String)!
+//                let college = (dictionary["college"] as? String)!
+//                let userID = (dictionary["uid"] as? String)!
+//                let sendingUser = SearchUsers(firstName: fName, lastName: lName, mealPlan: mealPlan, mateType: mateType, college: college, uid: userID)
+//                self.senderUser = sendingUser
+//            }
+//        })
+        //var uctest: [String] = []
+      //  print("**********************************************\(toUser.uid) **")
+//        Constants.refs.databaseRoot.child("USERS/\(uid!)/conversations/").observe(.value, with:
+//        { snapshot in
+//            var UserConversationArray: [UserConversations] = []
+//
+//            for UserConversationInfo in snapshot.children {
+//                let fireAccount = UserConversations(snapshot: UserConversationInfo as! DataSnapshot)
+//                UserConversationArray.append(fireAccount)
+//                uctest.append(fireAccount.uid)
+//                //if(toUser.uid == ){
+//
+//            }
         
+//            for index in 0..<UserConversationArray.count{
+//                if(self.toUser.uid == UserConversationArray[index].uid){
+//                    print("**********************************************true")
+//                }
+//                print("**********************************************\(toUser.uid)")
+//            }
+            
+                //self.debitArray = fireAccountArray
+                //self.tableView.reloadData()
+        //})
+        
+//        for index in 0..<uctest.count{
+//            if(toUser.uid == uctest[index]){
+//                print("**********************************************true")
+//            }
+//            print("**********************************************\(toUser.uid)")
+//        }
         
         
         if  let id = uid//defaults.string(forKey: "jsq_id"),
             //let name = senderUser.firstName//defaults.string(forKey: "jsq_name")
         {
             senderId = id
-            senderDisplayName = user?.displayName//user?.email
+            senderDisplayName = userDisplayName//user?.displayName//user?.email
         }
         else
         {
             senderId = uid//String(arc4random_uniform(999999))
-            senderDisplayName = user?.displayName
+            senderDisplayName = userDisplayName//user?.displayName
 
             defaults.set(senderId, forKey: "jsq_id")
             //defaults.set(senderDisplayName, forKey: "jsq_id")
@@ -88,11 +119,39 @@ class MessageViewController: JSQMessagesViewController {
         collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
         
-        if(toUser.uid == "1dcXCrbu1sMfeV8X8WrBJErpmQS2"){
-            conversationID = 3
-        }else{
-            conversationID = 1
-        }
+        
+//        super.viewDidLoad()
+//        ref.reference(withPath: "debits/\(currentUser.uid)").queryOrdered(byChild: "dateAdded").observe(.value, with:
+//            //ref.reference(withPath: "test/").queryOrdered(byChild: "dateAdded").observe(.value, with:
+//            { snapshot in
+//                var fireAccountArray: [Debits] = []
+//
+//                for fireAccount in snapshot.children {
+//                    let fireAccount = Debits(snapshot: fireAccount as! DataSnapshot)
+//                    fireAccountArray.append(fireAccount)
+//
+//                }
+//
+//                self.debitArray = fireAccountArray
+//                self.tableView.reloadData()
+//        })
+        
+        
+        
+       // print("**********************************************\(toUser.uid) **")
+        
+        
+//        if(toUser.uid == "1dcXCrbu1sMfeV8X8WrBJErpmQS2"){
+//            conversationID = 3
+//        }else{
+//            conversationID = 1
+//        }
+        
+        //conversationID = toUser.uid
+        
+        conversationID = toUserCon.uid
+        
+        
         //1dcXCrbu1sMfeV8X8WrBJErpmQS2
         
         //conversationID = 1
@@ -100,7 +159,10 @@ class MessageViewController: JSQMessagesViewController {
         //observe new messages (populate)
         //change ref to point to conversation if found, or make new one
         //let query = Constants.refs.databaseChats.queryLimited(toLast: 10)
-        let query = Constants.refs.databaseRoot.child("CONVERSATIONS/\(conversationID!)/messages/")
+        
+        //let query = Constants.refs.databaseRoot.child("CONVERSATIONS/\(conversationID!)/messages/")
+        
+        let query = Constants.refs.databaseRoot.child("USERS/\(uid!)/conversations/messageList/\(conversationID!)/messages/")
 
         _ = query.observe(.childAdded, with: { [weak self] snapshot in
             
@@ -200,11 +262,23 @@ class MessageViewController: JSQMessagesViewController {
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!)
     {
         //change ref to point to correct conversation
-        let ref = Constants.refs.databaseRoot.child("CONVERSATIONS/\(conversationID!)/messages/").childByAutoId()
+        let senderRef = Constants.refs.databaseRoot.child("USERS/\(uid!)/conversations/messageList/\(conversationID!)/messages/").childByAutoId()
+        let senderMessage = ["sender_id": senderId, "name": senderDisplayName, "text": text]
+        senderRef.setValue(senderMessage)
         
-        let message = ["sender_id": senderId, "name": senderDisplayName, "text": text]
+        let receiverRef = Constants.refs.databaseRoot.child("USERS/\(conversationID!)/conversations/messageList/\(uid!)/messages/").childByAutoId()
+        let receiverMessage = ["sender_id": senderId, "name": senderDisplayName, "text": text]
+        receiverRef.setValue(receiverMessage)
+       
+        let ref = Constants.refs.databaseRoot.child("USERS/\(uid!)/conversations/senderList/\(conversationID!)")
+        let toUserIDValue = ["uid": conversationID, "userDisplayName": toUser.firstName + " " + toUser.lastName]
+        ref.setValue(toUserIDValue)
         
-        ref.setValue(message)
+        let ref2 = Constants.refs.databaseRoot.child("USERS/\(conversationID!)/conversations/senderList/\(uid!)")
+        let fromUserIDValue = ["uid": uid, "userDisplayName": userDisplayName]
+        ref2.setValue(fromUserIDValue)
+        
+        
         
         finishSendingMessage()
     }
