@@ -33,11 +33,11 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
     
 
 
-
     override func viewDidLoad() {
         
         ref.reference(withPath: "LISTS/clubsOrgs").queryOrdered(byChild:"clubsOrgsName").observe(.value, with:
             { snapshot in
+                
                 
                 var fireAccountArray: [clubsOrgsStruct] = []
                 
@@ -54,29 +54,25 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
         })
         
         
-        //TODO - load checkmarks for clubs the user has saved
-//        ref.reference(withPath:"USERS/\(uid!)/clubsOrgs/").queryOrdered(byChild:"clubsOrgsName").observe(.value, with:
-//            { snapshot in
-//
-//                var fireAccountArrayUSERS: [clubsOrgsStruct] = []
-//
-//                for fireAccountUSERS in snapshot.children {
-//                    let fireAccountUSERS = clubsOrgsStruct(snapshot: fireAccountUSERS as! DataSnapshot)
-//                    fireAccountArrayUSERS.append(fireAccountUSERS)
-//                }
-//
-//                self.clubsOrgs = fireAccountArrayUSERS
-//
-//                self.tableView.delegate = self
-//                self.tableView.dataSource = self
-//                self.tableView.reloadData()
-//
-//        })
+
         
         super.viewDidLoad()
+        
+//        let jsonUrlString = "https://munch-mates-marquette.firebaseio.com/"
+//        guard let url = URL(string: jsonUrlString) else { return }
+//        URLSession.shared.dataTask(with: url) { (data, response, err) in
+//            guard let data = data else { return }
+//
+//            do {
+//                let usersClubsOrgsNames = try JSONDecoder().decode([clubsOrgsStruct].self, from: data)
+//            } catch let jsonErr {
+//                print("Error serializing json:", jsonErr)
+//            }
+//            }.resume()
 
         
     }
+    
     
     //table view - clubsOrgs
     //number of sections (columns??)
@@ -93,99 +89,34 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! AddDeleteClubsOrgsTableViewCell
         let clubOrgInfo = self.clubsOrgs[indexPath.row]
-        
+                
         var clubOrgName = clubOrgInfo.clubsOrgsName
         var clubOrgId = clubOrgInfo.clubsOrgsId
 
         //Display club / org
         cell.lblClubsOrgs?.text = clubOrgName
+        cell.cellClubOrgId = clubOrgId
         
-        //create array with ALL clubs orgs
-        ref.reference(withPath: "USERS/clubsOrgs").observe(.value, with:
-            { snapshot in
-                if let dictionary = snapshot.value as? [String: Any]
-                {
-                var fireAccountArray: [clubsOrgsStruct] = []
-                
-                for fireAccount in snapshot.children {
-                    let fireAccount = clubsOrgsStruct(snapshot: fireAccount as! DataSnapshot)
-                    fireAccountArray.append(fireAccount)
-                }
-                
-                
-                var clubsOrgsName = (dictionary["clubsOrgsName"] as? String)!
-
-                  //set checkmarks and variables
-                  //let checkmark =
-                
-                self.clubsOrgs = fireAccountArray
-                
-                self.tableView.delegate = self
-                self.tableView.dataSource = self
-                self.tableView.reloadData()
-                }
-        })
-        
-        //create array with USER clubs orgs
-        ref.reference(withPath: "USERS/(\(uid!))/clubsOrgs").observe(.value, with:
-            { snapshot in
-                if let dictionary = snapshot.value as? [String: Any]
-                {
-                    var fireAccountArray: [userClubsOrgsStruct] = []
-                    
-                    for fireAccount in snapshot.children {
-                        let fireAccount = userClubsOrgsStruct(snapshot: fireAccount as! DataSnapshot)
-                        fireAccountArray.append(fireAccount)
-                    }
-                    
-                    
-                    var clubsOrgsName = (dictionary["clubsOrgsName"] as? String)!
-                    
-                    self.userClubsOrgs = fireAccountArray
-                    
-                    self.tableView.delegate = self
-                    self.tableView.dataSource = self
-                    self.tableView.reloadData()
-                }
-        })
-        
-        //below was a test that showed using an array and contains we can toggle the switches for each cell depending if the user has save the club in Firebase
-            //var arrayTest = ["Kappa Sigma", "Midnight Run"]
-            //if arrayTest.contains(clubOrgName) == true {
-        
-        clubsOrgs.forEach {_ in
-            //TODO - turn switch on if clubsOrgs contains value from userClubsOrgs
-            if clubOrgName == "Kappa Sigma" {
+        Database.database().reference().child("USERS/\(uid!)/clubsOrgs/\(clubOrgId)/clubsOrgsId/").observeSingleEvent(of: .value, with: { snapshot in
+            
+            if snapshot.exists() && cell.cellClubOrgId == clubOrgId {
                 cell.switchClubsOrgs.setOn(true, animated: false)
             }
-        }
+            else {
+                cell.switchClubsOrgs.setOn(false, animated: false)
+            }
+        })
+
         
         return cell
 
     }
     
-    var clubsOrgsName:String = " "
-    var clubsOrgsId:String = " "
     
     //What happens if you select a row
-    //add checkmarks (youtu.be/5MZ-WJuSdpg)
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCellAccessoryType.checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
-            }
-        else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
+
         }
-    
-        
-//        clubsOrgsId = self.clubsOrgs[indexPath.row].clubsOrgsId
-//        clubsOrgsName = self.clubsOrgs[indexPath.row].clubsOrgsName
-//
-//        selectedClubsOrgs = clubsOrgsStruct(clubsOrgsName: clubsOrgsName, clubsOrgsId: clubsOrgsId)
-//
-//        performSegue(withIdentifier: "saveClubsOrgs", sender: self)
-        }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "saveClubsOrgs" {
