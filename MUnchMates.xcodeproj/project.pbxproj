@@ -199,6 +199,7 @@
 				94606E941FE8B6D900C0AA8E /* ProfileViewController.swift */,
 				94606E981FE8B6DA00C0AA8E /* RegisterViewController.swift */,
 				94606E931FE8B6D900C0AA8E /* SearchListViewController.swift */,
+				94606E991FE8B6DA00C0AA8E /* SearchListTableViewCell.swift */,
 				94606E9A1FE8B6DA00C0AA8E /* SelfProfileViewController.swift */,
 				94606E911FE8B6BF00C0AA8E /* LoginViewController.swift */,
 				49C08FF71FEB45B700AFB599 /* MessageViewController.swift */,
@@ -206,7 +207,6 @@
 				94E3F34220206AE600CF2FFD /* AddDeleteClubsOrgsTableViewCell.swift */,
 				945BC8582039605E000538D9 /* EditProfileViewCell.swift */,
 				94C3877320391539007D9436 /* FilterTableViewCell.swift */,
-				94606E991FE8B6DA00C0AA8E /* SearchListTableViewCell.swift */,
 				94CDC3A4201AC8E9008BEE25 /* SelfProfileTableViewCell.swift */,
 				94603CFB204B5B5E009B30BD /* ProfileTableViewCell.swift */,
 			);

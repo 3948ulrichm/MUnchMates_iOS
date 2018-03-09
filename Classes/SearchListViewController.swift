@@ -59,7 +59,7 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         var clubsOrgsSearch:String = filterDataSearch.clubsOrgsSearch!
     
     
-        //filterMateType
+//filterMateType...filterMateType...filterMateType...filterMateType
         if mateTypeSearch == "All" {
         dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"firstName").observeSingleEvent(of: .value, with:
             { snapshot in
@@ -71,11 +71,15 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
                     //let clubsOrgsNames = fireAccount.map(){$0.clubsOrgsName}
                     
                     fireAccountArray.append(fireAccount)
+                    
                 }
                 
                 //TEMP
 //                self.filterMateType = fireAccountArray
                 self.users = fireAccountArray
+                
+                var testLabelString = self.users.count
+                self.testLabel.text = "\(String(testLabelString)) Results"
 
                 
                 self.tableView.delegate = self
@@ -95,7 +99,7 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
                         fireAccountArray.append(fireAccount)
                     }
                     
-                    self.filterMateType = fireAccountArray
+                    self.users = fireAccountArray
                     
                     self.tableView.delegate = self
                     self.tableView.dataSource = self
@@ -104,85 +108,88 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
                 })
         }
 
-        //filterCollege
-        if collegeSearch == "All" {
-            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"firstName").observeSingleEvent(of: .value, with:
-                { snapshot in
-                    var fireAccountArray: [SearchUsers] = []
-                    
-                    for fireAccount in snapshot.children {
-                        let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
-                        fireAccountArray.append(fireAccount)
-                    }
-                    
-                    self.filterCollege = fireAccountArray
-                    
-                    self.tableView.delegate = self
-                    self.tableView.dataSource = self
-                    self.tableView.reloadData()
-                    super.viewDidLoad()
-            })
-        }
-        else {
-            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"college").queryEqual(toValue: collegeSearch).observeSingleEvent(of: .value, with:
-                { snapshot in
-                    
-                    var fireAccountArray: [SearchUsers] = []
-                    
-                    for fireAccount in snapshot.children {
-                        let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
-                        fireAccountArray.append(fireAccount)
-                    }
-                    
-                    self.filterCollege = fireAccountArray
-                    
-                    self.tableView.delegate = self
-                    self.tableView.dataSource = self
-                    self.tableView.reloadData()
-                    super.viewDidLoad()
-            })
-        }
+//filterCollege...filterCollege...filterCollege...filterCollege...filterCollege
+//        if collegeSearch == "All" {
+//            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"firstName").observeSingleEvent(of: .value, with:
+//                { snapshot in
+//                    var fireAccountArray: [SearchUsers] = []
+//
+//                    for fireAccount in snapshot.children {
+//                        let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
+//                        fireAccountArray.append(fireAccount)
+//                    }
+//
+//                    self.filterCollege = fireAccountArray
+//
+//                    self.tableView.delegate = self
+//                    self.tableView.dataSource = self
+//                    self.tableView.reloadData()
+//                    super.viewDidLoad()
+//            })
+//        }
+//        else {
+//            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"college").queryEqual(toValue: collegeSearch).observeSingleEvent(of: .value, with:
+//                { snapshot in
+//
+//                    var fireAccountArray: [SearchUsers] = []
+//
+//                    for fireAccount in snapshot.children {
+//                        let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
+//                        fireAccountArray.append(fireAccount)
+//                    }
+//
+//                    self.filterCollege = fireAccountArray
+//
+//                    self.tableView.delegate = self
+//                    self.tableView.dataSource = self
+//                    self.tableView.reloadData()
+//                    super.viewDidLoad()
+//            })
+//        }
         
-        //filterMealPlan
-        if mealPlanSearch == "All" {
-            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"firstName").observeSingleEvent(of: .value, with:
-                { snapshot in
-                    var fireAccountArray: [SearchUsers] = []
-                    
-                    for fireAccount in snapshot.children {
-                        let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
-                        fireAccountArray.append(fireAccount)
-                    }
-                    
-                    self.filterMealPlan = fireAccountArray
-                    
-                    self.tableView.delegate = self
-                    self.tableView.dataSource = self
-                    self.tableView.reloadData()
-                    super.viewDidLoad()
-            })
-        }
-        else {
-            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"mealPlan").queryEqual(toValue: mealPlanSearch).observeSingleEvent(of: .value, with:
-                { snapshot in
-                    
-                    var fireAccountArray: [SearchUsers] = []
-                    
-                    for fireAccount in snapshot.children {
-                        let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
-                        fireAccountArray.append(fireAccount)
-                    }
-                    
-                    self.filterMealPlan = fireAccountArray
-                    
-                    self.tableView.delegate = self
-                    self.tableView.dataSource = self
-                    self.tableView.reloadData()
-                    super.viewDidLoad()
-            })
-        }
+
+//filterMealPlan...filterMealPlan...filterMealPlan...filterMealPlan
+//        if mealPlanSearch == "All" {
+//            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"firstName").observeSingleEvent(of: .value, with:
+//                { snapshot in
+//                    var fireAccountArray: [SearchUsers] = []
+//
+//                    for fireAccount in snapshot.children {
+//                        let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
+//                        fireAccountArray.append(fireAccount)
+//                    }
+//
+//                    self.filterMealPlan = fireAccountArray
+//
+//                    self.tableView.delegate = self
+//                    self.tableView.dataSource = self
+//                    self.tableView.reloadData()
+//                    super.viewDidLoad()
+//            })
+//
+//        }
+//        else {
+//            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"mealPlan").queryEqual(toValue: mealPlanSearch).observeSingleEvent(of: .value, with:
+//                { snapshot in
+//
+//                    var fireAccountArray: [SearchUsers] = []
+//
+//                    for fireAccount in snapshot.children {
+//                        let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
+//                        fireAccountArray.append(fireAccount)
+//                    }
+//
+//                    self.filterMealPlan = fireAccountArray
+//
+//                    self.tableView.delegate = self
+//                    self.tableView.dataSource = self
+//                    self.tableView.reloadData()
+//                    super.viewDidLoad()
+//            })
+//        }
         
-        //filterClubsOrgs
+        
+//filterClubsOrgs...filterClubsOrgs...filterClubsOrgs...filterClubsOrgs
 //        if mateTypeSearch == "All" {
 //            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"firstName").observeSingleEvent(of: .value, with:
 //                { snapshot in
@@ -221,67 +228,11 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
 //            })
 //        }
         
-        
-        ///HERE!! TODO - get users array populated with other arrays.
-        users = filterCollege + filterMateType + filterCollege
        
         //this is to text how many values are in each array
-        self.testLabel.text = String(filterMateType.count)
 
-        
-        //Populate SearchUsersUid Struct (TODO - get pictures to show up based on uidSelf)
-//        dataRef.reference(withPath: "USERS").observeSingleEvent(of: .value, with:
-//            { snapshot in
-//                var fireAccountArrayUid: [SearchUsersUid] = []
-//
-//                for fireAccountUid in snapshot.children {
-//                    let fireAccountUid = SearchUsersUid(snapshot: fireAccountUid as! DataSnapshot)
-//                    fireAccountArrayUid.append(fireAccountUid)
-//                }
-//
-//                self.usersUid = fireAccountArrayUid
-//
-//                self.tableView.delegate = self
-//                self.tableView.dataSource = self
-//                self.tableView.reloadData()
-//        })
-        
-        //Populate SearchUsersProfilePic Struct
-//        let uidSearchImage = dataRef.reference(withPath: "USERS/").value("uidSelf") as? String
-//        return uidSearchImage!
-        
-        let profileImgRef = storageRef.reference().child("imgProfilePictures/\(self.uidSelf!).png")
-        profileImgRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-            if error != nil {
-                let errorDesc = error?.localizedDescription
-                if errorDesc == "Image does not exist." {
-                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uidSelf!).png")!) as Data?
-                    let imagePath = "imgProfilePictures/\(self.uidSelf!).png"
-                    
-                    let metaData = StorageMetadata()
-                    metaData.contentType = "image/png"
-                    
-                    self.userProfileImage = UIImage(named: "\(self.uidSelf!).png")
-                }
-            } else {
-                self.userProfileImage = UIImage(data: data!)
-            }
-            
-//            var fireAccountArrayProfilePic: [SearchUsersProfilePic] = []
-//
-//            for fireAccountProfilePic in snapshot.children {
-//                let fireAccountProfilePic = SearchUsers(snapshot: fireAccountProfilePic as! DataSnapshot)
-//                fireAccountArray.append(fireAccount)
-//            }
-//
-//            self.usersProfilePic = fireAccountArrayProfilePic
-//
-            self.tableView.delegate = self
-            self.tableView.dataSource = self
-            self.tableView.reloadData()
-            
-        }
             super.viewDidLoad()
+        
     }
     
     
@@ -302,7 +253,7 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.lblNameSearchList?.text = userinfo.firstName + " " + userinfo.lastName
     
         //Display mateType
-        cell.lblMateType?.text = userinfo.mateType
+        cell.lblMateTypeCollege?.text = userinfo.mateType + "  " + userinfo.college
     
         //Display mealPlan
         if userinfo.mealPlan == true {
@@ -312,29 +263,55 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.lblMealPlan?.text = " "
         }
     
-        //Display profilePic
-        //let imgProfilePicUid = userinfo.uidSelf
-        cell.imgProfilePic.image = userProfileImage
+        //Display Profile Pictures
+        let profileImgRef = storageRef.reference().child("imgProfilePictures/\(userinfo.uid).png")
+        profileImgRef.getData(maxSize: 50 * 1024 * 1024) { data, error in
+            if error != nil {
+                let errorDesc = error?.localizedDescription
+                if errorDesc == "Image does not exist." {
+                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(userinfo.uid).png")!) as Data?
+                    let imagePath = "imgProfilePictures/\(userinfo.uid).png"
+                    
+                    let metaData = StorageMetadata()
+                    metaData.contentType = "image/png"
+                    
+                    self.storageRef.reference().child(imagePath)
+                        .putData(profileImageData!, metadata: metaData) { (metadata, error) in
+                            if let error = error {
+                                print ("Uploading Error: \(error)")
+                                return
+                            }
+                    }
+                    self.userProfileImage = UIImage(named: "\(userinfo.uid).png")
+                } else {
+                    return
+                }
+            } else {
+                self.userProfileImage = UIImage(data: data!)
+                cell.imgProfilePic.image = self.userProfileImage
+            }
+        }
         return cell
-
     }
     
-    //awebber - variables to take the values from table and set to a string variable. will use to create a user object and send to details screen
     var firstName:String = " "
     var lastName:String = " "
     var mealPlan:Bool = true
     var college:String = " "
     var mateType:String = " "
     var uid:String = " "
-    var imgProfilePic:UIImageView? = nil
+    //var imgProfilePic:UIImageView? = nil
     
-    //added by awebber to add c
+    //what happens when you select a cell
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
         firstName = self.users[indexPath.row].firstName
         lastName = self.users[indexPath.row].lastName
         mealPlan = self.users[indexPath.row].mealPlan
         mateType = self.users[indexPath.row].mateType
         uid = self.users[indexPath.row].uid
+        
+        
         
         selectedUser = SearchUsers(firstName: firstName, lastName: lastName,  mealPlan: mealPlan, mateType: mateType, college:college,uid:uid)
 
