@@ -28,8 +28,8 @@ class RegisterViewController: UIViewController {
             mealPlanBool = false
         }
     }
-    
-    @IBAction func btnRegister_TouchUpInside(_ sender: Any) {
+
+    @IBAction func btnRegister(_ sender: Any) {
    
         //CHECK that no fields are nil
         if txtFirstName.text != "" && txtLastName.text != "" && txtEmail.text != "" && txtPassword.text != "" {
@@ -60,7 +60,7 @@ class RegisterViewController: UIViewController {
                         if password.count > 5 {
                         
                         //add user to Firebase
-                        Auth.auth().createUser(withEmail:email, password: password, completion: {user,error in
+                            Auth.auth().createUser(withEmail:email, password: password, completion: {user,error in
                             
                             //add user to Firebase Database
                             if user != nil {

@@ -13,16 +13,17 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBOutlet weak var tableView: UITableView!
     
-    
     let storageRef =  Storage.storage().reference()
     let dataRef = Database.database().reference()
     var userProfileImageSearch: UIImage?
     let cellId = "ClubsOrgsCellProfile"
-
+    let uidSelf = Auth.auth().currentUser?.uid
+    
     //MARK - user data and filter data
     var userDetails = SearchUsers()
 //********
-    var toUserCon = UserInConversations()
+    var getFromUser: [UserInConversations] = []
+    var fromUserProfile = UserInConversations()
     var filterDataProfile = FilterVCToSearchVCStruct()
 
     //MARK - Struct
@@ -39,7 +40,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        toUserCon = UserInConversations(uid: userDetails.uid, userDisplayName: userDetails.firstName + " " + userDetails.lastName)
+//        toUserCon = UserInConversations(uid: userDetails.uid, userDisplayName: userDetails.firstName + " " + userDetails.lastName)
+        
+
+        
     }
 
     
@@ -174,24 +178,50 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     }
 
+    var uid:String = " "
+    var userDisplayName:String = " "
 
+    @IBAction func btnMessagePressed(_ sender: Any) {
         
+        
+        
+//        dataRef.child("USERS/\(self.uidSelf!)").observe(.value, with: { snapshot in
+            // get the entire snapshot dictionary
+//            if let dictionary = snapshot.value as? [String: Any]
+//            {
+//
+//            var fullNameGF = (dictionary["firstName"] as? String)! + " " + (dictionary["lastName"] as? String)!
+//            var uidGF = (dictionary["uid"] as? String)!
+//
+//            var fireAccountArray: [UserInConversations] = []
+//
+//            let fireAccount = UserInConversations(uidSelf:uidGF, userDisplayName:fullNameGF)
+//            fireAccountArray.append(fireAccount)
+//
+//                self.getFromUser = fireAccountArray
+//
+//            }
+//        })
+        
+//            var uidSelf2:String = uidSelf!
+//            var userDisplayName:String = "DT"
+        
+        
+            fromUserProfile = UserInConversations(
+                uid:uidSelf!,
+                userDisplayName:(Auth.auth().currentUser?.displayName)!
+            )
+
+        let myVC = storyboard?.instantiateViewController(withIdentifier: "MessageViewController") as! MessageViewController
+        myVC.toUser = userDetails
+        myVC.fromUserMessage = fromUserProfile
+        self.present(myVC, animated: true)
+        
+        //performSegue(withIdentifier: "Profile2Message", sender: self)
+    }
+    
     @IBAction func btnBack(_ sender: Any) {
-    
-//    @IBAction func btnMessagePressed(_ sender: Any) {
-////        let vc = segue.destination as! MessageViewController
-////        vc.toUser = userDetails
-//
-//        let myVC = storyboard?.instantiateViewController(withIdentifier: "Message") as! MessageViewController
-//        myVC.toUser = userDetails
-//        self.present(myVC, animated: true)
-//
-////        if let navigator = navigationController {
-////            navigator.pushViewController(myVC, animated: true)
-////        }
-//    }
-    
-    
+
         var mateTypeSearch:String = filterDataProfile.mateTypeSearch!
         var collegeSearch:String = filterDataProfile.collegeSearch!
         var mealPlanSearch:String = filterDataProfile.mealPlanSearch!
@@ -212,17 +242,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             let vc = segue.destination as! SearchListViewController
             vc.filterDataSearch = filterDataProfile
         }
-        if segue.identifier == "ProfileToMessage" {
-            let myVC = storyboard?.instantiateViewController(withIdentifier: "Message") as! MessageViewController
-            myVC.toUser = userDetails
-            myVC.toUserCon = toUserCon
-            self.present(myVC, animated: true)
-        }
-//        if segue.identifier == "ProfileToConversation" {
-//            let myVC = storyboard?.instantiateViewController(withIdentifier: "Message") as! MessageViewController
-//            myVC.toUser = userDetails
-//            self.present(myVC, animated: true)
-//        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

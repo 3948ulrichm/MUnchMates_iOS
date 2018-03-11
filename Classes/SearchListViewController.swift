@@ -107,126 +107,6 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
                     super.viewDidLoad()
                 })
         }
-
-//filterCollege...filterCollege...filterCollege...filterCollege...filterCollege
-//        if collegeSearch == "All" {
-//            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"firstName").observeSingleEvent(of: .value, with:
-//                { snapshot in
-//                    var fireAccountArray: [SearchUsers] = []
-//
-//                    for fireAccount in snapshot.children {
-//                        let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
-//                        fireAccountArray.append(fireAccount)
-//                    }
-//
-//                    self.filterCollege = fireAccountArray
-//
-//                    self.tableView.delegate = self
-//                    self.tableView.dataSource = self
-//                    self.tableView.reloadData()
-//                    super.viewDidLoad()
-//            })
-//        }
-//        else {
-//            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"college").queryEqual(toValue: collegeSearch).observeSingleEvent(of: .value, with:
-//                { snapshot in
-//
-//                    var fireAccountArray: [SearchUsers] = []
-//
-//                    for fireAccount in snapshot.children {
-//                        let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
-//                        fireAccountArray.append(fireAccount)
-//                    }
-//
-//                    self.filterCollege = fireAccountArray
-//
-//                    self.tableView.delegate = self
-//                    self.tableView.dataSource = self
-//                    self.tableView.reloadData()
-//                    super.viewDidLoad()
-//            })
-//        }
-        
-
-//filterMealPlan...filterMealPlan...filterMealPlan...filterMealPlan
-//        if mealPlanSearch == "All" {
-//            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"firstName").observeSingleEvent(of: .value, with:
-//                { snapshot in
-//                    var fireAccountArray: [SearchUsers] = []
-//
-//                    for fireAccount in snapshot.children {
-//                        let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
-//                        fireAccountArray.append(fireAccount)
-//                    }
-//
-//                    self.filterMealPlan = fireAccountArray
-//
-//                    self.tableView.delegate = self
-//                    self.tableView.dataSource = self
-//                    self.tableView.reloadData()
-//                    super.viewDidLoad()
-//            })
-//
-//        }
-//        else {
-//            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"mealPlan").queryEqual(toValue: mealPlanSearch).observeSingleEvent(of: .value, with:
-//                { snapshot in
-//
-//                    var fireAccountArray: [SearchUsers] = []
-//
-//                    for fireAccount in snapshot.children {
-//                        let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
-//                        fireAccountArray.append(fireAccount)
-//                    }
-//
-//                    self.filterMealPlan = fireAccountArray
-//
-//                    self.tableView.delegate = self
-//                    self.tableView.dataSource = self
-//                    self.tableView.reloadData()
-//                    super.viewDidLoad()
-//            })
-//        }
-        
-        
-//filterClubsOrgs...filterClubsOrgs...filterClubsOrgs...filterClubsOrgs
-//        if mateTypeSearch == "All" {
-//            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"firstName").observeSingleEvent(of: .value, with:
-//                { snapshot in
-//                    var fireAccountArray: [SearchUsers] = []
-//
-//                    for fireAccount in snapshot.children {
-//                        let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
-//                        fireAccountArray.append(fireAccount)
-//                    }
-//
-//                    self.filterMateType = fireAccountArray
-//
-//                    self.tableView.delegate = self
-//                    self.tableView.dataSource = self
-//                    self.tableView.reloadData()
-//                    super.viewDidLoad()
-//            })
-//        }
-//        else {
-//            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"mateType").queryEqual(toValue: mateTypeSearch).observeSingleEvent(of: .value, with:
-//                { snapshot in
-//
-//                    var fireAccountArray: [SearchUsers] = []
-//
-//                    for fireAccount in snapshot.children {
-//                        let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
-//                        fireAccountArray.append(fireAccount)
-//                    }
-//
-//                    self.filterMateType = fireAccountArray
-//
-//                    self.tableView.delegate = self
-//                    self.tableView.dataSource = self
-//                    self.tableView.reloadData()
-//                    super.viewDidLoad()
-//            })
-//        }
         
        
         //this is to text how many values are in each array
@@ -331,11 +211,11 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         )
         
         
-        performSegue(withIdentifier: "selectedUserDetails", sender: self)
+        performSegue(withIdentifier: "SearchList2Profile", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "selectedUserDetails" {
+        if segue.identifier == "SearchList2Profile" {
             let vc = segue.destination as! ProfileViewController
             vc.userDetails = selectedUser
             vc.filterDataProfile = filterDataSearch

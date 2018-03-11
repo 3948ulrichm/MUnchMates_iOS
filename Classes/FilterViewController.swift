@@ -57,8 +57,6 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     //MARK: viewDidLoad
     
-    @IBOutlet weak var testLabel: UILabel!
-    
     override func viewDidLoad() {
         
 
@@ -92,8 +90,6 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
             mealPlanSearch:mealPlanSearch,
             clubsOrgsSearch:clubsOrgsSearch
         )
-        
-        self.testLabel.text = filterData.mateTypeSearch
         
         performSegue(withIdentifier: "FilterToSearchList", sender: self)
 

@@ -35,7 +35,7 @@ class AddDeleteClubsOrgsTableViewCell: UITableViewCell {
             Database.database().reference().child("USERS/\(uid!)/clubsOrgs/\(clubsOrgsIdValue)").setValue(clubsOrgsValues)
         }
         else {
-            Database.database().reference().child("USERS/\(uid!)/clubsOrgs/\(cellClubOrgId!)").removeValue()
+            Database.database().reference().child("USERS/\(uid!)/clubsOrgs/\(clubsOrgsIdValue)").removeValue()
         }
         
         //Insert clubs org info into Db

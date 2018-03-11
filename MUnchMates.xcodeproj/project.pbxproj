@@ -36,6 +36,7 @@
 		94C3877420391539007D9436 /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3877320391539007D9436 /* FilterTableViewCell.swift */; };
 		94CDC3A5201AC8E9008BEE25 /* SelfProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CDC3A4201AC8E9008BEE25 /* SelfProfileTableViewCell.swift */; };
 		94CDC3A7201ADFD6008BEE25 /* userClubsOrgsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CDC3A6201ADFD6008BEE25 /* userClubsOrgsStruct.swift */; };
+		94CFD68E2054CB65009786FD /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CFD68D2054CB65009786FD /* UIColorExtension.swift */; };
 		94DF213D2040E036000AD624 /* FilterVCToSearchVCStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DF213C2040E036000AD624 /* FilterVCToSearchVCStruct.swift */; };
 		94E3F34120206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3F34020206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift */; };
 		94E3F34320206AE600CF2FFD /* AddDeleteClubsOrgsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3F34220206AE600CF2FFD /* AddDeleteClubsOrgsTableViewCell.swift */; };
@@ -82,6 +83,7 @@
 		94C3877320391539007D9436 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
 		94CDC3A4201AC8E9008BEE25 /* SelfProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelfProfileTableViewCell.swift; path = Classes/SelfProfileTableViewCell.swift; sourceTree = "<group>"; };
 		94CDC3A6201ADFD6008BEE25 /* userClubsOrgsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userClubsOrgsStruct.swift; sourceTree = "<group>"; };
+		94CFD68D2054CB65009786FD /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		94DF213C2040E036000AD624 /* FilterVCToSearchVCStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterVCToSearchVCStruct.swift; sourceTree = "<group>"; };
 		94E3F34020206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddDeleteClubsOrgsViewController.swift; path = Classes/AddDeleteClubsOrgsViewController.swift; sourceTree = "<group>"; };
 		94E3F34220206AE600CF2FFD /* AddDeleteClubsOrgsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeleteClubsOrgsTableViewCell.swift; sourceTree = "<group>"; };
@@ -113,8 +115,9 @@
 		49658F34205224F700FED586 /* Conversations */ = {
 			isa = PBXGroup;
 			children = (
-				49658F372052259300FED586 /* ConversationTableViewCell.swift */,
 				49658F352052252B00FED586 /* ConversationTableViewController.swift */,
+				49C08FF71FEB45B700AFB599 /* MessageViewController.swift */,
+				94492C6A2053723C00E14022 /* Cells */,
 			);
 			name = Conversations;
 			sourceTree = "<group>";
@@ -135,6 +138,51 @@
 				19F86FB723A230B3435610C4 /* Pods-MUnchMates.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		94492C68205371D700E14022 /* Profiles */ = {
+			isa = PBXGroup;
+			children = (
+				94606E961FE8B6D900C0AA8E /* EditProfileViewController.swift */,
+				94606E971FE8B6D900C0AA8E /* FilterViewController.swift */,
+				94606E941FE8B6D900C0AA8E /* ProfileViewController.swift */,
+				94606E931FE8B6D900C0AA8E /* SearchListViewController.swift */,
+				94606E9A1FE8B6DA00C0AA8E /* SelfProfileViewController.swift */,
+				94E3F34020206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift */,
+				94492C692053722C00E14022 /* Cells */,
+			);
+			name = Profiles;
+			sourceTree = "<group>";
+		};
+		94492C692053722C00E14022 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				94E3F34220206AE600CF2FFD /* AddDeleteClubsOrgsTableViewCell.swift */,
+				94606E991FE8B6DA00C0AA8E /* SearchListTableViewCell.swift */,
+				945BC8582039605E000538D9 /* EditProfileViewCell.swift */,
+				94C3877320391539007D9436 /* FilterTableViewCell.swift */,
+				94CDC3A4201AC8E9008BEE25 /* SelfProfileTableViewCell.swift */,
+				94603CFB204B5B5E009B30BD /* ProfileTableViewCell.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		94492C6A2053723C00E14022 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				49658F372052259300FED586 /* ConversationTableViewCell.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		94492C6B2053725700E14022 /* User Auth */ = {
+			isa = PBXGroup;
+			children = (
+				94606E951FE8B6D900C0AA8E /* PledgeViewController.swift */,
+				94606E981FE8B6DA00C0AA8E /* RegisterViewController.swift */,
+				94606E911FE8B6BF00C0AA8E /* LoginViewController.swift */,
+			);
+			name = "User Auth";
 			sourceTree = "<group>";
 		};
 		94606EA41FE8B7AD00C0AA8E /* New Group */ = {
@@ -212,23 +260,10 @@
 		94F8FCE01F8B528200663F8C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				94CFD68D2054CB65009786FD /* UIColorExtension.swift */,
+				94492C6B2053725700E14022 /* User Auth */,
+				94492C68205371D700E14022 /* Profiles */,
 				49658F34205224F700FED586 /* Conversations */,
-				94606E961FE8B6D900C0AA8E /* EditProfileViewController.swift */,
-				94606E971FE8B6D900C0AA8E /* FilterViewController.swift */,
-				94606E951FE8B6D900C0AA8E /* PledgeViewController.swift */,
-				94606E941FE8B6D900C0AA8E /* ProfileViewController.swift */,
-				94606E981FE8B6DA00C0AA8E /* RegisterViewController.swift */,
-				94606E931FE8B6D900C0AA8E /* SearchListViewController.swift */,
-				94606E991FE8B6DA00C0AA8E /* SearchListTableViewCell.swift */,
-				94606E9A1FE8B6DA00C0AA8E /* SelfProfileViewController.swift */,
-				94606E911FE8B6BF00C0AA8E /* LoginViewController.swift */,
-				49C08FF71FEB45B700AFB599 /* MessageViewController.swift */,
-				94E3F34020206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift */,
-				94E3F34220206AE600CF2FFD /* AddDeleteClubsOrgsTableViewCell.swift */,
-				945BC8582039605E000538D9 /* EditProfileViewCell.swift */,
-				94C3877320391539007D9436 /* FilterTableViewCell.swift */,
-				94CDC3A4201AC8E9008BEE25 /* SelfProfileTableViewCell.swift */,
-				94603CFB204B5B5E009B30BD /* ProfileTableViewCell.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -406,6 +441,7 @@
 				94C3877420391539007D9436 /* FilterTableViewCell.swift in Sources */,
 				94606E9F1FE8B6DA00C0AA8E /* FilterViewController.swift in Sources */,
 				94606EA21FE8B6DA00C0AA8E /* SelfProfileViewController.swift in Sources */,
+				94CFD68E2054CB65009786FD /* UIColorExtension.swift in Sources */,
 				94F487F5202824B000E3444F /* SearchUsersProfilePic.swift in Sources */,
 				94188BA02039185100AE5F9A /* FilterStructCollege.swift in Sources */,
 				94E3F34320206AE600CF2FFD /* AddDeleteClubsOrgsTableViewCell.swift in Sources */,

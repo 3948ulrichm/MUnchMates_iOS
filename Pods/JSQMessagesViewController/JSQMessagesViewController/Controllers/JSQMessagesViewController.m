@@ -65,6 +65,8 @@ static IMP JSQReplaceMethodWithBlock(Class c, SEL origSEL, id block) {
     }
 }
 
+
+
 static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     __block void (^removeWorkaround)(void) = ^{};
     const void (^installWorkaround)(void) = ^{
