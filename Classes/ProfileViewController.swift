@@ -40,7 +40,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        toUserCon = UserInConversations(uid: userDetails.uid, userDisplayName: userDetails.firstName + " " + userDetails.lastName)
         
 
         
@@ -183,31 +182,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBAction func btnMessagePressed(_ sender: Any) {
         
-        
-        
-//        dataRef.child("USERS/\(self.uidSelf!)").observe(.value, with: { snapshot in
-            // get the entire snapshot dictionary
-//            if let dictionary = snapshot.value as? [String: Any]
-//            {
-//
-//            var fullNameGF = (dictionary["firstName"] as? String)! + " " + (dictionary["lastName"] as? String)!
-//            var uidGF = (dictionary["uid"] as? String)!
-//
-//            var fireAccountArray: [UserInConversations] = []
-//
-//            let fireAccount = UserInConversations(uidSelf:uidGF, userDisplayName:fullNameGF)
-//            fireAccountArray.append(fireAccount)
-//
-//                self.getFromUser = fireAccountArray
-//
-//            }
-//        })
-        
-//            var uidSelf2:String = uidSelf!
-//            var userDisplayName:String = "DT"
-        
-        
+        var read:Bool = true
+        var timeStamp: Double = 0.00
             fromUserProfile = UserInConversations(
+                read:read,
+                timeStamp:timeStamp,
                 uid:uidSelf!,
                 userDisplayName:(Auth.auth().currentUser?.displayName)!
             )

@@ -11,6 +11,8 @@ import UIKit
 class ConversationTableViewCell: UITableViewCell {
 
     @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblUnread: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

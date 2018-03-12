@@ -947,7 +947,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="lblNameMessage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oo7-Sc-djV">
-                                                    <rect key="frame" x="44" y="11" width="132" height="21"/>
+                                                    <rect key="frame" x="44" y="11" width="331" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="lblUnread" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3qJ-UH-4Lz">
+                                                    <rect key="frame" x="-18" y="11" width="74" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -957,6 +964,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="lblName" destination="Oo7-Sc-djV" id="BcJ-iO-N3j"/>
+                                            <outlet property="lblUnread" destination="3qJ-UH-4Lz" id="HcD-Dz-ykr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1049,6 +1057,16 @@
                                         <barButtonItem key="leftBarButtonItem" title="Done" id="o28-Ve-nWs">
                                             <connections>
                                                 <segue destination="qGN-jU-sOB" kind="show" identifier="saveClubsOrgs" id="1dB-j5-7tJ"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" style="plain" id="Wdu-sx-iZ3">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ZzL-bM-zrd">
+                                                <rect key="frame" x="300" y="7" width="59" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Add/Edit"/>
+                                            </button>
+                                            <connections>
+                                                <action selector="btnAddEditClubOrg:" destination="sdv-3H-aPx" id="iel-8I-hER"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -1442,7 +1460,6 @@
         <image name="tempProfilePic" width="726" height="726"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6BK-N8-TgK"/>
         <segue reference="1dB-j5-7tJ"/>
         <segue reference="uCM-wr-vth"/>
         <segue reference="yFg-Ef-b5q"/>

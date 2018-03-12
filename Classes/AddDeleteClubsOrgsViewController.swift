@@ -8,9 +8,32 @@
 
 import UIKit
 import Firebase
+import MessageUI
 
-class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,MFMailComposeViewControllerDelegate {
     @IBOutlet weak var tableView: UITableView!
+    
+    //User can send an email by clicking add/edit button to add or edit a clubOrg
+    //TODO - check if this works on phone
+    @IBAction func btnAddEditClubOrg(_ sender: Any) {
+        var emailTitle = "Feedback"
+        var messageBody = "Feature request or bug report?"
+        var toRecipents = ["friend@stackoverflow.com"]
+        var mc: MFMailComposeViewController = MFMailComposeViewController()
+        mc.mailComposeDelegate = self
+        mc.setSubject(emailTitle)
+        mc.setMessageBody(messageBody, isHTML: false)
+        mc.setToRecipients(toRecipents)
+        
+        self.present(mc, animated: true, completion: nil)
+        
+    }
+    
+    func mailComposeController(controller:MFMailComposeViewController, didFinishWithResult result:MFMailComposeResult, error:NSError) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
     
     //@IBOutlet weak var switchClubsOrgs: UISwitch!
     

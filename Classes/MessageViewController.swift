@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import JSQMessagesViewController
+import CoreFoundation
 
 class MessageViewController: JSQMessagesViewController {
     
@@ -17,25 +18,14 @@ class MessageViewController: JSQMessagesViewController {
     @IBOutlet weak var sideView: UIView!
 
     var toUser = SearchUsers()
-    
     var fromUserMessage = UserInConversations()
     
     var messages = [JSQMessage]()
-    var senderUser = SearchUsers()
     let uid = Auth.auth().currentUser?.uid
     let user = Auth.auth().currentUser
     let dataRef = Database.database().reference()
-
-    //Auth.auth().currentUser?.displayName
-    
-    // TODO - custom bubble colors
-//    func rgb(r: Int, g: Int, b: Int) -> UIColor {
-//        let munchmateGold: UIColor = rgb(r: 252, g: 183, b: 35)
-//        let munchmateBlue: UIColor = rgb(r: 0, g: 28, b: 184)
-//    }
     
 
-    
     //bubbles
     lazy var outgoingBubble: JSQMessagesBubbleImage = {
         return JSQMessagesBubbleImageFactory()!.outgoingMessagesBubbleImage(with: UIColor.MUnchMatesBlue)
@@ -48,13 +38,18 @@ class MessageViewController: JSQMessagesViewController {
     
     override func viewDidLoad() {
         
+        
         super.viewDidLoad()
+    
         
         //for messaging
         let defaults = UserDefaults.standard
         
         var userDisplayName:String = fromUserMessage.userDisplayName
         var conversationID: String = toUser.uid
+        
+        //mark message as read
+        Database.database().reference().child("USERS/\(uid!)/conversations/senderList/\(conversationID)/read").setValue(true)
 
         if  let id = uid
         {
@@ -221,6 +216,10 @@ class MessageViewController: JSQMessagesViewController {
     {
         var conversationID: String = toUser.uid
         var userDisplayName:String = fromUserMessage.userDisplayName
+        var timeStampPos = NSDate().timeIntervalSince1970 //get timestamp
+        var timeStampNeg = timeStampPos * -1 //make timestamp negative, this is to order the user decending in ConversationViewController
+        var readFalse = false
+        var readTrue = true
 
         //change ref to point to correct conversation
         let senderRef = Constants.refs.databaseRoot.child("USERS/\(uid!)/conversations/messageList/\(conversationID)/messages/").childByAutoId()
@@ -232,12 +231,12 @@ class MessageViewController: JSQMessagesViewController {
         let receiverMessage = ["sender_id": senderId, "name": senderDisplayName, "text": text]
         receiverRef.setValue(receiverMessage)
        
-        //let ref = Constants.refs.databaseRoot.child("USERS/\(uid!)/conversations/senderList/\(conversationID)")
-        //let toUserIDValue = ["uid": conversationID, "userDisplayName": toUser.firstName + " " + toUser.lastName]
-        //ref.setValue(toUserIDValue)
+        let ref = Constants.refs.databaseRoot.child("USERS/\(uid!)/conversations/senderList/\(conversationID)")
+        let toUserIDValue = ["uid": conversationID, "userDisplayName": toUser.firstName + " " + toUser.lastName,"timeStamp":timeStampNeg,"read":readTrue] as [String : Any]
+        ref.setValue(toUserIDValue)
         
         let ref2 = Constants.refs.databaseRoot.child("USERS/\(conversationID)/conversations/senderList/\(uid!)")
-        let fromUserIDValue = ["uid": uid, "userDisplayName": userDisplayName]
+        let fromUserIDValue = ["uid": uid, "userDisplayName": userDisplayName,"timeStamp":timeStampNeg,"read":readFalse] as [String : Any]
         ref2.setValue(fromUserIDValue)
         
         finishSendingMessage()
