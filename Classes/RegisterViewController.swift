@@ -157,11 +157,29 @@ class RegisterViewController: UIViewController {
         txtEmail.returnKeyType = .next
         txtPassword.autocorrectionType = .no
         txtPassword.returnKeyType = .done
+        
+        //TODO - make next and done work
+//        //txtFirstName2txtLastName
+//        txtFirstName.resignFirstResponder()
+//        txtLastName.becomeFirstResponder()
+//
+//        //txtLastName2txtEmail
+//        txtLastName.resignFirstResponder()
+//        txtEmail.becomeFirstResponder()
+//
+//        //txtEmail2txtPassword
+//        txtEmail.resignFirstResponder()
+//        txtPassword.becomeFirstResponder()
+//
+//        //txtPassword2Done
+//        txtPassword.endEditing(true)
 
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
     }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -37,6 +37,10 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
     //var usersUid: [SearchUsersUid] = []
     //var selectedUserUid = SearchUsersUid()
     
+    //get clubs orgs data from filter
+    var clubsOrgsArray: [FilterStructClubsOrgs]=[]
+    var clubsOrgsArray2 = FilterStructClubsOrgs()
+    
     //Filter Structs
     var filterCollege: [SearchUsers] = []
     var filterCollege2 = SearchUsers()
@@ -69,6 +73,10 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         
 //FILTERING...FILTERING...FILTERING...FILTERING...FILTERING...FILTERING!!!
+        
+        var clubsOrgsIdRef = clubsOrgsArray2.clubsOrgsId!
+        print(clubsOrgsIdRef)
+        
         if attributeSearch == "all" {
         dataRef.reference(withPath: "USERS/").queryOrdered(byChild:searchRandomOrderAttribute[searchRandomOrderNumber]).observeSingleEvent(of: .value, with:
             { snapshot in
@@ -92,7 +100,28 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
             
         //Filter by clubs orgs
-        
+        else if entitySearch == "club / organization" {
+            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"clubsOrgs/\(String(describing: clubsOrgsIdRef))/clubsOrgsName").queryEqual(toValue: attributeSearch).observeSingleEvent(of: .value, with:
+                { snapshot in
+                    var fireAccountArray: [SearchUsers] = []
+                    
+                    for fireAccount in snapshot.children {
+                        let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
+                        
+                        //let clubsOrgsNames = fireAccount.map(){$0.clubsOrgsName}
+                        
+                        fireAccountArray.append(fireAccount)
+                    }
+                    
+                    self.users = fireAccountArray
+                    print("**************\(self.users)*******")
+                    
+                    self.tableView.delegate = self
+                    self.tableView.dataSource = self
+                    self.tableView.reloadData()
+                    super.viewDidLoad()
+            })
+        }
             
         //Filter by colleges
         else if entitySearch == "college" {
@@ -109,6 +138,8 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
                     }
                     
                     self.users = fireAccountArray
+                    print("**************\(self.users)*******")
+
                     
                     self.tableView.delegate = self
                     self.tableView.dataSource = self

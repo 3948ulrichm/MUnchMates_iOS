@@ -44,8 +44,7 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
 ////////////LOAD INFORMATION TO SCREEN///////////////////
     override func viewWillAppear(_ animated: Bool) {
-
-        
+                
             //display clubsOrgs
             dataRef.child("USERS/\(uid!)/clubsOrgs/").queryOrdered(byChild:"clubsOrgsName").observe(.value, with:
             { snapshot in

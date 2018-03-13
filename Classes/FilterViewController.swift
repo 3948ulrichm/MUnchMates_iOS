@@ -90,8 +90,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     entitySearch:entitySearch,
                     attributeSearch:attributeSearch
                 )
-        
-        
+
         performSegue(withIdentifier: "FilterToSearchList", sender: self)
 
     }
@@ -100,6 +99,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if segue.identifier == "FilterToSearchList" {
             let vc = segue.destination as! SearchListViewController
             vc.filterDataSearch = filterData
+            vc.clubsOrgsArray2 = selectedFilterValueClubsOrgs
         }
     }
     
@@ -262,9 +262,9 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.tableView.delegate = self
                     self.tableView.dataSource = self
                     self.tableView.reloadData()
-            })
+                })
+            }
         }
-    }
     }
     
     //select picker view value, send to selected button
@@ -363,8 +363,9 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.lblFilterButtonName?.text = mealPlan.mealPlanName
         }
         else if clubsOrgsBool == true {
-            let clubsOrg = self.clubsOrgsStruct[indexPath.row]
-            cell.lblFilterButtonName?.text = clubsOrg.clubsOrgsName
+            let clubsOrgsName = self.clubsOrgsStruct[indexPath.row].clubsOrgsName
+            let clubsOrgsId = self.clubsOrgsStruct[indexPath.row].clubsOrgsId
+            cell.lblFilterButtonName?.text = clubsOrgsName
         }
         
         return cell
@@ -376,6 +377,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var collegeName:String = " "
     var mealPlanName:String = " "
     var clubsOrgsName:String = " "
+    var clubsOrgsId:String = " "
 
     //What happens if you select a row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -421,10 +423,14 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         else if clubsOrgsBool == true {
             clubsOrgsName = self.clubsOrgsStruct[indexPath.row].clubsOrgsName!
-            selectedFilterValueClubsOrgs = FilterStructClubsOrgs(clubsOrgsName:clubsOrgsName)
+            clubsOrgsId = self.clubsOrgsStruct[indexPath.row].clubsOrgsId!
+            selectedFilterValueClubsOrgs = FilterStructClubsOrgs(
+                clubsOrgsName:clubsOrgsName,
+                clubsOrgsId:clubsOrgsId
+            )
             btnFilterAttribute.setTitle(clubsOrgsName, for: .normal)
             viewPickerView.isHidden = true
-            mealPlanBool = false
+            clubsOrgsBool = false
         }
     }
 }
