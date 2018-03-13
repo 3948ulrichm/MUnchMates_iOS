@@ -11,15 +11,14 @@ import Firebase
 
 class SearchListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBOutlet weak var testLabel: UILabel!
-    
+        
     let storageRef = Storage.storage()
     let dataRef = Database.database()
-    let cellId = "SearchListCell"
+    let cellId = "SearchListTableViewCell"
     let uidSelf = Auth.auth().currentUser?.uid
 //    let uid:String = ""
     var userProfileImage: UIImage?
+    var mealPlanAttribute:Bool?
     
     //filterData struct
     //var filterSearch: [FilterVCToSearchVCStruct] = []
@@ -53,15 +52,25 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     override func viewDidLoad() {
         
-        var mateTypeSearch:String = filterDataSearch.mateTypeSearch!
-        var collegeSearch:String = filterDataSearch.collegeSearch!
-        var mealPlanSearch:String = filterDataSearch.mealPlanSearch!
-        var clubsOrgsSearch:String = filterDataSearch.clubsOrgsSearch!
+        var entitySearch:String = filterDataSearch.entitySearch!
+        var attributeSearch:String = filterDataSearch.attributeSearch!
     
-    
-//filterMateType...filterMateType...filterMateType...filterMateType
-        if mateTypeSearch == "All" {
-        dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"firstName").observeSingleEvent(of: .value, with:
+        //this randomizes searches when user searches for "All"
+        var searchRandomOrderAttribute = ["college", "firstName", "lastName", "mateType", "uid"]
+        var searchRandomOrderNumber = Int(arc4random_uniform(UInt32(searchRandomOrderAttribute.count)))
+        print(searchRandomOrderNumber)
+        
+        //convert attributeSearch for mealPlan from yes/no to true/false
+        if entitySearch == "meal plan" && attributeSearch == "Yes" {
+            self.mealPlanAttribute = true
+        }
+        else if entitySearch == "meal plan" && attributeSearch == "No" {
+            self.mealPlanAttribute = false
+        }
+        
+//FILTERING...FILTERING...FILTERING...FILTERING...FILTERING...FILTERING!!!
+        if attributeSearch == "all" {
+        dataRef.reference(withPath: "USERS/").queryOrdered(byChild:searchRandomOrderAttribute[searchRandomOrderNumber]).observeSingleEvent(of: .value, with:
             { snapshot in
                 var fireAccountArray: [SearchUsers] = []
                 
@@ -71,16 +80,9 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
                     //let clubsOrgsNames = fireAccount.map(){$0.clubsOrgsName}
                     
                     fireAccountArray.append(fireAccount)
-                    
                 }
-                
-                //TEMP
-//                self.filterMateType = fireAccountArray
-                self.users = fireAccountArray
-                
-                var testLabelString = self.users.count
-                self.testLabel.text = "\(String(testLabelString)) Results"
 
+                self.users = fireAccountArray
                 
                 self.tableView.delegate = self
                 self.tableView.dataSource = self
@@ -88,14 +90,21 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
                 super.viewDidLoad()
             })
         }
-        else {
-            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"mateType").queryEqual(toValue: mateTypeSearch).observeSingleEvent(of: .value, with:
+            
+        //Filter by clubs orgs
+        
+            
+        //Filter by colleges
+        else if entitySearch == "college" {
+            dataRef.reference(withPath: "USERS/").queryOrdered(byChild: "college").queryEqual(toValue: attributeSearch).observeSingleEvent(of: .value, with:
                 { snapshot in
-                    
                     var fireAccountArray: [SearchUsers] = []
                     
                     for fireAccount in snapshot.children {
                         let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
+                        
+                        //let clubsOrgsNames = fireAccount.map(){$0.clubsOrgsName}
+                        
                         fireAccountArray.append(fireAccount)
                     }
                     
@@ -105,8 +114,58 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
                     self.tableView.dataSource = self
                     self.tableView.reloadData()
                     super.viewDidLoad()
-                })
+            })
         }
+            
+        //Filter by mate type
+        else if entitySearch == "mate type" {
+            dataRef.reference(withPath: "USERS/").queryOrdered(byChild: "mateType").queryEqual(toValue: attributeSearch).observeSingleEvent(of: .value, with:
+                { snapshot in
+                    var fireAccountArray: [SearchUsers] = []
+                    
+                    for fireAccount in snapshot.children {
+                        let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
+                        
+                        //let clubsOrgsNames = fireAccount.map(){$0.clubsOrgsName}
+                        
+                        fireAccountArray.append(fireAccount)
+                    }
+                    
+                    self.users = fireAccountArray
+                    
+                    self.tableView.delegate = self
+                    self.tableView.dataSource = self
+                    self.tableView.reloadData()
+                    super.viewDidLoad()
+            })
+        }
+            
+            
+        //Filter by meal plan
+        else if entitySearch == "meal plan" {
+            dataRef.reference(withPath: "USERS/").queryOrdered(byChild: "mealPlan").queryEqual(toValue: mealPlanAttribute).observeSingleEvent(of: .value, with:
+                { snapshot in
+                    var fireAccountArray: [SearchUsers] = []
+                    
+                    for fireAccount in snapshot.children {
+                        let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
+                        
+                        //let clubsOrgsNames = fireAccount.map(){$0.clubsOrgsName}
+                        
+                        fireAccountArray.append(fireAccount)
+                    }
+                    
+                    self.users = fireAccountArray
+                    
+                    self.tableView.delegate = self
+                    self.tableView.dataSource = self
+                    self.tableView.reloadData()
+                    super.viewDidLoad()
+            })
+        }
+        
+        //
+        
         
        
         //this is to text how many values are in each array
@@ -128,6 +187,14 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! SearchListTableViewCell
         let userinfo = self.users[indexPath.row]
+    
+        //MUteMode?
+        if userinfo.muteMode == true {
+            cell.lblMUteMode?.text = "MUteMode"
+        }
+        else {
+            cell.lblMUteMode?.isHidden = true
+        }
     
         //Display full name
         cell.lblNameSearchList?.text = userinfo.firstName + " " + userinfo.lastName
@@ -179,6 +246,7 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
     var mealPlan:Bool = true
     var college:String = " "
     var mateType:String = " "
+    var muteMode = false
     var uid:String = " "
     //var imgProfilePic:UIImageView? = nil
     
@@ -189,36 +257,40 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         lastName = self.users[indexPath.row].lastName
         mealPlan = self.users[indexPath.row].mealPlan
         mateType = self.users[indexPath.row].mateType
+        muteMode = self.users[indexPath.row].muteMode
         uid = self.users[indexPath.row].uid
         
         
-        
-        selectedUser = SearchUsers(firstName: firstName, lastName: lastName,  mealPlan: mealPlan, mateType: mateType, college:college,uid:uid)
+        selectedUser = SearchUsers(firstName: firstName, lastName: lastName,  mealPlan: mealPlan, mateType: mateType,muteMode:muteMode, college:college,uid:uid)
 
         //selectedUserProfilePic = SearchUsersProfilePic(imgProfilePic: imgProfilePic!)
         //selectedUserUid = SearchUsersUid(uid:uid)
         
-        var mateTypeSearch:String = filterDataSearch.mateTypeSearch!
-        var collegeSearch:String = filterDataSearch.collegeSearch!
-        var mealPlanSearch:String = filterDataSearch.mealPlanSearch!
-        var clubsOrgsSearch:String = filterDataSearch.clubsOrgsSearch!
+        var entitySearch:String = filterDataSearch.entitySearch!
+        var attributeSearch:String = filterDataSearch.attributeSearch!
         
         filterDataProfile = FilterVCToSearchVCStruct(
-            mateTypeSearch:mateTypeSearch,
-            collegeSearch:collegeSearch,
-            mealPlanSearch:mealPlanSearch,
-            clubsOrgsSearch:clubsOrgsSearch
+            entitySearch:entitySearch,
+            attributeSearch:attributeSearch
         )
-        
         
         performSegue(withIdentifier: "SearchList2Profile", sender: self)
     }
     
+    @IBAction func btnBack(_ sender: Any) {
+        performSegue(withIdentifier: "SearchList2Filter", sender: self)
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SearchList2Profile" {
             let vc = segue.destination as! ProfileViewController
             vc.userDetails = selectedUser
             vc.filterDataProfile = filterDataSearch
         }
+        if segue.identifier == "SearchList2Filter" {
+            let vc = segue.destination as! FilterViewController
+            vc.filterData = filterDataSearch
+        }
+        
     }
 }

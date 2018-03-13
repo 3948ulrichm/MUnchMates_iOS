@@ -16,7 +16,8 @@ class SearchListTableViewCell: UITableViewCell {
     @IBOutlet weak var lblMealPlan: UILabel!
     @IBOutlet weak var imgProfilePic: UIImageView!
     @IBOutlet weak var lblMateTypeCollege: UILabel!
-
+    @IBOutlet weak var lblMUteMode: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

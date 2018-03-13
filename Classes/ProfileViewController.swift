@@ -37,6 +37,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var lblHometownSearch: UILabel!
     @IBOutlet weak var lblMateTypeProfileSearch: UILabel!
     @IBOutlet weak var lblCollegeProfileSearch: UILabel!
+    @IBOutlet weak var lblMuteMode: UILabel!
+    @IBOutlet weak var btnMessageOutlet: UIBarButtonItem!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,12 +80,24 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             if let dictionary = snapshot.value as? [String: Any]
             {
                 var fullName = (dictionary["firstName"] as? String)! + " " + (dictionary["lastName"] as? String)!
+                var firstName = (dictionary["firstName"] as? String)!
                 var mealPlan = (dictionary["mealPlan"] as? Bool)!
                 var muteMode = (dictionary["muteMode"] as? Bool)!
                 var email = (dictionary["email"] as? String)!
                 var mateType = (dictionary["mateType"] as? String)!
                 var college = (dictionary["college"] as? String)!
 
+                //MUteMode
+                if muteMode == true {
+                    self.btnMessageOutlet.isEnabled = false
+                    self.lblMuteMode.text = "\(firstName) is in MUteMode and cannot be messaged!"
+                }
+                else {
+                    self.btnMessageOutlet.isEnabled = true
+                    self.lblMuteMode.isHidden = true
+                }
+                
+                
                 //assign hometown
                 //if neither blank
                 var hometown:String?
@@ -201,18 +216,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func btnBack(_ sender: Any) {
 
-        var mateTypeSearch:String = filterDataProfile.mateTypeSearch!
-        var collegeSearch:String = filterDataProfile.collegeSearch!
-        var mealPlanSearch:String = filterDataProfile.mealPlanSearch!
-        var clubsOrgsSearch:String = filterDataProfile.clubsOrgsSearch!
+        var entitySearch:String = filterDataProfile.entitySearch!
+        var attributeSearch:String = filterDataProfile.attributeSearch!
 
         filterDataProfile = FilterVCToSearchVCStruct(
-            mateTypeSearch:mateTypeSearch,
-            collegeSearch:collegeSearch,
-            mealPlanSearch:mealPlanSearch,
-            clubsOrgsSearch:clubsOrgsSearch
+            entitySearch:entitySearch,
+            attributeSearch:attributeSearch
         )
-
+        
         performSegue(withIdentifier: "ProfileToSearchList", sender: self)
     }
 

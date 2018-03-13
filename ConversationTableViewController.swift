@@ -79,18 +79,23 @@ class ConversationTableViewController: UIViewController, UITableViewDelegate, UI
         return cell
     }
     
-//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            //let deleteRef = Database.database().reference(withPath: "debits/\(currentUser.uid)")
-//            let userItem = userArray[indexPath.row]
-//            userItem.ref?.removeValue()
-//        }
-//    }
+    //User can delete conversation with another user by swiping on their table cell. This action will only delete the conversation from the current user's database. The conversation will still exist under the other user's conversations node.
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        toUserUID = self.userArray[indexPath.row].uid
+        
+        if editingStyle == UITableViewCellEditingStyle.delete {
+
+        Constants.refs.databaseRoot.child("USERS/\(self.uid!)/conversations/messageList/\(toUserUID!)/").removeValue()
+        Constants.refs.databaseRoot.child("USERS/\(self.uid!)/conversations/senderList/\(toUserUID!)/").removeValue()
+
+        }
+    }
 
     var firstName = ""
     var lastName = ""
     var mealPlan = false
     var mateType = ""
+    var muteMode = false
     var college = ""
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -100,7 +105,7 @@ class ConversationTableViewController: UIViewController, UITableViewDelegate, UI
         toUserRead = self.userArray[indexPath.row].read
         toUserTimeStamp = self.userArray[indexPath.row].timeStamp
         
-        userDetailsConversation = SearchUsers(firstName: toUserDisplayName!, lastName: lastName, mealPlan: mealPlan, mateType: mateType, college: college, uid: toUserUID!)
+        userDetailsConversation = SearchUsers(firstName: toUserDisplayName!, lastName: lastName, mealPlan: mealPlan, mateType: mateType, muteMode:muteMode, college: college, uid: toUserUID!)
 
         
         //Self user information

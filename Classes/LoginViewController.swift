@@ -11,6 +11,8 @@ import Firebase
 
 class LoginViewController: UIViewController {
     
+    var doNotAutoLoginLoginPage = FromWelcomePageStruct()
+
     @IBOutlet weak var txtEmail: UITextField!
     
     @IBOutlet weak var txtPassword: UITextField!
@@ -20,24 +22,30 @@ class LoginViewController: UIViewController {
         if let email = txtEmail.text, let password = txtPassword.text {
             
             Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-                
-                //Segue to FilterViewController
-                if user != nil {
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController")
-                    self.present(vc!, animated: true, completion: nil)
-                }
-                
-                //ALERT for login error
-                else {
-                    let alertController = UIAlertController(title: "Login Failed!", message: "Incorrect username or password!", preferredStyle: UIAlertControllerStyle.alert)
-                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
+                if user?.isEmailVerified == false {
+                    let alertController = UIAlertController(title: "Login Failed!", message: "Email needs to be verified!", preferredStyle: UIAlertControllerStyle.alert)
+                    let okAction = UIAlertAction(title: "Alright, I'm on it!", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
                     }
                     alertController.addAction(okAction)
                     self.present(alertController, animated: true, completion: nil)
                 }
+                    
+                else if user != nil {
+                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController")
+                        self.present(vc!, animated: true, completion: nil)
+                    }
+                    
+                    //ALERT for login error
+                    else {
+                        let alertController = UIAlertController(title: "Login Failed!", message: "Incorrect username or password!", preferredStyle: UIAlertControllerStyle.alert)
+                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
+                        }
+                        alertController.addAction(okAction)
+                        self.present(alertController, animated: true, completion: nil)
+                    }
+                }
             }
         }
-    }
     var handle: AuthStateDidChangeListenerHandle?
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -46,14 +54,27 @@ class LoginViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        handle = Auth.auth().addStateDidChangeListener(){ (auth, user) in
-            if user != nil {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController")
-                self.present(vc!, animated: true, completion: nil)
+        
+        if doNotAutoLoginLoginPage.fromWelcomePage == true {
+            do {
+                try Auth.auth().signOut()
+            } catch let error as NSError {
+                print(error.localizedDescription)
             }
-            
         }
-        // Do any additional setup after loading the view.
+        else{
+            handle = Auth.auth().addStateDidChangeListener(){ (auth, user) in
+                if user != nil {
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController")
+                    self.present(vc!, animated: false, completion: nil)
+                }
+            }
+        }
+        
+        txtEmail.autocorrectionType = .no
+        txtPassword.autocorrectionType = .no
+        txtEmail.returnKeyType = .next
+        txtPassword.returnKeyType = .done
     }
     
     

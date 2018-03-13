@@ -12,43 +12,33 @@ import Firebase
 
 //populate this struct with the buttons from FilterViewController. When "Search" is hit, send value to SearchListViewController. Use values to filter search. NOTE: try clubsOrgsSearch last as it might take extra steps because it will be an extra node down the Db.
 struct FilterVCToSearchVCStruct {
-    let mateTypeSearch: String?
-    let collegeSearch: String?
-    let mealPlanSearch: String?
-    let clubsOrgsSearch: String?
-    let ref: DatabaseReference?
+    let entitySearch: String?
+    let attributeSearch: String?
+    //let ref: DatabaseReference?
     
     init() {
-        self.mateTypeSearch = ""
-        self.collegeSearch = ""
-        self.mealPlanSearch = ""
-        self.clubsOrgsSearch = ""
-        self.ref = nil
+        self.entitySearch = ""
+        self.attributeSearch = ""
+       // self.ref = nil
     }
     
-    init(mateTypeSearch:String, collegeSearch:String, mealPlanSearch:String, clubsOrgsSearch: String) {
-        self.mateTypeSearch = mateTypeSearch
-        self.collegeSearch = collegeSearch
-        self.mealPlanSearch = mealPlanSearch
-        self.clubsOrgsSearch = clubsOrgsSearch
-        self.ref = nil
+    init(entitySearch:String, attributeSearch:String) {
+        self.entitySearch = entitySearch
+        self.attributeSearch = attributeSearch
+        //self.ref = nil
     }
     
-    init(snapshot: DataSnapshot) {
-        let snapshotValue = snapshot.value as! [String: AnyObject]
-        mateTypeSearch = (snapshotValue["mateType"] as? String)!
-        collegeSearch = (snapshotValue["college"] as? String)!
-        mealPlanSearch = (snapshotValue["mealPlan"] as? String)!
-        clubsOrgsSearch = (snapshotValue["clubsOrgs"] as? String)!
-        ref = snapshot.ref
-    }
+//    init(snapshot: DataSnapshot) {
+//        let snapshotValue = snapshot.value as! [String: AnyObject]
+//        entitySearch = (snapshotValue[""] as? String)!
+//        attributeSearch = (snapshotValue[""] as? String)!
+//        ref = snapshot.ref
+//    }
     
     func toAnyObject() -> Any {
         return [
-            "mateType": mateTypeSearch as Any,
-            "college": collegeSearch as Any,
-            "mealPlan": mealPlanSearch as Any,
-            "clubsOrgs": clubsOrgsSearch as Any
+            "entitySearch": entitySearch as Any,
+            "attributeSearch": attributeSearch as Any
         ]
     }
 }

@@ -12,6 +12,7 @@ import Firebase
 class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: global variables
+    var filterEntityBool = false
     var mateTypeBool = false
     var collegeBool = false
     var mealPlanBool = false
@@ -22,7 +23,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     let ref = Database.database()
     let cellId = "FilterButtonName"
     
-    //filter details
+    //filter details - used to pass information to search so user can keep filter when going back
     var filter: [FilterVCToSearchVCStruct] = []
     var filterData = FilterVCToSearchVCStruct()
     
@@ -42,54 +43,54 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var clubsOrgsStruct: [FilterStructClubsOrgs] = []
     var selectedFilterValueClubsOrgs = FilterStructClubsOrgs()
     
-    
-    
-//    var titleRow: String?
+    //FilterStructEntity
+    var entityStruct: [FilterStructEntity] = []
+    var selectedFilterValueEntity = FilterStructEntity()
 
     //MARK: IBOutlets
-    @IBOutlet weak var btnMateTypePV: UIButton!
-    @IBOutlet weak var btnCollegePV: UIButton!
-    @IBOutlet weak var btnMealPlanPV: UIButton!
-    @IBOutlet weak var btnClubsOrgsPV: UIButton!
+    @IBOutlet weak var btnFilterEntity: UIButton!
+    @IBOutlet weak var btnFilterAttribute: UIButton!
     @IBOutlet weak var viewPickerView: UIView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var lblWhatAttribute: UILabel!
+    @IBOutlet weak var btnSelectAllOutlet: UIButton!
     
 
     //MARK: viewDidLoad
-    
     override func viewDidLoad() {
+        var entitySearchLoad = filterData.entitySearch!
+        var attributeSearchLoad = filterData.attributeSearch!
+        var entitySearchPlaceholder = "club / organization"
+        var attributeSearchPlaceholder = "all"
         
-
-        //Test to see if currentTitle method works --> it does!
-//        btnMateTypePV.setTitle("mateTypeName", for: .normal)
-//        var collegeSearch: String = self.btnMateTypePV.currentTitle!
-//        btnCollegePV.setTitle(collegeSearch, for: .normal)
-
+        if entitySearchLoad != "" && attributeSearchLoad != "" {
+            self.btnFilterEntity.setTitle(entitySearchLoad, for: .normal)
+            self.btnFilterAttribute.setTitle(attributeSearchLoad, for: .normal)
+            self.lblWhatAttribute.text = "What \(entitySearchLoad)?"
+        }
+        else {
+            self.btnFilterEntity.setTitle(entitySearchPlaceholder, for: .normal)
+            self.btnFilterAttribute.setTitle(attributeSearchPlaceholder, for: .normal)
+            self.lblWhatAttribute.text = "What \(entitySearchPlaceholder)?"
+        }
+        
+        
         viewPickerView.isHidden = true
         super.viewDidLoad()
     }
 
     // MARK: IBActions
-   
-//    var mateTypeSearch:String = "Freshman"
-//    var collegeSearch:String = "self.btnCollegePV.currentTitle!"
-//    var mealPlanSearch:String = "self.btnMealPlanPV.currentTitle!"
-//    var clubsOrgsSearch:String = "self.btnClubsOrgsPV.currentTitle!"
-    
-    
     @IBAction func btnSearch(_ sender: Any) {
+
         
-        var mateTypeSearch:String = self.btnMateTypePV.currentTitle!
-        var collegeSearch:String = self.btnCollegePV.currentTitle!
-        var mealPlanSearch:String = self.btnMealPlanPV.currentTitle!
-        var clubsOrgsSearch:String = self.btnClubsOrgsPV.currentTitle!
+        var entitySearch:String = self.btnFilterEntity.currentTitle!
+        var attributeSearch:String = self.btnFilterAttribute.currentTitle!
+
+                filterData = FilterVCToSearchVCStruct(
+                    entitySearch:entitySearch,
+                    attributeSearch:attributeSearch
+                )
         
-        filterData = FilterVCToSearchVCStruct(
-            mateTypeSearch:mateTypeSearch,
-            collegeSearch:collegeSearch,
-            mealPlanSearch:mealPlanSearch,
-            clubsOrgsSearch:clubsOrgsSearch
-        )
         
         performSegue(withIdentifier: "FilterToSearchList", sender: self)
 
@@ -102,7 +103,49 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    @IBAction func btnMateTypePVAction(_ sender: Any) {
+    //entity filter button clicked
+    @IBAction func btnFilterEntityClicked(_ sender: Any) {
+        
+        btnSelectAllOutlet.isUserInteractionEnabled = false
+        btnSelectAllOutlet.isHidden = true
+        
+        filterEntityBool = true
+        mateTypeBool = false
+        collegeBool = false
+        mealPlanBool = false
+        clubsOrgsBool = false
+        
+        if viewPickerView.isHidden == true {
+            viewPickerView.isHidden = false
+        }
+        
+        if filterEntityBool == true {
+            ref.reference(withPath: "LISTS/filterEntities").queryOrdered(byChild:"filterEntityName").observe(.value, with:
+                { snapshot in
+                    
+                    var fireAccountArray: [FilterStructEntity] = []
+                    
+                    for fireAccount in snapshot.children {
+                        let fireAccount = FilterStructEntity(snapshot: fireAccount as! DataSnapshot)
+                        fireAccountArray.append(fireAccount)
+                    }
+                    
+                    self.entityStruct = fireAccountArray
+                    
+                    self.tableView.delegate = self
+                    self.tableView.dataSource = self
+                    self.tableView.reloadData()
+            })
+        }
+    }
+    
+    @IBAction func btnFilterAttributeClicked(_ sender: Any) {
+        
+        btnSelectAllOutlet.isUserInteractionEnabled = true
+        btnSelectAllOutlet.isHidden = false
+        
+        if btnFilterEntity.currentTitle == "mate type" {
+        filterEntityBool = false
         mateTypeBool = true
         collegeBool = false
         mealPlanBool = false
@@ -110,6 +153,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if viewPickerView.isHidden == true {
             viewPickerView.isHidden = false
         }
+        
         if mateTypeBool == true
         {
             ref.reference(withPath: "LISTS/mateTypes").queryOrdered(byChild:"mateTypeId").observe(.value, with:
@@ -131,7 +175,9 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    @IBAction func btnCollegePVAction(_ sender: Any) {
+    
+    if btnFilterEntity.currentTitle == "college" {
+        filterEntityBool = false
         mateTypeBool = false
         collegeBool = true
         mealPlanBool = false
@@ -160,7 +206,8 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    @IBAction func btnMealPlanPVAction(_ sender: Any) {
+    if btnFilterEntity.currentTitle == "meal plan" {
+        filterEntityBool = false
         mateTypeBool = false
         collegeBool = false
         mealPlanBool = true
@@ -189,7 +236,8 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    @IBAction func btnClubsOrgsPVAction(_ sender: Any) {
+    if btnFilterEntity.currentTitle == "club / organization" {
+        filterEntityBool = false
         mateTypeBool = false
         collegeBool = false
         mealPlanBool = false
@@ -216,12 +264,13 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.tableView.reloadData()
             })
         }
-        
+    }
     }
     
     //select picker view value, send to selected button
     @IBAction func btnCancel(_ sender: Any) {
         viewPickerView.isHidden = true
+        filterEntityBool = false
         mateTypeBool = false
         collegeBool = false
         mealPlanBool = false
@@ -230,20 +279,16 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBAction func btnSelectAll(_ sender: Any) {
         
-        if mateTypeBool == true {
-            btnMateTypePV.setTitle("All", for: .normal)
+        if mateTypeBool == true ||
+            collegeBool == true ||
+            mealPlanBool == true ||
+            clubsOrgsBool == true
+            {
+            btnFilterAttribute.setTitle("all", for: .normal)
             viewPickerView.isHidden = true
         }
-        else if collegeBool == true {
-            btnCollegePV.setTitle("All", for: .normal)
-            viewPickerView.isHidden = true
-        }
-        else if mealPlanBool == true {
-            btnMealPlanPV.setTitle("All", for: .normal)
-            viewPickerView.isHidden = true
-        }
-        else if clubsOrgsBool == true {
-            btnClubsOrgsPV.setTitle("All", for: .normal)
+        else if filterEntityBool == true {
+            btnFilterEntity.setTitle("all", for: .normal)
             viewPickerView.isHidden = true
         }
         else {
@@ -277,7 +322,11 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     //number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if mateTypeBool == true {
+        
+        if filterEntityBool == true {
+            return entityStruct.count
+        }
+        else if mateTypeBool == true {
             return mateTypeStruct.count
         }
         else if collegeBool == true {
@@ -288,7 +337,8 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         else if clubsOrgsBool == true {
             return clubsOrgsStruct.count
-        }        else {
+        }
+        else {
             return 0
         }
     }
@@ -296,7 +346,11 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     //What is in each cell?
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! FilterTableViewCell
-        if mateTypeBool == true {
+       if filterEntityBool == true {
+            let entity = self.entityStruct[indexPath.row]
+            cell.lblFilterButtonName?.text = entity.filterEntityName
+        }
+        else if mateTypeBool == true {
             let mateType = self.mateTypeStruct[indexPath.row]
             cell.lblFilterButtonName?.text = mateType.mateTypeName
         }
@@ -317,6 +371,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
+    var filterEntityName:String = " "
     var mateTypeName:String = " "
     var collegeName:String = " "
     var mealPlanName:String = " "
@@ -324,31 +379,50 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     //What happens if you select a row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if mateTypeBool == true {
+        if filterEntityBool == true {
+            filterEntityName = self.entityStruct[indexPath.row].filterEntityName!
+            selectedFilterValueEntity = FilterStructEntity(filterEntityName:filterEntityName)
+            //if a new entity is selected, change the name of the attribute btn to "all"
+                if filterEntityName != btnFilterEntity.currentTitle! {
+                    btnFilterAttribute.setTitle("all", for: .normal)
+                }
+            btnFilterEntity.setTitle(filterEntityName, for: .normal)
+            //change label to reflect entity selected
+                var btnFilterEntityCurrentTitle = btnFilterEntity.currentTitle!
+                if btnFilterEntityCurrentTitle == "meal plan" {
+                    lblWhatAttribute.text = "Does your mate have a \(btnFilterEntityCurrentTitle)?"
+                }
+                else {
+                    lblWhatAttribute.text = "What \(btnFilterEntityCurrentTitle)?"
+                }
+            viewPickerView.isHidden = true
+            filterEntityBool = false
+        }
+        else if mateTypeBool == true {
             mateTypeName = self.mateTypeStruct[indexPath.row].mateTypeName!
             selectedFilterValueMateType = FilterStructMateType(mateTypeName:mateTypeName)
-            btnMateTypePV.setTitle(mateTypeName, for: .normal)
+            btnFilterAttribute.setTitle(mateTypeName, for: .normal)
             viewPickerView.isHidden = true
             mateTypeBool = false
         }
         else if collegeBool == true {
             collegeName = self.collegeStruct[indexPath.row].collegeName!
             selectedFilterValueCollege = FilterStructCollege(collegeName:collegeName)
-            btnCollegePV.setTitle(collegeName, for: .normal)
+            btnFilterAttribute.setTitle(collegeName, for: .normal)
             viewPickerView.isHidden = true
             collegeBool = false
         }
         else if mealPlanBool == true {
             mealPlanName = self.mealPlanStruct[indexPath.row].mealPlanName!
             selectedFilterValueMealPlan = FilterStructMealPlan(mealPlanName:mealPlanName)
-            btnMealPlanPV.setTitle(mealPlanName, for: .normal)
+            btnFilterAttribute.setTitle(mealPlanName, for: .normal)
             viewPickerView.isHidden = true
             mealPlanBool = false
         }
         else if clubsOrgsBool == true {
             clubsOrgsName = self.clubsOrgsStruct[indexPath.row].clubsOrgsName!
             selectedFilterValueClubsOrgs = FilterStructClubsOrgs(clubsOrgsName:clubsOrgsName)
-            btnClubsOrgsPV.setTitle(clubsOrgsName, for: .normal)
+            btnFilterAttribute.setTitle(clubsOrgsName, for: .normal)
             viewPickerView.isHidden = true
             mealPlanBool = false
         }

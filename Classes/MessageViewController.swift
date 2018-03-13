@@ -25,6 +25,9 @@ class MessageViewController: JSQMessagesViewController {
     let user = Auth.auth().currentUser
     let dataRef = Database.database().reference()
     
+    var messagesArray: [messagesStruct] = []
+    //var messagesArray2 = messagesStruct()
+    
 
     //bubbles
     lazy var outgoingBubble: JSQMessagesBubbleImage = {
@@ -217,18 +220,18 @@ class MessageViewController: JSQMessagesViewController {
         var conversationID: String = toUser.uid
         var userDisplayName:String = fromUserMessage.userDisplayName
         var timeStampPos = NSDate().timeIntervalSince1970 //get timestamp
-        var timeStampNeg = timeStampPos * -1 //make timestamp negative, this is to order the user decending in ConversationViewController
+        var timeStampNeg = timeStampPos * -1 //make timestamp negative to order the users in decending order in ConversationViewController
         var readFalse = false
         var readTrue = true
 
         //change ref to point to correct conversation
         let senderRef = Constants.refs.databaseRoot.child("USERS/\(uid!)/conversations/messageList/\(conversationID)/messages/").childByAutoId()
-        let senderMessage = ["sender_id": senderId, "name": senderDisplayName, "text": text]
+        let senderMessage = ["sender_id": senderId, "name": senderDisplayName, "text": text]//, "timeStamp":timeStampPos] as [String : Any]
         senderRef.setValue(senderMessage)
         
         let receiverRef = Constants.refs.databaseRoot.child("USERS/\(conversationID)/conversations/messageList/\(uid!)/messages/").childByAutoId()
         
-        let receiverMessage = ["sender_id": senderId, "name": senderDisplayName, "text": text]
+        let receiverMessage = ["sender_id": senderId, "name": senderDisplayName, "text": text]//, "timeStamp":timeStampPos] as [String : Any]
         receiverRef.setValue(receiverMessage)
        
         let ref = Constants.refs.databaseRoot.child("USERS/\(uid!)/conversations/senderList/\(conversationID)")
@@ -241,6 +244,57 @@ class MessageViewController: JSQMessagesViewController {
         
         finishSendingMessage()
         
+        //count messages in convo and delete if over 20 - SENDING (current) USER
+        Constants.refs.databaseRoot.child("USERS/\(uid!)/conversations/messageList/\(conversationID)/messages/").observe(.value, with:
+            { snapshot in
+                var fireAccountArray: [messagesStruct] = []
+
+                for fireAccount in snapshot.children {
+                    let fireAccount = messagesStruct(snapshot: fireAccount as! DataSnapshot)
+                    fireAccountArray.append(fireAccount)
+                }
+
+                self.messagesArray = fireAccountArray
+
+                if self.messagesArray.count > 20 {
+                    var oldestMessage = self.messagesArray[0]
+                    var oldestMessageRef = String(describing: oldestMessage.ref!)
+                    if oldestMessageRef.contains("/messages/") {
+                        let endIndex = oldestMessageRef.range(of: "/messages/")!.upperBound
+                        print("endIndex \(endIndex)")
+
+                        var nodeToDelete = oldestMessageRef.substring(from: endIndex).trimmingCharacters(in: .whitespacesAndNewlines)
+                    
+                        Constants.refs.databaseRoot.child("USERS/\(self.uid!)/conversations/messageList/\(conversationID)/messages/\(nodeToDelete)").removeValue()
+                    }
+                }
+        })
+        
+        //count messages in convo and delete if over 20 - RECEIVING USER
+        Constants.refs.databaseRoot.child("USERS/\(conversationID)/conversations/messageList/\(uid!)/messages/").observe(.value, with:
+            { snapshot in
+                var fireAccountArray: [messagesStruct] = []
+                
+                for fireAccount in snapshot.children {
+                    let fireAccount = messagesStruct(snapshot: fireAccount as! DataSnapshot)
+                    fireAccountArray.append(fireAccount)
+                }
+                
+                self.messagesArray = fireAccountArray
+                
+                if self.messagesArray.count > 20 {
+                    var oldestMessage = self.messagesArray[0]
+                    var oldestMessageRef = String(describing: oldestMessage.ref!)
+                    if oldestMessageRef.contains("/messages/") {
+                        let endIndex = oldestMessageRef.range(of: "/messages/")!.upperBound
+                        print("endIndex \(endIndex)")
+                        
+                        var nodeToDelete = oldestMessageRef.substring(from: endIndex).trimmingCharacters(in: .whitespacesAndNewlines)
+                        
+                        Constants.refs.databaseRoot.child("USERS/\(conversationID)/conversations/messageList/\(self.uid!)/messages/\(nodeToDelete)").removeValue()
+                    }
+                }
+        })
     }
     
     //awebber testing git push

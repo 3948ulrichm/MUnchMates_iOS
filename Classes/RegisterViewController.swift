@@ -84,6 +84,9 @@ class RegisterViewController: UIViewController {
                                 changeRequest?.commitChanges { (error) in
                                     // ...
                                 }
+                                Auth.auth().currentUser?.sendEmailVerification { (error) in
+                                    // ...
+                                }
                                 
                                 //segue to PledgeViewController
                                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "PledgeViewController")
@@ -91,7 +94,7 @@ class RegisterViewController: UIViewController {
                             }
                             else {
                                 //NOTE - While this message will display for any error, for now this is the message that will be displayed because it will be the most common reason for a registration error
-                                let alertController = UIAlertController(title: "Registration Error!", message: "Email already exists in database! If you have not previously made an account with this address contact MUnchMatesMarquette@gmail.com", preferredStyle: UIAlertControllerStyle.alert)
+                                let alertController = UIAlertController(title: "Registration Error!", message: "This email already exists in our database! If you have not previously made an account with this address, contact MUnchMatesHelpDesk@gmail.com", preferredStyle: UIAlertControllerStyle.alert)
                                 let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
                                 }
                                 alertController.addAction(okAction)
@@ -147,6 +150,14 @@ class RegisterViewController: UIViewController {
     }
         
     override func viewDidLoad() {
+        
+        txtFirstName.returnKeyType = .next
+        txtLastName.returnKeyType = .next
+        txtEmail.autocorrectionType = .no
+        txtEmail.returnKeyType = .next
+        txtPassword.autocorrectionType = .no
+        txtPassword.returnKeyType = .done
+
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
