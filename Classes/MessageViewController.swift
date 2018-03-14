@@ -16,6 +16,15 @@ class MessageViewController: JSQMessagesViewController {
     @IBOutlet weak var sidebarViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var sideView: UIView!
+    
+    
+    @IBOutlet weak var navBar: UINavigationBar!
+    
+    @IBAction func btnMessages(_ sender: Any) {
+        performSegue(withIdentifier: "message2conversations", sender: self)
+    }
+
+    
 
     var toUser = SearchUsers()
     var fromUserMessage = UserInConversations()
@@ -29,6 +38,8 @@ class MessageViewController: JSQMessagesViewController {
     //var messagesArray2 = messagesStruct()
     
 
+    
+    
     //bubbles
     lazy var outgoingBubble: JSQMessagesBubbleImage = {
         return JSQMessagesBubbleImageFactory()!.outgoingMessagesBubbleImage(with: UIColor.MUnchMatesBlue)
@@ -38,12 +49,11 @@ class MessageViewController: JSQMessagesViewController {
         return JSQMessagesBubbleImageFactory()!.incomingMessagesBubbleImage(with: UIColor.MUnchMatesGold)
 
     }()
-    
+
     override func viewDidLoad() {
         
         
         super.viewDidLoad()
-    
         
         //for messaging
         let defaults = UserDefaults.standard
@@ -51,8 +61,10 @@ class MessageViewController: JSQMessagesViewController {
         var userDisplayName:String = fromUserMessage.userDisplayName
         var conversationID: String = toUser.uid
         
-        //mark message as read
-        Database.database().reference().child("USERS/\(uid!)/conversations/senderList/\(conversationID)/read").setValue(true)
+        
+        //********TODO- only have this update if user has message
+        //MARK MESSAGE AS READ. If message has not been started, initiate values
+            Database.database().reference().child("USERS/\(uid!)/conversations/senderList/\(conversationID)/read").setValue(true)
 
         if  let id = uid
         {
@@ -70,15 +82,22 @@ class MessageViewController: JSQMessagesViewController {
 
             showDisplayNameDialog()
         }
+        
+        
+        
+//        var title = "\(userDisplayName)"
+//
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showDisplayNameDialog))
+//        tapGesture.numberOfTapsRequired = 1
+//
+//        navigationController?.navigationBar.addGestureRecognizer(tapGesture)
 
-        var title = "\(userDisplayName)"
-
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showDisplayNameDialog))
-        tapGesture.numberOfTapsRequired = 1
-
-        navigationController?.navigationBar.addGestureRecognizer(tapGesture)
-
-        inputToolbar.contentView.leftBarButtonItem = nil
+        self.inputToolbar.contentView.leftBarButtonItem = nil
+        
+        if self.inputToolbar.contentView.leftBarButtonItem != nil {
+            self.inputToolbar.contentView.leftBarButtonItem.isEnabled = false
+        }
+        
         collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
 
@@ -103,6 +122,47 @@ class MessageViewController: JSQMessagesViewController {
         })
         
         
+        Constants.refs.databaseRoot.child("USERS/\(conversationID)/").observe(.value, with: { snapshot in
+                if let dictionary = snapshot.value as? [String: Any]
+                {
+                    var fullName = (dictionary["firstName"] as? String)! + " " + (dictionary["lastName"] as? String)!
+                    var firstName = (dictionary["firstName"] as? String)!
+                    var uidElse = (dictionary["uid"] as? String)!
+                    
+                    let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 44)) // Offset by 20 pixels vertically to take the status bar into account
+            
+                    navigationBar.barTintColor = UIColor.white
+                    navigationBar.tintColor = UIColor.MUnchMatesGold
+                    navigationBar.alignmentRect(forFrame: )
+
+                    navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.MUnchMatesBlue]
+                    
+                
+                    // Create a navigation item with a title
+                    let navigationItem = UINavigationItem()
+                    navigationItem.title = "\(fullName)"
+                
+
+                
+                    // Create left and right button for navigation item
+                    let leftButton =  UIBarButtonItem(title: "Messages", style: .plain, target: self, action: #selector(self.btnMessagesAction))
+                
+                    let rightButton = UIBarButtonItem(title: "\(firstName)'s Profile", style: .plain, target: self, action: #selector(self.btnProfileAction))
+                
+                    // Create two buttons for the navigation item
+                    navigationItem.leftBarButtonItem = leftButton
+                    navigationItem.rightBarButtonItem = rightButton
+                
+                    // Assign the navigation item to the navigation bar
+                    navigationBar.items = [navigationItem]
+                
+                    // Make the navigation bar a subview of the current view controller
+                    self.view.addSubview(navigationBar)
+            
+                }
+            })
+        
+        
 //*****ANDREW'S VIEW****COPY ON SEPERATE VC*******//for menu
 //        blurView.layer.cornerRadius = 15
 //        sideView.layer.shadowColor = UIColor.black.cgColor
@@ -113,51 +173,40 @@ class MessageViewController: JSQMessagesViewController {
         
         // Do any additional setup after loading the view.
     
-    
-    func addNavBar() {
-        let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height:54)) // Offset by 20 pixels vertically to take the status bar into account
 
-        navigationBar.barTintColor = UIColor.black
-        navigationBar.tintColor = UIColor.black
-
-        navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.green]
-
-        // Create a navigation item with a title
-        let navigationItem = UINavigationItem()
-        navigationItem.title = "NavBarAppears!"
-
-        // Create left and right button for navigation item
-        let leftButton =  UIBarButtonItem(title: "Back", style:   .plain, target: self, action: nil)//#selector(btn_clicked(_:)))
-
-        let rightButton = UIBarButtonItem(title: "Right", style: .plain, target: self, action: nil)
-
-        // Create two buttons for the navigation item
-        navigationItem.leftBarButtonItem = leftButton
-        navigationItem.rightBarButtonItem = rightButton
-
-        // Assign the navigation item to the navigation bar
-        navigationBar.items = [navigationItem]
-
-        // Make the navigation bar a subview of the current view controller
-        self.view.addSubview(navigationBar)
-    }
 
 
 //    @objc func btn_clicked(_ sender: UIBarButtonItem) {
 //        // Do something
 //        performSegue(withIdentifier: "segueBackToHomeVC", sender: self)
 //    }
+        
     }
     
+    //nav bar btn actions
+     @objc func btnMessagesAction() {
+        performSegue(withIdentifier: "Message2ConversationTable", sender: self)
+    }
+    
+    func btnProfileAction() {
+        performSegue(withIdentifier: "Message2Profile", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Message2Profile" {
+            let vc = segue.destination as! ProfileMessageViewController
+            vc.fromMessageToProfile = fromUserMessage
+        }
+    }
     
     @objc func showDisplayNameDialog()
     {
         let defaults = UserDefaults.standard
-        
+
         let alert = UIAlertController(title: "Your Display Name", message: "Before you can chat, please choose a display name. Others will see this name when you send chat messages. You can change your display name again by tapping the navigation bar.", preferredStyle: .alert)
-        
+
         alert.addTextField { textField in
-            
+
             if let name = defaults.string(forKey: "jsq_name")
             {
                 textField.text = name
@@ -168,20 +217,20 @@ class MessageViewController: JSQMessagesViewController {
 //                textField.text = names[Int(arc4random_uniform(UInt32(names.count)))]
 //            }
         }
-        
+
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self, weak alert] _ in
-            
+
             if let textField = alert?.textFields?[0], !textField.text!.isEmpty {
-                
+
                 self?.senderDisplayName = textField.text
-                
+
                 self?.title = "Chat: \(self!.senderDisplayName!)"
-                
+
                 defaults.set(textField.text, forKey: "jsq_name")
                 defaults.synchronize()
             }
         }))
-        
+
         present(alert, animated: true, completion: nil)
     }
     
@@ -207,7 +256,7 @@ class MessageViewController: JSQMessagesViewController {
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString!
     {
-        return messages[indexPath.item].senderId == senderId ? nil : NSAttributedString(string: messages[indexPath.item].senderDisplayName)
+        return nil //messages[indexPath.item].senderId == senderId ? nil : NSAttributedString()
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat

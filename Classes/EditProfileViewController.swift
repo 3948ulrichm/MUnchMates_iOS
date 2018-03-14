@@ -287,6 +287,13 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
 ////////////////////LOAD INFOMRATION TO VIEW CONTROLLER//////////////////
     override func viewDidLoad() {
         
+        //add done button to textboc keyboards
+        tbFirstName.returnKeyType = .done
+        tbFirstName.resignFirstResponder()
+        tbLastName.returnKeyType = .done
+        tbCity.returnKeyType = .done
+        tbStateCountry.returnKeyType = .done
+
         dataRef.reference().child("USERS/\(uid!)").observe(.value, with: { snapshot in
             // get the entire snapshot dictionary
             if let dictionary = snapshot.value as? [String: Any]

@@ -13,12 +13,15 @@ class ConversationTableViewController: UIViewController, UITableViewDelegate, UI
 
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var lblNavBarTitle: UILabel!
+    
     @IBAction func btnHomewardBound(_ sender: Any) {
         performSegue(withIdentifier: "Conversation2Filter", sender: self)
     }
     
     var user: User!
     var userArray: [UserInConversations] = []
+    var countUnreadMessages: [UserInConversations] = []
     var fromUserConversation = UserInConversations()
     var currentUser = Auth.auth().currentUser!
     let uid = Auth.auth().currentUser?.uid
@@ -46,6 +49,35 @@ class ConversationTableViewController: UIViewController, UITableViewDelegate, UI
                 self.tableView.dataSource = self
                 self.tableView.reloadData()
         })
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        var read = "read"
+        var unread = false
+        Constants.refs.databaseRoot.child("USERS/\(uid!)/conversations/senderList/").queryOrdered(byChild:read).queryEqual(toValue: unread).observe(.value, with:
+            { snapshot in
+                var fireAccountArray: [UserInConversations] = []
+                
+                for fireAccount in snapshot.children {
+                    let fireAccount = UserInConversations(snapshot: fireAccount as! DataSnapshot)
+                    fireAccountArray.append(fireAccount)
+                }
+                
+                self.countUnreadMessages = fireAccountArray
+                
+                var unreadMessageCount:Int = self.countUnreadMessages.count
+                print("*****\(unreadMessageCount)*********")
+                if unreadMessageCount > 0 {
+                    self.lblNavBarTitle.text = "Messages (\(unreadMessageCount))"
+                }
+                else {
+                    self.lblNavBarTitle.text = "Messages"                }
+        })
+        
+
+
     }
     
 
@@ -64,6 +96,7 @@ class ConversationTableViewController: UIViewController, UITableViewDelegate, UI
         let userName = self.userArray[indexPath.row].userDisplayName
         let userUid = self.userArray[indexPath.row].uid
         let userRead = self.userArray[indexPath.row].read
+        let timeStamp = self.userArray[indexPath.row].timeStamp
         
         if userRead == false {
             cell.lblName?.font = UIFont.boldSystemFont(ofSize: 17.0)

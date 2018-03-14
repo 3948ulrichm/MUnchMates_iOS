@@ -36,6 +36,8 @@
 		946121BC2057AED80046C7A8 /* FromWelcomePageStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946121BB2057AED80046C7A8 /* FromWelcomePageStruct.swift */; };
 		94A4F4241F8C564E00A82C0E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94A4F4231F8C564E00A82C0E /* GoogleService-Info.plist */; };
 		94A6479E20573B090013F27B /* messagesStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A6479D20573B090013F27B /* messagesStruct.swift */; };
+		94B2DDCB2058DD3E00217B21 /* ProfileMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B2DDCA2058DD3E00217B21 /* ProfileMessageViewController.swift */; };
+		94B2DDCD2058DF2B00217B21 /* ProfileMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B2DDCC2058DF2B00217B21 /* ProfileMessageTableViewCell.swift */; };
 		94C3877420391539007D9436 /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3877320391539007D9436 /* FilterTableViewCell.swift */; };
 		94CDC3A5201AC8E9008BEE25 /* SelfProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CDC3A4201AC8E9008BEE25 /* SelfProfileTableViewCell.swift */; };
 		94CDC3A7201ADFD6008BEE25 /* userClubsOrgsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CDC3A6201ADFD6008BEE25 /* userClubsOrgsStruct.swift */; };
@@ -87,6 +89,8 @@
 		946121BB2057AED80046C7A8 /* FromWelcomePageStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromWelcomePageStruct.swift; sourceTree = "<group>"; };
 		94A4F4231F8C564E00A82C0E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		94A6479D20573B090013F27B /* messagesStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messagesStruct.swift; sourceTree = "<group>"; };
+		94B2DDCA2058DD3E00217B21 /* ProfileMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMessageViewController.swift; sourceTree = "<group>"; };
+		94B2DDCC2058DF2B00217B21 /* ProfileMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMessageTableViewCell.swift; sourceTree = "<group>"; };
 		94C3877320391539007D9436 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
 		94CDC3A4201AC8E9008BEE25 /* SelfProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelfProfileTableViewCell.swift; path = Classes/SelfProfileTableViewCell.swift; sourceTree = "<group>"; };
 		94CDC3A6201ADFD6008BEE25 /* userClubsOrgsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userClubsOrgsStruct.swift; sourceTree = "<group>"; };
@@ -125,6 +129,7 @@
 			children = (
 				49658F352052252B00FED586 /* ConversationTableViewController.swift */,
 				49C08FF71FEB45B700AFB599 /* MessageViewController.swift */,
+				94B2DDCA2058DD3E00217B21 /* ProfileMessageViewController.swift */,
 				94492C6A2053723C00E14022 /* Cells */,
 			);
 			name = Conversations;
@@ -179,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				49658F372052259300FED586 /* ConversationTableViewCell.swift */,
+				94B2DDCC2058DF2B00217B21 /* ProfileMessageTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -453,9 +459,11 @@
 				94CDC3A7201ADFD6008BEE25 /* userClubsOrgsStruct.swift in Sources */,
 				94F8FCD41F8B406100663F8C /* MUnchMates.xcdatamodeld in Sources */,
 				94C3877420391539007D9436 /* FilterTableViewCell.swift in Sources */,
+				94B2DDCB2058DD3E00217B21 /* ProfileMessageViewController.swift in Sources */,
 				94606E9F1FE8B6DA00C0AA8E /* FilterViewController.swift in Sources */,
 				94606EA21FE8B6DA00C0AA8E /* SelfProfileViewController.swift in Sources */,
 				94CFD68E2054CB65009786FD /* UIExtensions.swift in Sources */,
+				94B2DDCD2058DF2B00217B21 /* ProfileMessageTableViewCell.swift in Sources */,
 				943DF9572057704200414977 /* FilterStructEntity.swift in Sources */,
 				94F487F5202824B000E3444F /* SearchUsersProfilePic.swift in Sources */,
 				94188BA02039185100AE5F9A /* FilterStructCollege.swift in Sources */,
