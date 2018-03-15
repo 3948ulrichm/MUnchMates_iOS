@@ -17,6 +17,9 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var txtPassword: UITextField!
     
+    @IBOutlet weak var btnLoginOutlet: UIButton!
+    
+    
     @IBAction func btnLogin(_ sender: Any) {
 
         if let email = txtEmail.text, let password = txtPassword.text {
@@ -66,15 +69,17 @@ class LoginViewController: UIViewController {
             handle = Auth.auth().addStateDidChangeListener(){ (auth, user) in
                 if user != nil {
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController")
-                    self.present(vc!, animated: false, completion: nil)
+                    self.present(vc!, animated: true, completion: nil)
                 }
             }
         }
         
+        self.txtEmail.becomeFirstResponder()
+        
+        //disable autocorrect for textfields
         txtEmail.autocorrectionType = .no
         txtPassword.autocorrectionType = .no
-        txtEmail.returnKeyType = .next
-        txtPassword.returnKeyType = .done
+        
     }
     
     

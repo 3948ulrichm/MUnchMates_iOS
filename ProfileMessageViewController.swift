@@ -23,7 +23,8 @@ class ProfileMessageViewController: UIViewController, UITableViewDelegate, UITab
     var userDetails = SearchUsers()
     //********
     var getFromMessageToProfile: [UserInConversations] = []
-    var fromMessageToProfile = UserInConversations()
+    var fromMessageToProfile = SearchUsers()
+    var fromUserMessageProfile = UserInConversations()
     var filterDataProfile = FilterVCToSearchVCStruct()
     
     //MARK - Struct
@@ -89,11 +90,9 @@ class ProfileMessageViewController: UIViewController, UITableViewDelegate, UITab
                 
                 //MUteMode
                 if muteMode == true {
-                    self.btnMessageOutlet.isEnabled = false
                     self.lblMuteMode.text = "\(firstName) is in MUteMode and cannot be messaged!"
                 }
                 else {
-                    self.btnMessageOutlet.isEnabled = true
                     self.lblMuteMode.isHidden = true
                 }
                 
@@ -180,7 +179,7 @@ class ProfileMessageViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! ProfileTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! ProfileMessageTableViewCell
         let clubOrgInfo = self.clubsOrgsProfile[indexPath.row]
         cell.lblClubsOrgs.text = clubOrgInfo.clubsOrgsName
         return cell
@@ -195,42 +194,17 @@ class ProfileMessageViewController: UIViewController, UITableViewDelegate, UITab
     var uid:String = " "
     var userDisplayName:String = " "
     
-    @IBAction func btnMessagePressed(_ sender: Any) {
-        
-//        var read:Bool = true
-//        var timeStamp: Double = 0.00
-//       // fromUserProfile = UserInConversations(
-//            read:read,
-//            timeStamp:timeStamp,
-//            uid:uidSelf!,
-//            userDisplayName:(Auth.auth().currentUser?.displayName)!
-//        )
-//
-//        let myVC = storyboard?.instantiateViewController(withIdentifier: "MessageViewController") as! MessageViewController
-//        myVC.toUser = userDetails
-//        //myVC.fromUserMessage = fromUserProfile
-//        self.present(myVC, animated: true)
-//
-//        //performSegue(withIdentifier: "Profile2Message", sender: self)
-    }
-    
+
     @IBAction func btnBack(_ sender: Any) {
-        
-        var entitySearch:String = filterDataProfile.entitySearch!
-        var attributeSearch:String = filterDataProfile.attributeSearch!
-        
-        filterDataProfile = FilterVCToSearchVCStruct(
-            entitySearch:entitySearch,
-            attributeSearch:attributeSearch
-        )
-        
-        performSegue(withIdentifier: "ProfileToSearchList", sender: self)
+    
+    performSegue(withIdentifier: "ProfileMessage2Message", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ProfileToSearchList" {
-            let vc = segue.destination as! SearchListViewController
-            vc.filterDataSearch = filterDataProfile
+        if segue.identifier == "ProfileMessage2Message" {
+            let vc = segue.destination as! MessageViewController
+            vc.toUser = fromMessageToProfile
+            vc.fromUserMessage = fromUserMessageProfile
         }
     }
     override func didReceiveMemoryWarning() {

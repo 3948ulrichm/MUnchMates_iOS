@@ -151,12 +151,10 @@ class RegisterViewController: UIViewController {
         
     override func viewDidLoad() {
         
-        txtFirstName.returnKeyType = .next
-        txtLastName.returnKeyType = .next
+        self.txtFirstName.becomeFirstResponder()
+
         txtEmail.autocorrectionType = .no
-        txtEmail.returnKeyType = .next
         txtPassword.autocorrectionType = .no
-        txtPassword.returnKeyType = .done
         
         //TODO - make next and done work
 //        //txtFirstName2txtLastName

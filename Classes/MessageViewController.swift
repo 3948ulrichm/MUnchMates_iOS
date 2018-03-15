@@ -64,7 +64,17 @@ class MessageViewController: JSQMessagesViewController {
         
         //********TODO- only have this update if user has message
         //MARK MESSAGE AS READ. If message has not been started, initiate values
-            Database.database().reference().child("USERS/\(uid!)/conversations/senderList/\(conversationID)/read").setValue(true)
+        
+        Database.database().reference().child("USERS/\(uid!)/conversations/senderList/\(conversationID)/read").observeSingleEvent(of: .value, with: { snapshot in
+            
+            if snapshot.exists() {
+                Database.database().reference().child("USERS/\(self.uid!)/conversations/senderList/\(conversationID)/read").setValue(true)
+            }
+            else {
+                //Nothing
+            }
+        })
+
 
         if  let id = uid
         {
@@ -147,7 +157,7 @@ class MessageViewController: JSQMessagesViewController {
                     // Create left and right button for navigation item
                     let leftButton =  UIBarButtonItem(title: "Messages", style: .plain, target: self, action: #selector(self.btnMessagesAction))
                 
-                    let rightButton = UIBarButtonItem(title: "\(firstName)'s Profile", style: .plain, target: self, action: #selector(self.btnProfileAction))
+                    let rightButton = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(self.btnProfileAction))
                 
                     // Create two buttons for the navigation item
                     navigationItem.leftBarButtonItem = leftButton
@@ -195,9 +205,10 @@ class MessageViewController: JSQMessagesViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Message2Profile" {
             let vc = segue.destination as! ProfileMessageViewController
-            vc.fromMessageToProfile = fromUserMessage
+            vc.fromMessageToProfile = toUser
+            vc.fromUserMessageProfile = fromUserMessage
         }
-    }
+    }//toUser
     
     @objc func showDisplayNameDialog()
     {

@@ -18,6 +18,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var mealPlanBool = false
     var clubsOrgsBool = false
     var countrows: Int?
+    var uid = Auth.auth().currentUser?.uid
     
     
     let ref = Database.database()
@@ -46,6 +47,8 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     //FilterStructEntity
     var entityStruct: [FilterStructEntity] = []
     var selectedFilterValueEntity = FilterStructEntity()
+    
+    var countUnreadMessagesFilter: [UserInConversations] = []
 
     //MARK: IBOutlets
     @IBOutlet weak var btnFilterEntity: UIButton!
@@ -54,7 +57,33 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lblWhatAttribute: UILabel!
     @IBOutlet weak var btnSelectAllOutlet: UIButton!
+    @IBOutlet weak var lblNewMessages: UILabel!
     
+    //MARK: viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        Constants.refs.databaseRoot.child("USERS/\(self.uid!)/conversations/senderList/").queryOrdered(byChild:"read").queryEqual(toValue: false).observe(.value, with:
+            { snapshot in
+                var fireAccountArray: [UserInConversations] = []
+                
+                for fireAccount in snapshot.children {
+                    let fireAccount = UserInConversations(snapshot: fireAccount as! DataSnapshot)
+                    fireAccountArray.append(fireAccount)
+                }
+                
+                self.countUnreadMessagesFilter = fireAccountArray
+                
+                var unreadMessageCount:Int = self.countUnreadMessagesFilter.count
+                if unreadMessageCount == 0 {
+                    self.lblNewMessages.isHidden = true
+                }
+                else if unreadMessageCount == 1 {
+                    self.lblNewMessages.text = "New message from \(unreadMessageCount) person"
+                }
+                else {
+                    self.lblNewMessages.text = "New message from \(unreadMessageCount) people"
+                }
+        })
+    }
 
     //MARK: viewDidLoad
     override func viewDidLoad() {
@@ -77,22 +106,18 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         viewPickerView.isHidden = true
         super.viewDidLoad()
+    
     }
 
     // MARK: IBActions
     @IBAction func btnSearch(_ sender: Any) {
-
-        
         var entitySearch:String = self.btnFilterEntity.currentTitle!
         var attributeSearch:String = self.btnFilterAttribute.currentTitle!
-
                 filterData = FilterVCToSearchVCStruct(
                     entitySearch:entitySearch,
                     attributeSearch:attributeSearch
                 )
-
         performSegue(withIdentifier: "FilterToSearchList", sender: self)
-
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
