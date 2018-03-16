@@ -90,7 +90,7 @@ class ProfileMessageViewController: UIViewController, UITableViewDelegate, UITab
                 
                 //MUteMode
                 if muteMode == true {
-                    self.lblMuteMode.text = "\(firstName) is in MUteMode and cannot be messaged!"
+                    self.lblMuteMode.text = "\(firstName) is in MUteMode!"
                 }
                 else {
                     self.lblMuteMode.isHidden = true

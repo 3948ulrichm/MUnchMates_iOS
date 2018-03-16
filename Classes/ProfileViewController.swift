@@ -90,7 +90,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 //MUteMode
                 if muteMode == true {
                     self.btnMessageOutlet.isEnabled = false
-                    self.lblMuteMode.text = "\(firstName) is in MUteMode and cannot be messaged!"
+                    self.lblMuteMode.text = "\(firstName) is in MUteMode! You cannot start a new conversation!"
                 }
                 else {
                     self.btnMessageOutlet.isEnabled = true

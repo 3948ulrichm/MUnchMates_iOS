@@ -22,17 +22,15 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
         var mc: MFMailComposeViewController = MFMailComposeViewController()
         mc.mailComposeDelegate = self
         mc.setSubject(emailTitle)
-        mc.setMessageBody(messageBody, isHTML: false)
+        mc.setMessageBody(messageBody, isHTML: true)
         mc.setToRecipients(toRecipents)
         
         self.present(mc, animated: true, completion: nil)
-        
     }
     
     func mailComposeController(controller:MFMailComposeViewController, didFinishWithResult result:MFMailComposeResult, error:NSError) {
         self.dismiss(animated: true, completion: nil)
     }
-    
     
     
     //@IBOutlet weak var switchClubsOrgs: UISwitch!

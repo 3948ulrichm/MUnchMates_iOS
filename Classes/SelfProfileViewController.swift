@@ -131,7 +131,7 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
                 
                     //muteMode
                     if muteMode == true {
-                        self.lblMuteMode.text = "MUte Mode"
+                        self.lblMuteMode.text = "You are in MUteMode! Users cannot start a new conversation with you!"
                     }
                     else
                     {
