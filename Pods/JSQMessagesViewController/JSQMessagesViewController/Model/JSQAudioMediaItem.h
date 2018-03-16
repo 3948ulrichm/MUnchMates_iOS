@@ -73,6 +73,7 @@ didChangeAudioCategory:(NSString *)category
  *  you may initialize a `JSQVideoMediaItem` with a `nil` audioData.
  *  Once the audio is available you can set the `audioData` property.
  */
+
 - (instancetype)initWithData:(nullable NSData *)audioData
          audioViewAttributes:(JSQAudioMediaViewAttributes *)audioViewAttributes NS_DESIGNATED_INITIALIZER;
 

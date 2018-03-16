@@ -458,6 +458,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
             clubsOrgsBool = false
         }
     }
+    
 }
 
 

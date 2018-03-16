@@ -15,6 +15,7 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
     var mateTypeBool = false
     var collegeBool = false
     var countrows: Int?
+    var loadImageBool = false
 
     //var clubsOrgsDetails = clubsOrgsStruct()
     //var selfUserClubsOrgs = clubsOrgsStruct()
@@ -31,6 +32,10 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
     var saveClubsOrgs: [saveClubsOrgsStruct] = []
     var saveClubsOrgsEditProfile = saveClubsOrgsStruct()
     
+    //send true bool statement in DelayedImageLoadStruct if save btn is selected
+    var delayImageEditProfileArray: [DelayedImageLoadStruct] = []
+    var delayImageEditProfile = DelayedImageLoadStruct()
+    
     //create outlets
     @IBOutlet weak var tbFirstName: UITextField!
     @IBOutlet weak var tbLastName: UITextField!
@@ -42,6 +47,9 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
     @IBOutlet weak var tbStateCountry: UITextField!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var lblSaving: UILabel!
+    
+    @IBOutlet weak var imgLogoBottom: UIImageView!
     
     //unhide pickerView
         //mateType
@@ -195,6 +203,8 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
         picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
         //show photoLibrary
         present(picker, animated: true, completion: nil)
+        
+        self.loadImageBool = true
     }
     
     //cancel
@@ -238,6 +248,9 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
     
   
     override func viewWillAppear(_ animated: Bool) {
+        
+        //hide lblSave
+        lblSaving.isHidden = true
         
         dataRef.reference().child("USERS/\(uid!)").observe(.value, with: { snapshot in
             // get the entire snapshot dictionary
@@ -340,14 +353,38 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
         
         viewPickerView.isHidden = true
         
+        //add done button to keyboard
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(self.doneClicked))
+        
+        toolBar.setItems([doneButton], animated: false)
+        
+        tbFirstName.inputAccessoryView = toolBar
+        tbLastName.inputAccessoryView = toolBar
+        tbCity.inputAccessoryView = toolBar
+        tbStateCountry.inputAccessoryView = toolBar
+        
         super.viewDidLoad()
 
+
     }
+
+func doneClicked() {
+    view.endEditing(true)
+}
     
     
 /////////////////////////SAVING DATA INTO DATABASE/////////////////////////////
     @IBAction func btnSave(_ sender: UIBarButtonItem) {
-       //CHECK if firstName or lastName text fields are blank
+       //hide nav bar img, unhide saving label
+        
+        imgLogoBottom.isHidden = true
+        lblSaving.isHidden = false
+
+        
+        //CHECK if firstName or lastName text fields are blank
         if self.tbFirstName.text == "" || self.tbLastName.text == "" {
             let alertController = UIAlertController(title: "Error!", message: "Please ensure your first and last name are filled in!", preferredStyle: UIAlertControllerStyle.alert)
             let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
@@ -388,31 +425,6 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
         var city = self.tbCity.text
         var stateCountry = self.tbStateCountry.text
             
-//        let userValues:[String:Any] =
-//            [
-//             "firstName": firstName,
-//             "lastName": lastName,
-//             "muteMode" : muteMode,
-//             "mealPlan" : mealPlan,
-//             "email" : email,
-//             "college" : college,
-//             "mateType" : mateType,
-//             "uid":uid,
-//             "city":city,
-//             "stateCountry":stateCountry
-//            ]
-//
-//            dataRef.reference().child("USERS/\(uid!)").setValue(userValues)
-//
-//            //Insert clubs org info into Db
-//            let clubsOrgsNameValue = clubsOrgsIdValue.clubsOrgsName
-//            let clubsOrgsIdValue = cell.clubsOrgsIdValue.clubsOrgsId
-//            let clubsOrgsValues:[String:Any] =
-//                [
-//                    "clubsOrgsName":clubsOrgsNameValue,
-//                    "clubsOrgsId":clubsOrgsIdValue
-//                ]
-            
             let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
             changeRequest?.displayName = firstName! + " " + lastName!
             changeRequest?.commitChanges { (error) in
@@ -430,11 +442,23 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
             dataRef.reference().child("USERS/\(uid!)/city").setValue(city)
             dataRef.reference().child("USERS/\(uid!)/stateCountry").setValue(stateCountry)
             
-//            dataRef.reference().child("USERS/\(uid!)/clubsOrgs/\(clubsOrgsIdValue)/").setValue(clubsOrgsValues)
-        
-            //segue to PledgeViewController
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "SelfProfileViewController")
-            self.present(vc!, animated: true, completion: nil)
+            
+            delayImageEditProfile = DelayedImageLoadStruct(savedImage: self.loadImageBool)
+            performSegue(withIdentifier: "EditProfile2SelfProfile", sender: self)
+
+            
+//            let vc = self.storyboard?.instantiateViewController(withIdentifier: "SelfProfileViewController")
+//            self.present(vc!, animated: true, completion: nil)
+//            vc.delayImageSelfProfile = delayImageEditProfile
+
+        }
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "EditProfile2SelfProfile" {
+            let vc = segue.destination as! SelfProfileViewController
+            vc.delayImageSelfProfile = delayImageEditProfile
         }
     }
     

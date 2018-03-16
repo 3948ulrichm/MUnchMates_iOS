@@ -86,6 +86,20 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(self.doneClicked))
+        
+        toolBar.setItems([doneButton], animated: false)
+        
+        txtEmail.inputAccessoryView = toolBar
+        txtPassword.inputAccessoryView = toolBar
+
+    }
+    
+    func doneClicked() {
+        view.endEditing(true)
     }
     
     override func didReceiveMemoryWarning() {

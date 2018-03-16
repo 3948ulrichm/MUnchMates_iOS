@@ -148,29 +148,29 @@ class RegisterViewController: UIViewController {
         
         
     }
+    
+    func doneClicked() {
+        view.endEditing(true)
+    }
         
     override func viewDidLoad() {
         
-        self.txtFirstName.becomeFirstResponder()
+        //add done function on keyboard
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(self.doneClicked))
+        
+        toolBar.setItems([doneButton], animated: false)
+        
+        txtFirstName.inputAccessoryView = toolBar
+        txtLastName.inputAccessoryView = toolBar
+        txtEmail.inputAccessoryView = toolBar
+        txtPassword.inputAccessoryView = toolBar
 
+        //disable autocorrect
         txtEmail.autocorrectionType = .no
         txtPassword.autocorrectionType = .no
-        
-        //TODO - make next and done work
-//        //txtFirstName2txtLastName
-//        txtFirstName.resignFirstResponder()
-//        txtLastName.becomeFirstResponder()
-//
-//        //txtLastName2txtEmail
-//        txtLastName.resignFirstResponder()
-//        txtEmail.becomeFirstResponder()
-//
-//        //txtEmail2txtPassword
-//        txtEmail.resignFirstResponder()
-//        txtPassword.becomeFirstResponder()
-//
-//        //txtPassword2Done
-//        txtPassword.endEditing(true)
 
         super.viewDidLoad()
         

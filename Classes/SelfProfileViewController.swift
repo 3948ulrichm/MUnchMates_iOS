@@ -24,8 +24,10 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
     //MARK - struct
     var clubsOrgs: [clubsOrgsStruct] = []
     var selfUserClubsOrgs = clubsOrgsStruct()
+    
+    var delayImageSelfProfile = DelayedImageLoadStruct()
 
-
+    
     @IBOutlet weak var lblNameProfile: UILabel!
     @IBOutlet weak var imgProfilePicture: UIImageView!
     @IBOutlet weak var lblMealPlan: UILabel!
@@ -34,9 +36,11 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var lblMateType: UILabel!
     @IBOutlet weak var lblCollegeProfile: UILabel!
     @IBOutlet weak var lblHometown: UILabel!
+    @IBOutlet weak var lblLoadingNewImage: UILabel!
     
     //Methods
     override func viewDidLoad()  {
+
         
         super.viewDidLoad()
         
@@ -44,6 +48,8 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
 ////////////LOAD INFORMATION TO SCREEN///////////////////
     override func viewWillAppear(_ animated: Bool) {
+        
+        lblLoadingNewImage.isHidden = true
                 
             //display clubsOrgs
             dataRef.child("USERS/\(uid!)/clubsOrgs/").queryOrdered(byChild:"clubsOrgsName").observe(.value, with:
@@ -131,11 +137,27 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
                     {
                         self.lblMuteMode.text = " "
                     }
-            }
-        })
+                }
+            })
         
         //pull profpic
-        let profileImgRef = storageRef.child("imgProfilePictures/\(self.uid!).png")
+        if delayImageSelfProfile.savedImage! == true {
+            //CHECK - should print true
+            print(delayImageSelfProfile.savedImage!)
+            
+        //Display loading picture label
+            //hide prof pic
+            imgProfilePicture.isHidden = true
+            lblLoadingNewImage.isHidden = false
+            
+        //Load profile pic, delayed by 4 seconds. This is to give time for it to push and pull from storage in Firebase. Without  delay the old prof pic shows up until VC exited and entered again
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0, execute: {
+            
+            self.imgProfilePicture.isHidden = false
+            self.lblLoadingNewImage.isHidden = true
+            
+            //pull new prof pic
+            let profileImgRef = self.storageRef.child("imgProfilePictures/\(self.uid!).png")
         profileImgRef.getData(maxSize: 50 * 1024 * 1024) { data, error in
             if error != nil {
                 let errorDesc = error?.localizedDescription
@@ -162,10 +184,43 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
                 self.imgProfilePicture.image = self.userProfileImage
             }
         }
-
-
+            //unhide prof pic
+            self.imgProfilePicture.isHidden = false
+            })
         }
-    
+        else {
+            //CHECK - should print false
+                print(delayImageSelfProfile.savedImage!)
+                let profileImgRef = self.storageRef.child("imgProfilePictures/\(self.uid!).png")
+                profileImgRef.getData(maxSize: 50 * 1024 * 1024) { data, error in
+                    if error != nil {
+                        let errorDesc = error?.localizedDescription
+                        if errorDesc == "Image does not exist." {
+                            let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(self.uid!).png")!) as Data?
+                            let imagePath = "imgProfilePictures/\(self.uid!).png"
+                            
+                            let metaData = StorageMetadata()
+                            metaData.contentType = "image/png"
+                            
+                            self.storageRef.child(imagePath)
+                                .putData(profileImageData!, metadata: metaData) { (metadata, error) in
+                                    if let error = error {
+                                        print ("Uploading Error: \(error)")
+                                        return
+                                    }
+                            }
+                            self.userProfileImage = UIImage(named: "\(self.uid!).png")
+                        } else {
+                            return
+                        }
+                    } else {
+                        self.userProfileImage = UIImage(data: data!)
+                        self.imgProfilePicture.image = self.userProfileImage
+                    }
+                }
+            }
+        }
+
     //table view - clubsOrgs
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

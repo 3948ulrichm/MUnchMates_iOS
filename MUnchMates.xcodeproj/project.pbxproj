@@ -38,6 +38,7 @@
 		94A6479E20573B090013F27B /* messagesStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A6479D20573B090013F27B /* messagesStruct.swift */; };
 		94B2DDCB2058DD3E00217B21 /* ProfileMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B2DDCA2058DD3E00217B21 /* ProfileMessageViewController.swift */; };
 		94B2DDCD2058DF2B00217B21 /* ProfileMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B2DDCC2058DF2B00217B21 /* ProfileMessageTableViewCell.swift */; };
+		94BEB51F205B0752001E345E /* DelayedImageLoadStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BEB51E205B0752001E345E /* DelayedImageLoadStruct.swift */; };
 		94C3877420391539007D9436 /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3877320391539007D9436 /* FilterTableViewCell.swift */; };
 		94CDC3A5201AC8E9008BEE25 /* SelfProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CDC3A4201AC8E9008BEE25 /* SelfProfileTableViewCell.swift */; };
 		94CDC3A7201ADFD6008BEE25 /* userClubsOrgsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CDC3A6201ADFD6008BEE25 /* userClubsOrgsStruct.swift */; };
@@ -91,6 +92,7 @@
 		94A6479D20573B090013F27B /* messagesStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messagesStruct.swift; sourceTree = "<group>"; };
 		94B2DDCA2058DD3E00217B21 /* ProfileMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMessageViewController.swift; sourceTree = "<group>"; };
 		94B2DDCC2058DF2B00217B21 /* ProfileMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMessageTableViewCell.swift; sourceTree = "<group>"; };
+		94BEB51E205B0752001E345E /* DelayedImageLoadStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayedImageLoadStruct.swift; sourceTree = "<group>"; };
 		94C3877320391539007D9436 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
 		94CDC3A4201AC8E9008BEE25 /* SelfProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelfProfileTableViewCell.swift; path = Classes/SelfProfileTableViewCell.swift; sourceTree = "<group>"; };
 		94CDC3A6201ADFD6008BEE25 /* userClubsOrgsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userClubsOrgsStruct.swift; sourceTree = "<group>"; };
@@ -157,10 +159,10 @@
 			isa = PBXGroup;
 			children = (
 				94606E961FE8B6D900C0AA8E /* EditProfileViewController.swift */,
+				94606E9A1FE8B6DA00C0AA8E /* SelfProfileViewController.swift */,
 				94606E971FE8B6D900C0AA8E /* FilterViewController.swift */,
 				94606E941FE8B6D900C0AA8E /* ProfileViewController.swift */,
 				94606E931FE8B6D900C0AA8E /* SearchListViewController.swift */,
-				94606E9A1FE8B6DA00C0AA8E /* SelfProfileViewController.swift */,
 				94E3F34020206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift */,
 				94492C692053722C00E14022 /* Cells */,
 			);
@@ -235,6 +237,7 @@
 				945BC85620395786000538D9 /* FilterStructClubsOrgs.swift */,
 				94DF213C2040E036000AD624 /* FilterVCToSearchVCStruct.swift */,
 				946121BB2057AED80046C7A8 /* FromWelcomePageStruct.swift */,
+				94BEB51E205B0752001E345E /* DelayedImageLoadStruct.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -321,7 +324,7 @@
 				TargetAttributes = {
 					94F8FCC71F8B406100663F8C = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = K2KP89LE5C;
+						DevelopmentTeam = 3U5862S8D2;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
@@ -442,6 +445,7 @@
 				49658F3C20524E5B00FED586 /* UserInConversations.swift in Sources */,
 				94603CFC204B5B5E009B30BD /* ProfileTableViewCell.swift in Sources */,
 				94CDC3A5201AC8E9008BEE25 /* SelfProfileTableViewCell.swift in Sources */,
+				94BEB51F205B0752001E345E /* DelayedImageLoadStruct.swift in Sources */,
 				94FBF55C2057ABFB002612F7 /* WelcomeViewController.swift in Sources */,
 				49658F362052252B00FED586 /* ConversationTableViewController.swift in Sources */,
 				94606E9C1FE8B6DA00C0AA8E /* ProfileViewController.swift in Sources */,
@@ -615,11 +619,11 @@
 			baseConfigurationReference = BD58C56E7AC9F942E767BC68 /* Pods-MUnchMates.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = K2KP89LE5C;
+				DEVELOPMENT_TEAM = 3U5862S8D2;
 				INFOPLIST_FILE = MUnchMates/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.MUnchMates.MUnchMates;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MUnchMates.MUnchMatesMarquette;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -632,11 +636,11 @@
 			baseConfigurationReference = 19F86FB723A230B3435610C4 /* Pods-MUnchMates.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = K2KP89LE5C;
+				DEVELOPMENT_TEAM = 3U5862S8D2;
 				INFOPLIST_FILE = MUnchMates/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.MUnchMates.MUnchMates;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MUnchMates.MUnchMatesMarquette;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;

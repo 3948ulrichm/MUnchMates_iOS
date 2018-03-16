@@ -143,8 +143,8 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "saveClubsOrgs" {
-            let vc = segue.destination as! EditProfileViewController
-            vc.saveClubsOrgsEditProfile = saveClubsOrgsAddDelete
+            let vc = segue.destination as! SelfProfileViewController
+            //vc.saveClubsOrgsEditProfile = saveClubsOrgsAddDelete
         }
     }
     
