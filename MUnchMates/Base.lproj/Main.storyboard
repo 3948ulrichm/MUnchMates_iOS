@@ -566,7 +566,6 @@ Cg
         <!--Self Profile View Controller-->
         <scene sceneID="LQh-de-DFw">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0dY-Vn-r3V" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="SelfProfileViewController" id="w52-nq-TPL" customClass="SelfProfileViewController" customModule="MUnchMates" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="76F-rF-BZq"/>
@@ -771,6 +770,7 @@ your
                         <outlet property="tableView" destination="1Rs-V8-OYg" id="kwc-0u-xgb"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0dY-Vn-r3V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-39" y="410"/>
         </scene>
@@ -1134,7 +1134,7 @@ SIDEBAR IS MADE)</string>
                                 <items>
                                     <navigationItem id="9U9-IY-z5G">
                                         <barButtonItem key="leftBarButtonItem" style="plain" id="3nB-SU-GmU">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="API-Rp-Zcd">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="API-Rp-Zcd">
                                                 <rect key="frame" x="16" y="7" width="35" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Filter"/>
@@ -1226,16 +1226,6 @@ SIDEBAR IS MADE)</string>
                                         <barButtonItem key="leftBarButtonItem" title="Done" id="o28-Ve-nWs">
                                             <connections>
                                                 <segue destination="w52-nq-TPL" kind="show" identifier="saveClubsOrgs" id="RfG-RZ-ll6"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" style="plain" id="Wdu-sx-iZ3">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ZzL-bM-zrd">
-                                                <rect key="frame" x="300" y="7" width="59" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Add/Edit"/>
-                                            </button>
-                                            <connections>
-                                                <action selector="btnAddEditClubOrg:" destination="sdv-3H-aPx" id="iel-8I-hER"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -1775,12 +1765,10 @@ SIDEBAR IS MADE)</string>
         <image name="tempProfilePic" width="726" height="726"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NoF-RU-zLN"/>
-        <segue reference="6BK-N8-TgK"/>
         <segue reference="cJk-hv-Hgb"/>
         <segue reference="2mJ-XA-uGh"/>
         <segue reference="uCM-wr-vth"/>
-        <segue reference="cPF-Fd-TB2"/>
+        <segue reference="RfG-RZ-ll6"/>
         <segue reference="tUk-lq-Myf"/>
         <segue reference="h3Z-0Z-ekf"/>
     </inferredMetricsTieBreakers>
