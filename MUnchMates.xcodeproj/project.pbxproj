@@ -16,6 +16,7 @@
 		49C08FF81FEB45B700AFB599 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C08FF71FEB45B700AFB599 /* MessageViewController.swift */; };
 		94188BA02039185100AE5F9A /* FilterStructCollege.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94188B9F2039185100AE5F9A /* FilterStructCollege.swift */; };
 		942868741FE32DE5009557C9 /* SearchUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942868731FE32DE5009557C9 /* SearchUsers.swift */; };
+		943A16152060666400989C9D /* BarButtonFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943A16142060666400989C9D /* BarButtonFont.swift */; };
 		943DF9572057704200414977 /* FilterStructEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943DF9562057704200414977 /* FilterStructEntity.swift */; };
 		9447308E2042624000E13DC0 /* saveClubsOrgsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9447308D2042624000E13DC0 /* saveClubsOrgsStruct.swift */; };
 		944730902042731A00E13DC0 /* clubsOrgsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9447308F2042731A00E13DC0 /* clubsOrgsStruct.swift */; };
@@ -27,7 +28,6 @@
 		94606E921FE8B6BF00C0AA8E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94606E911FE8B6BF00C0AA8E /* LoginViewController.swift */; };
 		94606E9B1FE8B6DA00C0AA8E /* SearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94606E931FE8B6D900C0AA8E /* SearchListViewController.swift */; };
 		94606E9C1FE8B6DA00C0AA8E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94606E941FE8B6D900C0AA8E /* ProfileViewController.swift */; };
-		94606E9D1FE8B6DA00C0AA8E /* PledgeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94606E951FE8B6D900C0AA8E /* PledgeViewController.swift */; };
 		94606E9E1FE8B6DA00C0AA8E /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94606E961FE8B6D900C0AA8E /* EditProfileViewController.swift */; };
 		94606E9F1FE8B6DA00C0AA8E /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94606E971FE8B6D900C0AA8E /* FilterViewController.swift */; };
 		94606EA01FE8B6DA00C0AA8E /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94606E981FE8B6DA00C0AA8E /* RegisterViewController.swift */; };
@@ -69,6 +69,7 @@
 		49C08FF71FEB45B700AFB599 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageViewController.swift; path = Classes/MessageViewController.swift; sourceTree = "<group>"; };
 		94188B9F2039185100AE5F9A /* FilterStructCollege.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterStructCollege.swift; sourceTree = "<group>"; };
 		942868731FE32DE5009557C9 /* SearchUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUsers.swift; sourceTree = "<group>"; };
+		943A16142060666400989C9D /* BarButtonFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BarButtonFont.swift; path = Classes/BarButtonFont.swift; sourceTree = "<group>"; };
 		943DF9562057704200414977 /* FilterStructEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterStructEntity.swift; sourceTree = "<group>"; };
 		9447308D2042624000E13DC0 /* saveClubsOrgsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveClubsOrgsStruct.swift; sourceTree = "<group>"; };
 		9447308F2042731A00E13DC0 /* clubsOrgsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clubsOrgsStruct.swift; sourceTree = "<group>"; };
@@ -80,7 +81,6 @@
 		94606E911FE8B6BF00C0AA8E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Classes/LoginViewController.swift; sourceTree = "<group>"; };
 		94606E931FE8B6D900C0AA8E /* SearchListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchListViewController.swift; path = Classes/SearchListViewController.swift; sourceTree = "<group>"; };
 		94606E941FE8B6D900C0AA8E /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = Classes/ProfileViewController.swift; sourceTree = "<group>"; };
-		94606E951FE8B6D900C0AA8E /* PledgeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PledgeViewController.swift; path = Classes/PledgeViewController.swift; sourceTree = "<group>"; };
 		94606E961FE8B6D900C0AA8E /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditProfileViewController.swift; path = Classes/EditProfileViewController.swift; sourceTree = "<group>"; };
 		94606E971FE8B6D900C0AA8E /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterViewController.swift; path = Classes/FilterViewController.swift; sourceTree = "<group>"; };
 		94606E981FE8B6DA00C0AA8E /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterViewController.swift; path = Classes/RegisterViewController.swift; sourceTree = "<group>"; };
@@ -194,7 +194,6 @@
 		94492C6B2053725700E14022 /* User Auth */ = {
 			isa = PBXGroup;
 			children = (
-				94606E951FE8B6D900C0AA8E /* PledgeViewController.swift */,
 				94606E981FE8B6DA00C0AA8E /* RegisterViewController.swift */,
 				94606E911FE8B6BF00C0AA8E /* LoginViewController.swift */,
 				94FBF55B2057ABFB002612F7 /* WelcomeViewController.swift */,
@@ -282,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				94CFD68D2054CB65009786FD /* UIExtensions.swift */,
+				943A16142060666400989C9D /* BarButtonFont.swift */,
 				94492C6B2053725700E14022 /* User Auth */,
 				94492C68205371D700E14022 /* Profiles */,
 				49658F34205224F700FED586 /* Conversations */,
@@ -440,11 +440,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				94606E921FE8B6BF00C0AA8E /* LoginViewController.swift in Sources */,
-				94606E9D1FE8B6DA00C0AA8E /* PledgeViewController.swift in Sources */,
 				945BC85520395130000538D9 /* FilterStructMealPlan.swift in Sources */,
 				49658F3C20524E5B00FED586 /* UserInConversations.swift in Sources */,
 				94603CFC204B5B5E009B30BD /* ProfileTableViewCell.swift in Sources */,
 				94CDC3A5201AC8E9008BEE25 /* SelfProfileTableViewCell.swift in Sources */,
+				943A16152060666400989C9D /* BarButtonFont.swift in Sources */,
 				94BEB51F205B0752001E345E /* DelayedImageLoadStruct.swift in Sources */,
 				94FBF55C2057ABFB002612F7 /* WelcomeViewController.swift in Sources */,
 				49658F362052252B00FED586 /* ConversationTableViewController.swift in Sources */,
