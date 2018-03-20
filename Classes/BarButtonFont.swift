@@ -14,11 +14,10 @@ class BarButtonFont: UIBarButtonItem {
         tintColor = .MUnchMatesBlue
         
         //Set font name and size
-        guard let font = UIFont(name: "Arial", size: 16) else {
+        guard let font = UIFont(name: "Arial", size: 15) else {
             return
         }
         
         setTitleTextAttributes([NSAttributedStringKey.font:font], for: .normal)
     }
 }
-

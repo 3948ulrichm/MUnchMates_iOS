@@ -57,6 +57,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lblWhatAttribute: UILabel!
     @IBOutlet weak var btnSelectAllOutlet: UIButton!
+    
     @IBOutlet weak var lblNewMessages: UILabel!
     
     //MARK: viewWillAppear
