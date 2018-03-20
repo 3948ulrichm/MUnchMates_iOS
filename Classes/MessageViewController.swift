@@ -139,10 +139,14 @@ class MessageViewController: JSQMessagesViewController {
                     var firstName = (dictionary["firstName"] as? String)!
                     var uidElse = (dictionary["uid"] as? String)!
                     
-                    let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 60)) // Offset by 20 pixels vertically to take the status bar into account
-            
+                    let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 40, width: self.view.frame.size.width, height: self.view.frame.size.height + 40))
+                    
+                    //CGRectMake(self.collectionView.origin.x, 0, self.collectionView.width, self.collectionView.height - 100);
+                
+                    
                     navigationBar.barTintColor = UIColor.white
-                    navigationBar.tintColor = UIColor.MUnchMatesGold
+                    navigationBar.tintColor = UIColor.MUnchMatesBlue
+                    //navigationBar.size.height = 60
                     //navigationBar.alignmentRect(forFrame: )
 
                     navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.MUnchMatesBlue]
