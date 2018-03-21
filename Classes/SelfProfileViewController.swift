@@ -152,7 +152,7 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
             lblLoadingNewImage.isHidden = false
             
         //Load profile pic, delayed by 4 seconds. This is to give time for it to push and pull from storage in Firebase. Without  delay the old prof pic shows up until VC exited and entered again
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: {
             
             self.imgProfilePicture.isHidden = false
             self.lblLoadingNewImage.isHidden = true

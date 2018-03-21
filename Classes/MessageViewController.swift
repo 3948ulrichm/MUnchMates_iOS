@@ -139,7 +139,7 @@ class MessageViewController: JSQMessagesViewController {
                     var firstName = (dictionary["firstName"] as? String)!
                     var uidElse = (dictionary["uid"] as? String)!
                     
-                    let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 40, width: self.view.frame.size.width, height: self.view.frame.size.height))
+                    let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 40, width: self.view.frame.size.width, height: 40))
                     
 //                    self.topContentAdditionalInset = navigationBar.frame.height
                     

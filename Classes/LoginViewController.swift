@@ -100,7 +100,7 @@ class LoginViewController: UIViewController {
 
     }
     
-    func doneClicked() {
+    @objc func doneClicked() {
         view.endEditing(true)
     }
     

@@ -65,6 +65,8 @@ class RegisterViewController: UIViewController {
                             //add user to Firebase Database
                             if user != nil {
                                 let uid: String? = (Auth.auth().currentUser?.uid)!
+                                let searchOrderNumber = Int(arc4random_uniform(UInt32(100000)))
+                                let lastOpened = NSDate().timeIntervalSince1970
                                 let userValues:[String:Any] =
                                     ["firstName": firstName,
                                      "lastName": lastName,
@@ -75,7 +77,9 @@ class RegisterViewController: UIViewController {
                                      "college": college,
                                      "uid": uid!,
                                      "city":city,
-                                     "stateCountry":stateCountry]
+                                     "stateCountry":stateCountry,
+                                     "searchOrderNumber":searchOrderNumber,
+                                     "lastOpened":lastOpened]
                                 self.userNodeRef.child((user?.uid)!).updateChildValues(userValues, withCompletionBlock: {(userDBError, userDBRef) in
                                 })
                                 
@@ -149,7 +153,7 @@ class RegisterViewController: UIViewController {
         
     }
     
-    func doneClicked() {
+    @objc func doneClicked() {
         view.endEditing(true)
     }
         

@@ -56,13 +56,14 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     override func viewDidLoad() {
         
-        var entitySearch:String = filterDataSearch.entitySearch!
-        var attributeSearch:String = filterDataSearch.attributeSearch!
+        let entitySearch:String = filterDataSearch.entitySearch!
+        let attributeSearch:String = filterDataSearch.attributeSearch!
     
         //this randomizes searches when user searches for "All"
-        var searchRandomOrderAttribute = ["college", "firstName", "lastName", "mateType", "uid"]
-        var searchRandomOrderNumber = Int(arc4random_uniform(UInt32(searchRandomOrderAttribute.count)))
-        print(searchRandomOrderNumber)
+//        var searchRandomOrderAttribute = ["college", "firstName", "lastName", "mateType", "uid"]
+//        let searchRandomOrderNumber = Int(arc4random_uniform(UInt32(searchRandomOrderAttribute.count)))
+//        print(searchRandomOrderNumber)
+        //THE ABOVE CODE IS NOW OMITTED BC THE APP USES searchOrderNumber FROM FIREBASE TO ORDER "All" SEARCHES. THIS NUMBER IS UPDATED RANDOMLY EACH TIME A USER GOES TO THE FILTER PAGE.
         
         //convert attributeSearch for mealPlan from yes/no to true/false
         if entitySearch == "meal plan" && attributeSearch == "Yes" {
@@ -74,11 +75,11 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         
 //FILTERING...FILTERING...FILTERING...FILTERING...FILTERING...FILTERING!!!
         
-        var clubsOrgsIdRef = clubsOrgsArray2.clubsOrgsId!
+        let clubsOrgsIdRef = clubsOrgsArray2.clubsOrgsId!
         print(clubsOrgsIdRef)
         
         if attributeSearch == "all" {
-        dataRef.reference(withPath: "USERS/").queryOrdered(byChild:searchRandomOrderAttribute[searchRandomOrderNumber]).observeSingleEvent(of: .value, with:
+        dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"searchOrderNumber").observeSingleEvent(of: .value, with:
             { snapshot in
                 var fireAccountArray: [SearchUsers] = []
                 

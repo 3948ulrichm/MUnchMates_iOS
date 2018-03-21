@@ -54,8 +54,8 @@ class ConversationTableViewController: UIViewController, UITableViewDelegate, UI
     
     override func viewDidAppear(_ animated: Bool) {
         
-        var read = "read"
-        var unread = false
+        let read = "read"
+        let unread = false
         Constants.refs.databaseRoot.child("USERS/\(uid!)/conversations/senderList/").queryOrdered(byChild:read).queryEqual(toValue: unread).observe(.value, with:
             { snapshot in
                 var fireAccountArray: [UserInConversations] = []
@@ -67,7 +67,7 @@ class ConversationTableViewController: UIViewController, UITableViewDelegate, UI
                 
                 self.countUnreadMessages = fireAccountArray
                 
-                var unreadMessageCount:Int = self.countUnreadMessages.count
+                let unreadMessageCount:Int = self.countUnreadMessages.count
                 print("*****\(unreadMessageCount)*********")
                 if unreadMessageCount > 0 {
                     self.lblNavBarTitle.text = "Messages (\(unreadMessageCount))"
@@ -94,9 +94,9 @@ class ConversationTableViewController: UIViewController, UITableViewDelegate, UI
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "users") as! ConversationTableViewCell
         let userName = self.userArray[indexPath.row].userDisplayName
-        let userUid = self.userArray[indexPath.row].uid
+        //let userUid = self.userArray[indexPath.row].uid
         let userRead = self.userArray[indexPath.row].read
-        let timeStamp = self.userArray[indexPath.row].timeStamp
+        //let timeStamp = self.userArray[indexPath.row].timeStamp
         
         if userRead == false {
             cell.lblName?.font = UIFont.boldSystemFont(ofSize: 17.0)
@@ -142,8 +142,8 @@ class ConversationTableViewController: UIViewController, UITableViewDelegate, UI
 
         
         //Self user information
-        var selfUid = Auth.auth().currentUser?.uid
-        var selfName = Auth.auth().currentUser?.displayName
+        let selfUid = Auth.auth().currentUser?.uid
+        let selfName = Auth.auth().currentUser?.displayName
         
         fromUserConversation = UserInConversations(read:toUserRead!, timeStamp:toUserTimeStamp!, uid: selfUid!, userDisplayName: selfName!)
         

@@ -19,6 +19,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var clubsOrgsBool = false
     var countrows: Int?
     var uid = Auth.auth().currentUser?.uid
+    var dataRef = Database.database()
     
     
     let ref = Database.database()
@@ -73,7 +74,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
                 self.countUnreadMessagesFilter = fireAccountArray
                 
-                var unreadMessageCount:Int = self.countUnreadMessagesFilter.count
+                let unreadMessageCount:Int = self.countUnreadMessagesFilter.count
                 if unreadMessageCount > 0 {
                     self.btnMessages.setTitle("Messages (\(unreadMessageCount))", for: .normal)
                 }
@@ -85,10 +86,18 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     //MARK: viewDidLoad
     override func viewDidLoad() {
-        var entitySearchLoad = filterData.entitySearch!
-        var attributeSearchLoad = filterData.attributeSearch!
-        var entitySearchPlaceholder = "club / organization"
-        var attributeSearchPlaceholder = "all"
+        // set variable lastOpened. This will allow us to see if their are inactive users in our database.
+        let lastOpened = NSDate().timeIntervalSince1970
+        dataRef.reference().child("USERS/\(uid!)/lastOpened").setValue(lastOpened)
+        //random number sent to database that orders "All" searches in app
+        let searchOrderNumber = Int(arc4random_uniform(UInt32(100000)))
+        dataRef.reference().child("USERS/\(uid!)/searchOrderNumber").setValue(searchOrderNumber)
+        
+        // load buttons and labels
+        let entitySearchLoad = filterData.entitySearch!
+        let attributeSearchLoad = filterData.attributeSearch!
+        let entitySearchPlaceholder = "club / organization"
+        let attributeSearchPlaceholder = "all"
         
         if entitySearchLoad != "" && attributeSearchLoad != "" {
             self.btnFilterEntity.setTitle(entitySearchLoad, for: .normal)
