@@ -139,7 +139,9 @@ class MessageViewController: JSQMessagesViewController {
                     var firstName = (dictionary["firstName"] as? String)!
                     var uidElse = (dictionary["uid"] as? String)!
                     
-                    let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 40, width: self.view.frame.size.width, height: self.view.frame.size.height + 40))
+                    let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 40, width: self.view.frame.size.width, height: self.view.frame.size.height))
+                    
+//                    self.topContentAdditionalInset = navigationBar.frame.height
                     
                     //CGRectMake(self.collectionView.origin.x, 0, self.collectionView.width, self.collectionView.height - 100);
                 
@@ -155,7 +157,6 @@ class MessageViewController: JSQMessagesViewController {
                     // Create a navigation item with a title
                     let navigationItem = UINavigationItem()
                     navigationItem.title = "\(fullName)"
-                
 
                 
                     // Create left and right button for navigation item

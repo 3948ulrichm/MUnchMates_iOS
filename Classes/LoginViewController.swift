@@ -91,6 +91,8 @@ class LoginViewController: UIViewController {
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(self.doneClicked))
         
+        doneButton.tintColor = UIColor.MUnchMatesBlue
+        
         toolBar.setItems([doneButton], animated: false)
         
         txtEmail.inputAccessoryView = toolBar

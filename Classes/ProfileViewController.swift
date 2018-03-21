@@ -18,6 +18,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     var userProfileImageSearch: UIImage?
     let cellId = "ClubsOrgsCellProfile"
     let uidSelf = Auth.auth().currentUser?.uid
+    var muteModeBool = false
     
     //MARK - user data and filter data
     var userDetails = SearchUsers()
@@ -39,12 +40,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var lblCollegeProfileSearch: UILabel!
     @IBOutlet weak var lblMuteMode: UILabel!
     @IBOutlet weak var btnMessageOutlet: UIBarButtonItem!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        
         
     }
 
@@ -89,11 +89,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
                 //MUteMode
                 if muteMode == true {
-                    self.btnMessageOutlet.isEnabled = false
+                    self.muteModeBool = true
+                    //self.btnMessageOutlet.isEnabled = false
                     self.lblMuteMode.text = "\(firstName) is in MUteMode! You cannot start a new conversation!"
                 }
                 else {
-                    self.btnMessageOutlet.isEnabled = true
+                    self.muteModeBool = false
+                    //self.btnMessageOutlet.isEnabled = true
                     self.lblMuteMode.isHidden = true
                 }
                 
@@ -197,6 +199,15 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBAction func btnMessagePressed(_ sender: Any) {
         
+        
+        if self.muteModeBool == true {
+            let alertController = UIAlertController(title: "MUteMode", message: "You are unable to start a new conversation with a user in MUteMode", preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction(title: "Alright!", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)        }
+        else {
+
         var read:Bool = true
         var timeStamp: Double = 0.00
             fromUserProfile = UserInConversations(
@@ -210,8 +221,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         myVC.toUser = userDetails
         myVC.fromUserMessage = fromUserProfile
         self.present(myVC, animated: true)
-        
-        //performSegue(withIdentifier: "Profile2Message", sender: self)
+        }
     }
     
     @IBAction func btnBack(_ sender: Any) {

@@ -301,11 +301,11 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
     override func viewDidLoad() {
         
         //add done button to textboc keyboards
-        tbFirstName.returnKeyType = .done
-        tbFirstName.resignFirstResponder()
-        tbLastName.returnKeyType = .done
-        tbCity.returnKeyType = .done
-        tbStateCountry.returnKeyType = .done
+//        tbFirstName.returnKeyType = .done
+//        tbFirstName.resignFirstResponder()
+//        tbLastName.returnKeyType = .done
+//        tbCity.returnKeyType = .done
+//        tbStateCountry.returnKeyType = .done
 
         dataRef.reference().child("USERS/\(uid!)").observe(.value, with: { snapshot in
             // get the entire snapshot dictionary
@@ -358,6 +358,8 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
         toolBar.sizeToFit()
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(self.doneClicked))
+        
+        doneButton.tintColor = UIColor.MUnchMatesBlue
         
         toolBar.setItems([doneButton], animated: false)
         
@@ -475,7 +477,8 @@ func doneClicked() {
          //action when btn is selected
          handler: { action in
             let user = Auth.auth().currentUser
-            user?.delete { error in }
+            print(user)
+            user!.delete { error in }
                 //poorly done check^, but if code is written correctly, this should be ok... user will delete from db, profile pic will be deleted, and segue to login will happen whether or not auth delete occurs. Fix later!
             
                     //successful auth delete

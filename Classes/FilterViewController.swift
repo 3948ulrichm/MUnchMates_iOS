@@ -57,8 +57,8 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lblWhatAttribute: UILabel!
     @IBOutlet weak var btnSelectAllOutlet: UIButton!
-    
-    @IBOutlet weak var lblNewMessages: UILabel!
+        
+    @IBOutlet weak var btnMessages: UIButton!
     
     //MARK: viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
@@ -74,14 +74,11 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.countUnreadMessagesFilter = fireAccountArray
                 
                 var unreadMessageCount:Int = self.countUnreadMessagesFilter.count
-                if unreadMessageCount == 0 {
-                    self.lblNewMessages.isHidden = true
-                }
-                else if unreadMessageCount == 1 {
-                    self.lblNewMessages.text = "New message from \(unreadMessageCount) person"
+                if unreadMessageCount > 0 {
+                    self.btnMessages.setTitle("Messages (\(unreadMessageCount))", for: .normal)
                 }
                 else {
-                    self.lblNewMessages.text = "New message from \(unreadMessageCount) people"
+                    self.btnMessages.setTitle("Messages", for: .normal)
                 }
         })
     }

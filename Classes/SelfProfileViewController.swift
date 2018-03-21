@@ -70,7 +70,6 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
 
             })
         
-        
             //pull user data, except for clubsOrgs and profilePic
             dataRef.child("USERS/\(uid!)").observe(.value, with: { snapshot in
             // get the entire snapshot dictionary
@@ -131,10 +130,12 @@ class SelfProfileViewController: UIViewController, UITableViewDelegate, UITableV
                 
                     //muteMode
                     if muteMode == true {
+                        self.lblMuteMode.isHidden = false
                         self.lblMuteMode.text = "You are in MUteMode! Users cannot start a new conversation with you!"
                     }
                     else
                     {
+                        self.lblMuteMode.isHidden = true
                         self.lblMuteMode.text = " "
                     }
                 }
