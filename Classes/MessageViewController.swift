@@ -13,16 +13,16 @@ import CoreFoundation
 
 class MessageViewController: JSQMessagesViewController {
     
-    @IBOutlet weak var sidebarViewConstraint: NSLayoutConstraint!
-    @IBOutlet weak var blurView: UIVisualEffectView!
-    @IBOutlet weak var sideView: UIView!
+//    @IBOutlet weak var sidebarViewConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var blurView: UIVisualEffectView!
+//    @IBOutlet weak var sideView: UIView!
     
     
-    @IBOutlet weak var navBar: UINavigationBar!
+//    @IBOutlet weak var navBar: UINavigationBar!
     
-    @IBAction func btnMessages(_ sender: Any) {
-        performSegue(withIdentifier: "message2conversations", sender: self)
-    }
+//    @IBAction func btnMessages(_ sender: Any) {
+//        performSegue(withIdentifier: "message2conversations", sender: self)
+//    }
 
     
 
@@ -87,7 +87,7 @@ class MessageViewController: JSQMessagesViewController {
             senderDisplayName = userDisplayName
 
             defaults.set(senderId, forKey: "jsq_id")
-            //defaults.set(senderDisplayName, forKey: "jsq_id")
+//            defaults.set(senderDisplayName, forKey: "jsq_id")
             defaults.synchronize()
 
             showDisplayNameDialog()
@@ -108,6 +108,7 @@ class MessageViewController: JSQMessagesViewController {
             self.inputToolbar.contentView.leftBarButtonItem.isEnabled = false
         }
         
+        // TODO - look at this as a wayu to fix bubble issue
         collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
 
@@ -143,7 +144,7 @@ class MessageViewController: JSQMessagesViewController {
                     
 //                    self.topContentAdditionalInset = navigationBar.frame.height
                     
-                    //CGRectMake(self.collectionView.origin.x, 0, self.collectionView.width, self.collectionView.height - 100);
+//                    @objc CGRectMake(self.collectionView.origin.x, 0, self.collectionView.width, self.collectionView.height - 100);
                 
                     
                     navigationBar.barTintColor = UIColor.white
