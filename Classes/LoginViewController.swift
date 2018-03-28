@@ -19,6 +19,17 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var btnLoginOutlet: UIButton!
     
+    @IBAction func btnForgotPassword(_ sender: Any) {
+    
+        var email: String?
+        email = txtEmail.text
+        //reset via email
+        Auth.auth().sendPasswordReset(withEmail: email!) { (error) in
+            
+        }
+        
+    }
+    
     
     @IBAction func btnLogin(_ sender: Any) {
 
