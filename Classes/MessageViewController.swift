@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 
+
 class MessageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     @IBOutlet weak var tableView: UITableView!
@@ -66,9 +67,16 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     var bottomConstraint: NSLayoutConstraint?
     
     
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        textField.resignFirstResponder()
+//    }
+    
+
+    
     override func viewDidLoad() {
         //hide table view lines
         self.tableView.separatorStyle = .none
+        self.hideKeyboardWhenTappedAround()
         
         //local variables
         //var userDisplayName:String = fromUserMessage.userDisplayName
@@ -159,7 +167,6 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
          
                  let dateTime = "\(month).\(day).\(year) • \(hour):\(minute)"
  
-        
 
                 //change ref to point to correct conversation
                 let senderRef = Constants.refs.databaseRoot.child("USERS/\(uidSelf!)/conversations/messageList/\(conversationID)/messages/").childByAutoId()
