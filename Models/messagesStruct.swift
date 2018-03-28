@@ -13,7 +13,7 @@ struct messagesStruct {
     let name: String
     let sender_id: String
     var text: String
-    let timeStampPos: Double
+    let timeStamp: Double
     let dateTime: String
     let ref: DatabaseReference?
     
@@ -21,16 +21,16 @@ struct messagesStruct {
         self.name = " "
         self.sender_id = " "
         self.text = " "
-        self.timeStampPos = 0.00
+        self.timeStamp = 0.00
         self.dateTime = " "
         self.ref = nil
     }
     
-    init(name: String, sender_id: String, text: String, timeStampPos: Double, dateTime:String) {
+    init(name: String, sender_id: String, text: String, timeStamp: Double, dateTime:String) {
         self.name = name
         self.sender_id = sender_id
         self.text = text
-        self.timeStampPos = timeStampPos
+        self.timeStamp = timeStamp
         self.dateTime = dateTime
         self.ref = nil
     }
@@ -40,7 +40,7 @@ struct messagesStruct {
         name = snapshotValue["name"] as! String
         sender_id = snapshotValue["sender_id"] as! String
         text = snapshotValue["text"] as! String
-        timeStampPos = snapshotValue["timeStampPos"] as! Double
+        timeStamp = snapshotValue["timeStamp"] as! Double
         dateTime = snapshotValue["dateTime"] as! String
         ref = snapshot.ref
     }
@@ -50,7 +50,7 @@ struct messagesStruct {
             "name": name as Any,
             "sender_id": sender_id as Any,
             "text": text as Any,
-            "timeStampPos": timeStampPos as Any,
+            "timeStamp": timeStamp as Any,
             "dateTime": dateTime as Any
         ]
     }
