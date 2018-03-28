@@ -87,7 +87,19 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     //MARK: viewDidLoad
     override func viewDidLoad() {
         // set variable lastOpened. This will allow us to see if their are inactive users in our database.
-        let lastOpened = NSDate().timeIntervalSince1970
+        let date = Date()
+        let calendar = Calendar.current
+        
+        let hour = calendar.component(.hour, from:date)
+        let minute = calendar.component(.minute, from:date)
+        let second = calendar.component(.second, from:date)
+
+        let month = calendar.component(.month, from:date)
+        let day = calendar.component(.day, from:date)
+        let year = calendar.component(.year, from:date)
+        
+        let lastOpened = "\(month).\(day).\(year) • \(hour):\(minute):\(second)"
+        
         dataRef.reference().child("USERS/\(uid!)/lastOpened").setValue(lastOpened)
         //random number sent to database that orders "All" searches in app
         let searchOrderNumber = Int(arc4random_uniform(UInt32(100000)))

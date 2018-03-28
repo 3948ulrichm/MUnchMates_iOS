@@ -16,6 +16,7 @@
 		49C08FF81FEB45B700AFB599 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C08FF71FEB45B700AFB599 /* MessageViewController.swift */; };
 		94188BA02039185100AE5F9A /* FilterStructCollege.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94188B9F2039185100AE5F9A /* FilterStructCollege.swift */; };
 		942868741FE32DE5009557C9 /* SearchUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942868731FE32DE5009557C9 /* SearchUsers.swift */; };
+		9434BDAC2069E37D00A06ED5 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9434BDAB2069E37D00A06ED5 /* MessageTableViewCell.swift */; };
 		943A16152060666400989C9D /* BarButtonFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943A16142060666400989C9D /* BarButtonFont.swift */; };
 		943DF9572057704200414977 /* FilterStructEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943DF9562057704200414977 /* FilterStructEntity.swift */; };
 		9447308E2042624000E13DC0 /* saveClubsOrgsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9447308D2042624000E13DC0 /* saveClubsOrgsStruct.swift */; };
@@ -69,6 +70,7 @@
 		49C08FF71FEB45B700AFB599 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MessageViewController.swift; path = Classes/MessageViewController.swift; sourceTree = "<group>"; };
 		94188B9F2039185100AE5F9A /* FilterStructCollege.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterStructCollege.swift; sourceTree = "<group>"; };
 		942868731FE32DE5009557C9 /* SearchUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUsers.swift; sourceTree = "<group>"; };
+		9434BDAB2069E37D00A06ED5 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		943A16142060666400989C9D /* BarButtonFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BarButtonFont.swift; path = Classes/BarButtonFont.swift; sourceTree = "<group>"; };
 		943DF9562057704200414977 /* FilterStructEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterStructEntity.swift; sourceTree = "<group>"; };
 		9447308D2042624000E13DC0 /* saveClubsOrgsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveClubsOrgsStruct.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			children = (
 				49658F372052259300FED586 /* ConversationTableViewCell.swift */,
 				94B2DDCC2058DF2B00217B21 /* ProfileMessageTableViewCell.swift */,
+				9434BDAB2069E37D00A06ED5 /* MessageTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				942868741FE32DE5009557C9 /* SearchUsers.swift in Sources */,
 				946121BC2057AED80046C7A8 /* FromWelcomePageStruct.swift in Sources */,
 				94E3F34120206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift in Sources */,
+				9434BDAC2069E37D00A06ED5 /* MessageTableViewCell.swift in Sources */,
 				94DF213D2040E036000AD624 /* FilterVCToSearchVCStruct.swift in Sources */,
 				94F8FCCE1F8B406100663F8C /* ViewController.swift in Sources */,
 				945BC85720395786000538D9 /* FilterStructClubsOrgs.swift in Sources */,

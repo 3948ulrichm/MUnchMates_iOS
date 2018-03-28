@@ -13,19 +13,25 @@ struct messagesStruct {
     let name: String
     let sender_id: String
     var text: String
+    let timeStampPos: Double
+    let dateTime: String
     let ref: DatabaseReference?
     
     init() {
         self.name = " "
         self.sender_id = " "
         self.text = " "
+        self.timeStampPos = 0.00
+        self.dateTime = " "
         self.ref = nil
     }
     
-    init(name: String, sender_id: String, text: String) {
+    init(name: String, sender_id: String, text: String, timeStampPos: Double, dateTime:String) {
         self.name = name
         self.sender_id = sender_id
         self.text = text
+        self.timeStampPos = timeStampPos
+        self.dateTime = dateTime
         self.ref = nil
     }
     
@@ -34,6 +40,8 @@ struct messagesStruct {
         name = snapshotValue["name"] as! String
         sender_id = snapshotValue["sender_id"] as! String
         text = snapshotValue["text"] as! String
+        timeStampPos = snapshotValue["timeStampPos"] as! Double
+        dateTime = snapshotValue["dateTime"] as! String
         ref = snapshot.ref
     }
     
@@ -41,7 +49,9 @@ struct messagesStruct {
         return [
             "name": name as Any,
             "sender_id": sender_id as Any,
-            "text": text as Any
+            "text": text as Any,
+            "timeStampPos": timeStampPos as Any,
+            "dateTime": dateTime as Any
         ]
     }
 }

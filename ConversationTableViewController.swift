@@ -33,8 +33,7 @@ class ConversationTableViewController: UIViewController, UITableViewDelegate, UI
     
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-         Constants.refs.databaseRoot.child("USERS/\(uid!)/conversations/senderList").queryOrdered(byChild:"timeStamp").observe(.value, with:
+            Constants.refs.databaseRoot.child("USERS/\(uid!)/conversations/senderList").queryOrdered(byChild:"timeStamp").observe(.value, with:
             { snapshot in
                 var fireAccountArray: [UserInConversations] = []
                 
@@ -49,6 +48,8 @@ class ConversationTableViewController: UIViewController, UITableViewDelegate, UI
                 self.tableView.dataSource = self
                 self.tableView.reloadData()
         })
+        
+        super.viewDidLoad()
         
     }
     
