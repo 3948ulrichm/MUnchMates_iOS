@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
+<<<<<<< HEAD
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+=======
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+>>>>>>> 14ec1aa920f532ba6d7f147ab1bdb0f7ad7bc857
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -87,6 +91,16 @@
                                     <constraint firstAttribute="height" constant="190" id="eYC-TC-0nS"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWh-Vu-7x5">
+                                <rect key="frame" x="41" y="383" width="293" height="25"/>
+                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="11"/>
+                                <state key="normal" title="Forgot Password?">
+                                    <color key="titleColor" red="0.0" green="0.10749334841966629" blue="0.72228711843490601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnForgotPassword:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qvo-aR-gMz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -101,8 +115,11 @@
                             <constraint firstAttribute="trailing" secondItem="ZIL-DO-joa" secondAttribute="trailing" id="caB-sW-gLB"/>
                             <constraint firstItem="Yb5-qE-aP3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="25" id="fNa-iF-J51"/>
                             <constraint firstItem="iww-0U-12y" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="25" id="rk5-py-Z4a"/>
+                            <constraint firstItem="VWh-Vu-7x5" firstAttribute="top" secondItem="iww-0U-12y" secondAttribute="bottom" constant="8" id="sMS-Wb-sJM"/>
+                            <constraint firstItem="VWh-Vu-7x5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="25" id="tYf-Fo-WOf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Yb5-qE-aP3" secondAttribute="trailing" constant="25" id="wmH-hQ-Fxf"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rdt-gK-dRz" secondAttribute="bottom" id="x95-E9-Ajc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="VWh-Vu-7x5" secondAttribute="trailing" constant="25" id="yXt-QJ-jim"/>
                             <constraint firstItem="ZIL-DO-joa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="yZF-eb-S8T"/>
                             <constraint firstItem="Yb5-qE-aP3" firstAttribute="top" secondItem="tSa-ng-JlA" secondAttribute="bottom" constant="40" id="zKi-VS-BFJ"/>
                         </constraints>
@@ -1750,6 +1767,20 @@ your
                                     <action selector="btnDeleteAccount:" destination="qGN-jU-sOB" eventType="touchUpInside" id="paS-1e-G5k"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7PF-gE-pgJ">
+                                <rect key="frame" x="0.0" y="579" width="375" height="40"/>
+                                <color key="backgroundColor" red="0.0" green="0.10749334841966629" blue="0.72228711843490601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="wY9-kl-N6g"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="25"/>
+                                <state key="normal" title="Send Password Reset Email">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnSendPasswordReset:" destination="qGN-jU-sOB" eventType="touchUpInside" id="sPR-Oc-Ogj"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QX8-5Y-wEq" userLabel="View Picker View">
                                 <rect key="frame" x="0.0" y="442" width="375" height="225"/>
                                 <subviews>
@@ -1881,6 +1912,7 @@ your
                             <constraint firstAttribute="trailing" secondItem="Noi-Q2-XBR" secondAttribute="trailing" id="2bq-M9-Pa8"/>
                             <constraint firstItem="VFr-P5-AXB" firstAttribute="centerY" secondItem="rGq-Ad-MX6" secondAttribute="centerY" id="2zX-O3-Z1m"/>
                             <constraint firstItem="JJ5-rd-12i" firstAttribute="leading" secondItem="vY7-EP-O8w" secondAttribute="trailing" constant="10" id="3Rb-e9-Etf"/>
+                            <constraint firstItem="7PF-gE-pgJ" firstAttribute="leading" secondItem="1gg-DR-zlV" secondAttribute="leading" id="3nI-UK-eai"/>
                             <constraint firstItem="f40-3p-Q0x" firstAttribute="trailing" secondItem="1gg-DR-zlV" secondAttribute="trailingMargin" id="5wF-Su-qly"/>
                             <constraint firstItem="HIY-2E-1gT" firstAttribute="top" secondItem="Xz7-ml-BvO" secondAttribute="bottom" constant="3" id="6wU-f8-wnh"/>
                             <constraint firstAttribute="trailing" secondItem="qoL-ve-w2h" secondAttribute="trailing" id="81e-75-FXk"/>
@@ -1898,6 +1930,7 @@ your
                             <constraint firstItem="EFx-uu-zKs" firstAttribute="centerY" secondItem="soE-r5-Who" secondAttribute="centerY" id="Pqn-Fi-2aZ"/>
                             <constraint firstAttribute="trailing" secondItem="f3m-FO-HTb" secondAttribute="trailing" id="Que-G3-1aP"/>
                             <constraint firstItem="QX8-5Y-wEq" firstAttribute="leading" secondItem="1gg-DR-zlV" secondAttribute="leading" id="RI7-RK-o1U"/>
+                            <constraint firstItem="qoL-ve-w2h" firstAttribute="top" secondItem="7PF-gE-pgJ" secondAttribute="bottom" constant="8" id="Rpm-D3-bH0"/>
                             <constraint firstItem="93Q-2W-9CE" firstAttribute="leading" secondItem="7Q7-fj-Uu3" secondAttribute="trailing" constant="45" id="S77-Vq-rEi"/>
                             <constraint firstItem="sTF-0i-pdV" firstAttribute="top" secondItem="QX8-5Y-wEq" secondAttribute="bottom" id="SoD-CR-hg0"/>
                             <constraint firstItem="7Q7-fj-Uu3" firstAttribute="centerY" secondItem="93Q-2W-9CE" secondAttribute="centerY" id="Sqb-hL-ng8"/>
@@ -1921,6 +1954,7 @@ your
                             <constraint firstAttribute="trailingMargin" secondItem="JJ5-rd-12i" secondAttribute="trailing" id="qK9-QR-bYR"/>
                             <constraint firstItem="Xz7-ml-BvO" firstAttribute="top" secondItem="bKg-KT-JDS" secondAttribute="bottom" constant="3" id="rjY-KJ-03J"/>
                             <constraint firstItem="soE-r5-Who" firstAttribute="leading" secondItem="1gg-DR-zlV" secondAttribute="leadingMargin" constant="8" id="t5r-tR-wlz"/>
+                            <constraint firstAttribute="trailing" secondItem="7PF-gE-pgJ" secondAttribute="trailing" id="tEC-VI-B9P"/>
                             <constraint firstItem="EFx-uu-zKs" firstAttribute="leading" secondItem="soE-r5-Who" secondAttribute="trailing" constant="5" id="tcP-Jk-cTr"/>
                             <constraint firstItem="vY7-EP-O8w" firstAttribute="width" secondItem="JJ5-rd-12i" secondAttribute="width" id="vEc-ZY-AVv"/>
                             <constraint firstItem="soE-r5-Who" firstAttribute="top" secondItem="rGq-Ad-MX6" secondAttribute="bottom" constant="30" id="vJW-Yo-mcU"/>

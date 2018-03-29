@@ -51,6 +51,17 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
     
     @IBOutlet weak var imgLogoBottom: UIImageView!
     
+    @IBAction func btnSendPasswordReset(_ sender: Any) {
+        
+        var email: String?
+        email = Auth.auth().currentUser?.email
+        //reset via email
+        Auth.auth().sendPasswordReset(withEmail: email!) { (error) in
+            
+        }
+        
+    }
+    
     //unhide pickerView
         //mateType
     @IBAction func btnMateTypeAction(_ sender: Any) {
