@@ -1314,7 +1314,7 @@ your
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Message..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZI1-UQ-icV">
-                                        <rect key="frame" x="6" y="540" width="312" height="30"/>
+                                        <rect key="frame" x="8" y="557" width="314" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
@@ -1323,8 +1323,19 @@ your
                                             <outlet property="delegate" destination="gqz-fn-aHA" id="03l-5S-Eo5"/>
                                         </connections>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Znl-Xz-Y5S">
+                                        <rect key="frame" x="330" y="557" width="37" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="15"/>
+                                        <state key="normal" title="Send">
+                                            <color key="titleColor" red="0.027913076803088188" green="0.10906790941953659" blue="0.69176191091537476" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnSendAction:" destination="gqz-fn-aHA" eventType="touchUpInside" id="m8i-Jb-Izf"/>
+                                        </connections>
+                                    </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oLE-Xm-BeM">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="530"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="549"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
@@ -1377,25 +1388,14 @@ your
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Znl-Xz-Y5S">
-                                        <rect key="frame" x="328" y="540" width="37" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="37" id="ewi-oN-r6x"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="15"/>
-                                        <state key="normal" title="Send">
-                                            <color key="titleColor" red="0.027913076803088188" green="0.10906790941953659" blue="0.69176191091537476" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="btnSendAction:" destination="gqz-fn-aHA" eventType="touchUpInside" id="m8i-Jb-Izf"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.95068607233502533" green="0.95068607233502533" blue="0.95068607233502533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </scrollView>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UIo-42-8Yc">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIo-42-8Yc">
                                 <rect key="frame" x="0.0" y="30" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="B8E-GA-9Dy"/>
+                                </constraints>
                                 <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <items>
                                     <navigationItem id="Aj7-Gr-ZUs">
@@ -1412,15 +1412,22 @@ your
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhQ-Ob-TQk">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhQ-Ob-TQk">
                                 <rect key="frame" x="0.0" y="43" width="375" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="17"/>
                                 <color key="textColor" red="0.027913076803088188" green="0.10906790941953659" blue="0.69176191091537476" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="rhQ-Ob-TQk" firstAttribute="leading" secondItem="yHS-fx-pIR" secondAttribute="leading" id="6ZW-zm-XVT"/>
+                            <constraint firstItem="rhQ-Ob-TQk" firstAttribute="centerY" secondItem="UIo-42-8Yc" secondAttribute="centerY" id="ENH-d3-RkH"/>
+                            <constraint firstItem="UIo-42-8Yc" firstAttribute="top" secondItem="5KX-Ae-DPa" secondAttribute="bottom" constant="10" id="MAn-9B-xr6"/>
+                            <constraint firstAttribute="trailing" secondItem="UIo-42-8Yc" secondAttribute="trailing" id="m1Y-fm-c1B"/>
+                            <constraint firstAttribute="trailing" secondItem="rhQ-Ob-TQk" secondAttribute="trailing" id="o0k-Th-IBs"/>
+                            <constraint firstItem="UIo-42-8Yc" firstAttribute="leading" secondItem="yHS-fx-pIR" secondAttribute="leading" id="tN7-0y-1Kv"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -1437,7 +1444,7 @@ your
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zXz-tl-epN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2472.8000000000002" y="1292.2038980509747"/>
+            <point key="canvasLocation" x="2813.5999999999999" y="1290.4047976011996"/>
         </scene>
         <!--Conversation Table View Controller-->
         <scene sceneID="4AR-kJ-VU9">
