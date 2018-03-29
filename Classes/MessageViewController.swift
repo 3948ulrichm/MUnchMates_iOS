@@ -140,9 +140,10 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.tableView.reloadData()
         })
         
+
+        
         print(messagesArray.count)
     
-        
         tableView.estimatedRowHeight = 1000
         tableView.rowHeight = UITableViewAutomaticDimension
         

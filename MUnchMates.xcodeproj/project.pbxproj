@@ -635,7 +635,7 @@
 				INFOPLIST_FILE = MUnchMates/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.MUnchMates.MUnchMatesMarquette;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MUnchMates.MUnchMates;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -653,7 +653,7 @@
 				INFOPLIST_FILE = MUnchMates/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.MUnchMates.MUnchMatesMarquette;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MUnchMates.MUnchMates;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
