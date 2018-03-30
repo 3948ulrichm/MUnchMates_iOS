@@ -8,8 +8,9 @@
 
 import UIKit
 import Firebase
+import MessageUI
 
-class EditProfileViewController: UIViewController,  UITableViewDelegate, UITableViewDataSource,  UIImagePickerControllerDelegate,  UINavigationControllerDelegate {
+class EditProfileViewController: UIViewController,  UITableViewDelegate, UITableViewDataSource,  UIImagePickerControllerDelegate,  UINavigationControllerDelegate, MFMailComposeViewControllerDelegate {
     
     //MARK: global variables
     var mateTypeBool = false
@@ -51,6 +52,29 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
     
     @IBOutlet weak var imgLogoBottom: UIImageView!
     
+    @IBAction func btnHelpDeskEmail(_ sender: Any) {
+        if !MFMailComposeViewController.canSendMail() {
+            print("Mail services are not available")
+            return
+        }
+        let composeVC = MFMailComposeViewController()
+        composeVC.mailComposeDelegate = self
+        
+        // Configure the fields of the interface.
+        composeVC.setToRecipients(["MUnchMatesHelpDesk@gmail.com"])
+        composeVC.setSubject("Help Desk Inquiry")
+        composeVC.setMessageBody("<b>If you have questions, comments, or concerns about the app, let us know:</b><br>", isHTML: true)
+        
+        // Present the view controller modally.
+        self.present(composeVC, animated: true, completion: nil)
+        
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
+    
+    
     @IBAction func btnSendPasswordReset(_ sender: Any) {
         
         var email: String?
@@ -59,6 +83,12 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
         Auth.auth().sendPasswordReset(withEmail: email!) { (error) in
             
         }
+        
+        let alertController = UIAlertController(title: "Email sent!", message: "A password reset email has been sent to \(email!)", preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
+        }
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
         
     }
     
@@ -260,6 +290,9 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
   
     override func viewWillAppear(_ animated: Bool) {
         
+        //release keyboard when non-keyboard area of screen is tapped
+        self.hideKeyboardWhenTappedAround()
+        
         //hide lblSave
         lblSaving.isHidden = true
         
@@ -428,15 +461,15 @@ func doneClicked() {
             }
             
         //insert User info in Db
-        var firstName = self.tbFirstName.text
-        var lastName = self.tbLastName.text
+        var firstName = self.tbFirstName.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        var lastName = self.tbLastName.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         var email = Auth.auth().currentUser?.email
         var muteMode = self.muteModeBool
         var mealPlan = self.mealPlanBool
         var college = self.btnCollegePV.currentTitle
         var mateType = self.btnMateTypePV.currentTitle
-        var city = self.tbCity.text
-        var stateCountry = self.tbStateCountry.text
+        var city = self.tbCity.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        var stateCountry = self.tbStateCountry.text?.trimmingCharacters(in: .whitespacesAndNewlines)
             
             let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
             changeRequest?.displayName = firstName! + " " + lastName!

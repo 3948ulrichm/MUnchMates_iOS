@@ -10,9 +10,31 @@ import UIKit
 import Firebase
 import MessageUI
 
-class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,MFMailComposeViewControllerDelegate {
+class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
     @IBOutlet weak var tableView: UITableView!
     
+    
+    @IBAction func btnAddEditClubsOrgs(_ sender: Any) {
+        if !MFMailComposeViewController.canSendMail() {
+            print("Mail services are not available")
+            return
+        }
+        let composeVC = MFMailComposeViewController()
+        composeVC.mailComposeDelegate = self
+        
+        // Configure the fields of the interface.
+        composeVC.setToRecipients(["MUnchMatesHelpDesk@gmail.com"])
+        composeVC.setSubject("Add or Edit Club/Org")
+        composeVC.setMessageBody("<b>Would you like to add or edit a club/org?</b><br><br><br><b>What is the club/org you would like to add or edit?</b><br><br><br><b>Additional comments:</b><br><br>", isHTML: true)
+        
+        // Present the view controller modally.
+        self.present(composeVC, animated: true, completion: nil)
+        
+        }
+        
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
     
     //MARK: Properties
     let ref = Database.database()

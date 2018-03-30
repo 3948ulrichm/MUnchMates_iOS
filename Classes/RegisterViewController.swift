@@ -36,9 +36,9 @@ class RegisterViewController: UIViewController {
             
             //put text field values into strings
             if
-                let firstName = txtFirstName.text,
-                let lastName = txtLastName.text,
-                let email = txtEmail.text?.lowercased(),
+                let firstName = txtFirstName.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+                let lastName = txtLastName.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+                let email = txtEmail.text?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines),
                 let password = txtPassword.text,
                 let muteMode:Bool = false,
                 let mealPlan:Bool = self.mealPlanBool,

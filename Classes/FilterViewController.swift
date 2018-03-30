@@ -8,8 +8,9 @@
 
 import UIKit
 import Firebase
+import MessageUI
 
-class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
     
     //MARK: global variables
     var filterEntityBool = false
@@ -60,6 +61,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var btnSelectAllOutlet: UIButton!
         
     @IBOutlet weak var btnMessages: UIButton!
+    
     
     //MARK: viewWillAppear
     override func viewWillAppear(_ animated: Bool) {

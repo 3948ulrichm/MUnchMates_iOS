@@ -20,20 +20,34 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var btnLoginOutlet: UIButton!
     
     @IBAction func btnForgotPassword(_ sender: Any) {
-    
+        
+        if txtEmail.text == "" {
+            let alertController = UIAlertController(title: "Input email!", message: "Input your Marquette email into the textbox above and click this button again. We will send you an email to reset your password!", preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction(title: "Got it!", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else {
+        
         var email: String?
         email = txtEmail.text
         //reset via email
         Auth.auth().sendPasswordReset(withEmail: email!) { (error) in
-            
+            }
+        let alertController = UIAlertController(title: "Email sent!", message: "A password reset email has been sent to \(email!)", preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "Thank you!", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
         }
-        
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     
     @IBAction func btnLogin(_ sender: Any) {
+        
 
-        if let email = txtEmail.text, let password = txtPassword.text {
+        if let email = txtEmail.text?.trimmingCharacters(in: .whitespacesAndNewlines), let password = txtPassword.text {
             
             Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
                 if user?.isEmailVerified == false {

@@ -108,9 +108,6 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
                     
                     for fireAccount in snapshot.children {
                         let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
-                        
-                        //let clubsOrgsNames = fireAccount.map(){$0.clubsOrgsName}
-                        
                         fireAccountArray.append(fireAccount)
                     }
                     
@@ -206,7 +203,6 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
-    
     //set up table view
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -216,6 +212,17 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         return users.count
     }
     
+ //pagination
+    var data = [1]
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == data.count - 1 {
+            moreData()
+        }
+    }
+
+    
+    
+ //diplay information in each cell
  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! SearchListTableViewCell
         let userinfo = self.users[indexPath.row]
@@ -308,6 +315,15 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         
         performSegue(withIdentifier: "SearchList2Profile", sender: self)
     }
+    
+    //PAGINATION
+        func moreData() {
+            for _ in 0...25 {
+                data.append(data.last! + 1)
+            }
+            tableView.reloadData()
+        }
+    
     
     @IBAction func btnBack(_ sender: Any) {
         performSegue(withIdentifier: "SearchList2Filter", sender: self)

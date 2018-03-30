@@ -16,10 +16,6 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var lblNavBarTitle: UILabel!
     @IBOutlet weak var textField: UITextField!
     
-    @IBOutlet weak var chatBarView: UIView!
-    
-    @IBOutlet weak var constraintChatBarViewHeight: NSLayoutConstraint!
-    
     @IBOutlet weak var scrollView: UIScrollView!
     
     
@@ -46,28 +42,28 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     //text field and send button
     //var messages: [Message]?
 
-    let messageInputContainerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.white
-        return view
-    }()
-    
-    let inputTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Enter message..."
-        return textField
-    }()
-    
-    let sendButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Send", for: .normal)
-        let titleColor = UIColor(red: 0, green: 137/255, blue: 249/255, alpha: 1)
-        button.setTitleColor(titleColor, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        return button
-    }()
-    
-    var bottomConstraint: NSLayoutConstraint?
+//    let messageInputContainerView: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = UIColor.white
+//        return view
+//    }()
+//
+//    let inputTextField: UITextField = {
+//        let textField = UITextField()
+//        textField.placeholder = "Enter message..."
+//        return textField
+//    }()
+//
+//    let sendButton: UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setTitle("Send", for: .normal)
+//        let titleColor = UIColor(red: 0, green: 137/255, blue: 249/255, alpha: 1)
+//        button.setTitleColor(titleColor, for: .normal)
+//        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+//        return button
+//    }()
+//
+//    var bottomConstraint: NSLayoutConstraint?
     
 //    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 //        textField.resignFirstResponder()
@@ -75,8 +71,9 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
 //    }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        scrollView.setContentOffset(CGPoint(x:0, y:250),animated: true)
+        scrollView.setContentOffset(CGPoint(x:0, y:290),animated: true)
     }
+
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         scrollView.setContentOffset(CGPoint(x:0, y:0),animated: true)
@@ -85,7 +82,6 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     
     override func viewDidLoad() {
-
         
         super.viewDidLoad()
         
@@ -94,8 +90,20 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         
+//        if textField.text! == "" {
+//            btnSend.setTitleColor(UIColor.darkGray, for: .normal)
+////            btnSend.isEnabled = false
+//        }
+//        else if textField.text! != "" {
+//            btnSend.setTitleColor(UIColor.MUnchMatesBlue, for: .normal)
+////            btnSend.isEnabled = true
+//        }
+
+        
         //hide table view lines
         self.tableView.separatorStyle = .none
+        
+        //release keyboard when non-keyboard area of screen is tapped
         self.hideKeyboardWhenTappedAround()
         
         //local variables
@@ -161,6 +169,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     @IBAction func btnSendAction(_ sender: Any) {
+
                 var conversationID: String = toUser.uid
                 var userDisplayName:String = fromUserMessage.userDisplayName
                 var timeStampPos = NSDate().timeIntervalSince1970 //get timestamp
@@ -176,24 +185,123 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
                  let date = Date()
                  let calendar = Calendar.current
          
-                 let hour = calendar.component(.hour, from:date)
+                 var hour = calendar.component(.hour, from:date)
+                 var hourString = String(hour)
+                    switch hourString {
+                        case "0":hourString="12"
+                        case "1":hourString="1"
+                        case "2":hourString="2"
+                        case "3":hourString="3"
+                        case "4":hourString="4"
+                        case "5":hourString="5"
+                        case "6":hourString="6"
+                        case "7":hourString="7"
+                        case "8":hourString="8"
+                        case "9":hourString="9"
+                        case "10":hourString="10"
+                        case "11":hourString="11"
+                        case "12":hourString="12"
+                        case "13":hourString="1"
+                        case "14":hourString="2"
+                        case "15":hourString="3"
+                        case "16":hourString="4"
+                        case "17":hourString="5"
+                        case "18":hourString="6"
+                        case "19":hourString="7"
+                        case "20":hourString="8"
+                        case "21":hourString="9"
+                        case "22":hourString="10"
+                        case "23":hourString="11"
+                        default: hourString = "00"
+            }
                  let minute = calendar.component(.minute, from:date)
-                 let second = calendar.component(.second, from:date)
-         
+                 var minuteString = String(minute)
+                    switch minuteString {
+                        case "0":minuteString="00"
+                        case "1":minuteString="01"
+                        case "2":minuteString="02"
+                        case "3":minuteString="03"
+                        case "4":minuteString="04"
+                        case "5":minuteString="05"
+                        case "6":minuteString="06"
+                        case "7":minuteString="07"
+                        case "8":minuteString="08"
+                        case "9":minuteString="09"
+                        case "10":minuteString="10"
+                        case "11":minuteString="11"
+                        case "12":minuteString="12"
+                        case "13":minuteString="13"
+                        case "14":minuteString="14"
+                        case "15":minuteString="15"
+                        case "16":minuteString="16"
+                        case "17":minuteString="17"
+                        case "18":minuteString="18"
+                        case "19":minuteString="19"
+                        case "20":minuteString="20"
+                        case "21":minuteString="21"
+                        case "22":minuteString="22"
+                        case "23":minuteString="23"
+                        case "24":minuteString="24"
+                        case "25":minuteString="25"
+                        case "26":minuteString="26"
+                        case "27":minuteString="27"
+                        case "28":minuteString="28"
+                        case "29":minuteString="29"
+                        case "30":minuteString="30"
+                        case "31":minuteString="31"
+                        case "32":minuteString="32"
+                        case "33":minuteString="33"
+                        case "34":minuteString="34"
+                        case "35":minuteString="35"
+                        case "36":minuteString="36"
+                        case "37":minuteString="37"
+                        case "38":minuteString="38"
+                        case "39":minuteString="39"
+                        case "40":minuteString="40"
+                        case "41":minuteString="41"
+                        case "42":minuteString="42"
+                        case "43":minuteString="43"
+                        case "44":minuteString="44"
+                        case "45":minuteString="45"
+                        case "46":minuteString="46"
+                        case "47":minuteString="47"
+                        case "48":minuteString="48"
+                        case "49":minuteString="49"
+                        case "50":minuteString="50"
+                        case "51":minuteString="51"
+                        case "52":minuteString="52"
+                        case "53":minuteString="53"
+                        case "54":minuteString="54"
+                        case "55":minuteString="55"
+                        case "56":minuteString="56"
+                        case "57":minuteString="57"
+                        case "58":minuteString="58"
+                        case "59":minuteString="59"
+                        default: minuteString="00"
+                    }
+        
+                var ampmString:String = ""
+                    if hour >= 0 && hour < 12 {
+                        ampmString = "AM"
+                    }
+                    else {
+                        ampmString = "PM"
+                    }
+        
                  let month = calendar.component(.month, from:date)
                  let day = calendar.component(.day, from:date)
                  let year = calendar.component(.year, from:date)
          
-                 let dateTime = "\(month).\(day).\(year) • \(hour):\(minute)"
+                 let dateTime = "\(month).\(day).\(year) • \(hourString):\(minuteString)\(ampmString)"
  
 
                 //change ref to point to correct conversation
                 let senderRef = Constants.refs.databaseRoot.child("USERS/\(uidSelf!)/conversations/messageList/\(conversationID)/messages/").childByAutoId()
-                let senderMessage = ["sender_id": senderId, "name": senderDisplayName, "text": text, "dateTime":dateTime,"timeStamp":timeStampNeg] as [String : Any]
+                let senderMessage = ["sender_id": senderId, "name": senderDisplayName, "text": text, "dateTime":dateTime,"timeStamp":timeStampPos] as [String : Any]
                 senderRef.setValue(senderMessage)
         
                 let receiverRef = Constants.refs.databaseRoot.child("USERS/\(conversationID)/conversations/messageList/\(uidSelf!)/messages/").childByAutoId()
-                let receiverMessage = ["sender_id": senderId, "name": senderDisplayName, "text": text, "dateTime":dateTime,"timeStamp":timeStampNeg] as [String : Any]
+                let receiverMessage = ["sender_id": senderId, "name": senderDisplayName, "text": text, "dateTime":dateTime,"timeStamp":timeStampPos] as [String : Any]
                 receiverRef.setValue(receiverMessage)
         
                 let ref = Constants.refs.databaseRoot.child("USERS/\(uidSelf!)/conversations/senderList/\(conversationID)")
@@ -283,34 +391,40 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "message") as! MessageTableViewCell
         
+
+        
         //flip cell and table --> this puts first cell at bottom of tableView
-        cell.transform = CGAffineTransform(scaleX: 1, y: -1)
-        self.tableView.transform = CGAffineTransform(scaleX: 1, y: -1)
+//        cell.transform = CGAffineTransform(scaleX: 1, y: -1)
+//        self.tableView.transform = CGAffineTransform(scaleX: 1, y: -1)
+
 
         
         //set variable values
         let senderName = self.messagesArray[indexPath.row].name
         let text = self.messagesArray[indexPath.row].text
         let dateTime = self.messagesArray[indexPath.row].dateTime
-        
+        let sender_id = self.messagesArray[indexPath.row].sender_id
+
         //assign variable values to labels
         cell.lblSenderName?.text = senderName
         cell.lblText?.text = text
         cell.lblDateTime?.text = dateTime
         
+        //highlight cell if current user sent message
+        if sender_id == currentUser.uid {
+            cell.backgroundColor = UIColor.MUnchMatesGold
+        }
+        
         return cell
         
     }
     
-    /*
-     TODO - delete cell... example in conversations vc
+    /* TODO - delete cell... example in conversations vc
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-    }
-    */
+    } */
     
     //what happens when cell is pressed
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
     }
     
 
@@ -332,21 +446,3 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
 }
-
-
-
-///////ADD THIS TO SEND BUTTON
-/*
-let date = Date()
-let calendar = Calendar.current
-
-let hour = calendar.component(.hour, from:date)
-let minute = calendar.component(.minute, from:date)
-let second = calendar.component(.second, from:date)
-
-let month = calendar.component(.month, from:date)
-let day = calendar.component(.day, from:date)
-let year = calendar.component(.year, from:date)
-
-let dateTime = "\(month).\(day).\(year)  \(hour):\(minute):\(second)"
-*/
