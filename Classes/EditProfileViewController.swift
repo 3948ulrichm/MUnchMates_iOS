@@ -84,8 +84,8 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
             
         }
         
-        let alertController = UIAlertController(title: "Email sent!", message: "A password reset email has been sent to \(email!)", preferredStyle: UIAlertControllerStyle.alert)
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
+        let alertController = UIAlertController(title: "Email sent!", message: "A password reset email has been sent to \(email!). If you do not want to reset your password, just ignore the email!", preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "Thanks!", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
         }
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)

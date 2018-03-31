@@ -82,9 +82,9 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        
+        textField.autocorrectionType = .yes
+        textField.autocapitalizationType = .sentences
     }
     
     

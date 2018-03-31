@@ -443,7 +443,7 @@ Cg
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezC-Pf-GqI">
                                 <rect key="frame" x="10" y="318" width="355" height="95"/>
-                                <string key="text">A verification email has been sent to your Marquette email. You must verify your email address before logging in! If you did not receive an email let us know at MUnchMatesHelpDesk@gmail.com!</string>
+                                <string key="text">A verification email has been sent to your Marquette email. You must verify your email address before logging in! If you did not receive an email, let us know at MUnchMatesHelpDesk@gmail.com!</string>
                                 <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1622,7 +1622,7 @@ your
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8n6-TH-gIO">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8n6-TH-gIO">
                                 <rect key="frame" x="0.0" y="74" width="375" height="593"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -2267,8 +2267,8 @@ your
         <segue reference="3qf-10-6FH"/>
         <segue reference="2mJ-XA-uGh"/>
         <segue reference="oPy-WT-l6F"/>
-        <segue reference="Lyc-lU-9cv"/>
+        <segue reference="RfG-RZ-ll6"/>
         <segue reference="0jO-RF-aqg"/>
-        <segue reference="f5m-Rm-m4g"/>
+        <segue reference="h3Z-0Z-ekf"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -99,7 +99,7 @@ class LoginViewController: UIViewController {
             }
         }
         
-        self.txtEmail.becomeFirstResponder()
+        //self.txtEmail.becomeFirstResponder()
         
         //disable autocorrect for textfields
         txtEmail.autocorrectionType = .no
