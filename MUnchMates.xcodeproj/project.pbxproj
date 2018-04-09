@@ -101,6 +101,7 @@
 		94CDC3A6201ADFD6008BEE25 /* userClubsOrgsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userClubsOrgsStruct.swift; sourceTree = "<group>"; };
 		94CFD68D2054CB65009786FD /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		94DF213C2040E036000AD624 /* FilterVCToSearchVCStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterVCToSearchVCStruct.swift; sourceTree = "<group>"; };
+		94E3B8AA207B145C00473AC4 /* sendEmail_bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sendEmail_bridge.h; sourceTree = "<group>"; };
 		94E3F34020206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddDeleteClubsOrgsViewController.swift; path = Classes/AddDeleteClubsOrgsViewController.swift; sourceTree = "<group>"; };
 		94E3F34220206AE600CF2FFD /* AddDeleteClubsOrgsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeleteClubsOrgsTableViewCell.swift; sourceTree = "<group>"; };
 		94F487F4202824B000E3444F /* SearchUsersProfilePic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUsersProfilePic.swift; sourceTree = "<group>"; };
@@ -248,6 +249,7 @@
 		94F8FCBF1F8B406100663F8C = {
 			isa = PBXGroup;
 			children = (
+				94E3B8AA207B145C00473AC4 /* sendEmail_bridge.h */,
 				496DA4BF20154B8A00E8FDF5 /* Bridging-Header.h */,
 				94F8FCE01F8B528200663F8C /* Classes */,
 				94D3F90A1FD39554004D3369 /* Models */,
@@ -632,12 +634,28 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MUnchMates/MUnchMates.entitlements;
 				DEVELOPMENT_TEAM = 3U5862S8D2;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PODS_ROOT}/Firebase/Core/Sources",
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseAnalytics\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseAuth\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseCore\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseDatabase\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseInstanceID\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseMessaging\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseStorage\"",
+					"\"${PODS_ROOT}/Headers/Public/mailcore2-ios\"",
+					"\"${PODS_ROOT}/Headers/Public/mailcore2-ios/MailCore\"",
+				);
 				INFOPLIST_FILE = MUnchMates/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MUnchMates.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = sendEmail_bridge.h;
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 			};
@@ -650,12 +668,28 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MUnchMates/MUnchMates.entitlements;
 				DEVELOPMENT_TEAM = 3U5862S8D2;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PODS_ROOT}/Firebase/Core/Sources",
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseAnalytics\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseAuth\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseCore\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseDatabase\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseInstanceID\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseMessaging\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseStorage\"",
+					"\"${PODS_ROOT}/Headers/Public/mailcore2-ios\"",
+					"\"${PODS_ROOT}/Headers/Public/mailcore2-ios/MailCore\"",
+				);
 				INFOPLIST_FILE = MUnchMates/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MUnchMates.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = sendEmail_bridge.h;
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 			};

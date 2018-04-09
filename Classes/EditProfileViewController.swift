@@ -227,7 +227,18 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
             mealPlanBool = false
         }
     }
-
+    
+    var notificationsBool:Bool = false
+    @IBOutlet weak var switchNotificationsOutlet: UISwitch!
+    @IBAction func switchNotifications(_ sender: Any) {
+        if (sender as AnyObject).isOn == true {
+            notificationsBool = true
+        }
+        else {
+            notificationsBool = false
+        }
+    }
+    
     
     //change profile image
     @IBAction func btnChangeProfileImage(_ sender: Any) {
@@ -307,11 +318,12 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
                 var college = (dictionary["college"] as? String)!
                 var mealPlan = (dictionary["mealPlan"] as! Bool)
                 var muteMode = (dictionary["muteMode"] as! Bool)
+                var emailNotifications = (dictionary["emailNotifications"] as! Bool)
                 var city = (dictionary["city"] as? String)!
                 var stateCountry = (dictionary["stateCountry"] as? String)!
 
                 //set switches and variables
-                    //mealPlan Switches
+                    //mealPlan switch
                     if mealPlan == true && mealPlan != nil {
                         self.switchMealPlanOutlet.setOn(true, animated: false)
                         self.mealPlanBool = true
@@ -321,7 +333,7 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
                         self.mealPlanBool = false
                     }
                 
-                    //muteMode switches
+                    //muteMode switch
                     if muteMode == true {
                         self.switchMuteModeOutlet.setOn(true, animated: false)
                         self.muteModeBool = true
@@ -331,6 +343,15 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
                         self.muteModeBool = false
                     }
                 
+                    //notifications switch
+                    if emailNotifications == true {
+                        self.switchNotificationsOutlet.setOn(true, animated: false)
+                        self.notificationsBool = true
+                    }
+                    else {
+                        self.switchNotificationsOutlet.setOn(false, animated: false)
+                        self.notificationsBool = false
+                    }
                 //String assignments
                     self.tbFirstName.text = "\(firstName)"
                     self.tbLastName.text = "\(lastName)"
@@ -470,7 +491,8 @@ func doneClicked() {
         var mateType = self.btnMateTypePV.currentTitle
         var city = self.tbCity.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         var stateCountry = self.tbStateCountry.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-            
+        var emailNotifications = self.notificationsBool
+
             let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
             changeRequest?.displayName = firstName! + " " + lastName!
             changeRequest?.commitChanges { (error) in
@@ -487,6 +509,8 @@ func doneClicked() {
             dataRef.reference().child("USERS/\(uid!)/uid").setValue(uid)
             dataRef.reference().child("USERS/\(uid!)/city").setValue(city)
             dataRef.reference().child("USERS/\(uid!)/stateCountry").setValue(stateCountry)
+            dataRef.reference().child("USERS/\(uid!)/emailNotifications").setValue(emailNotifications)
+
             
             
             delayImageEditProfile = DelayedImageLoadStruct(savedImage: self.loadImageBool)

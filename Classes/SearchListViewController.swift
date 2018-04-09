@@ -250,33 +250,33 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     
         //Display Profile Pictures
-        let profileImgRef = storageRef.reference().child("imgProfilePictures/\(userinfo.uid).png")
-        profileImgRef.getData(maxSize: 50 * 1024 * 1024) { data, error in
-            if error != nil {
-                let errorDesc = error?.localizedDescription
-                if errorDesc == "Image does not exist." {
-                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(userinfo.uid).png")!) as Data?
-                    let imagePath = "imgProfilePictures/\(userinfo.uid).png"
-                    
-                    let metaData = StorageMetadata()
-                    metaData.contentType = "image/png"
-                    
-                    self.storageRef.reference().child(imagePath)
-                        .putData(profileImageData!, metadata: metaData) { (metadata, error) in
-                            if let error = error {
-                                print ("Uploading Error: \(error)")
-                                return
-                            }
-                    }
-                    self.userProfileImage = UIImage(named: "\(userinfo.uid).png")
-                } else {
-                    return
-                }
-            } else {
-                self.userProfileImage = UIImage(data: data!)
-                cell.imgProfilePic.image = self.userProfileImage
-            }
-        }
+//        let profileImgRef = storageRef.reference().child("imgProfilePictures/\(userinfo.uid).png")
+//        profileImgRef.getData(maxSize: 50 * 1024 * 1024) { data, error in
+//            if error != nil {
+//                let errorDesc = error?.localizedDescription
+//                if errorDesc == "Image does not exist." {
+//                    let profileImageData = UIImagePNGRepresentation(UIImage(named: "\(userinfo.uid).png")!) as Data?
+//                    let imagePath = "imgProfilePictures/\(userinfo.uid).png"
+//
+//                    let metaData = StorageMetadata()
+//                    metaData.contentType = "image/png"
+//
+//                    self.storageRef.reference().child(imagePath)
+//                        .putData(profileImageData!, metadata: metaData) { (metadata, error) in
+//                            if let error = error {
+//                                print ("Uploading Error: \(error)")
+//                                return
+//                            }
+//                    }
+//                    self.userProfileImage = UIImage(named: "\(userinfo.uid).png")
+//                } else {
+//                    return
+//                }
+//            } else {
+//                self.userProfileImage = UIImage(data: data!)
+//                cell.imgProfilePic.image = self.userProfileImage
+//            }
+//        }
         return cell
     }
     
@@ -318,7 +318,7 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     //PAGINATION
         func moreData() {
-            for _ in 0...25 {
+            for _ in 0...100 {
                 data.append(data.last! + 1)
             }
             tableView.reloadData()

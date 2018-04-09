@@ -8,10 +8,11 @@ target 'MUnchMates' do
   # Pods for MUnchMates
 
   pod 'Firebase/Core'
-  pod 'Firebase/Auth’
+  pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   pod 'Firebase/Messaging'
   pod 'JSQMessagesViewController'
+  pod 'mailcore2-ios'
 
 end

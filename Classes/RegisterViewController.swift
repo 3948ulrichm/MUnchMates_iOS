@@ -45,7 +45,8 @@ class RegisterViewController: UIViewController {
                 let mateType:String = "¯\\_(ツ)_/¯",
                 let college:String = "¯\\_(ツ)_/¯",
                 let city:String = "",
-                let stateCountry:String = ""
+                let stateCountry:String = "",
+                let emailNotifications:Bool = true
             {
 
                 //CHECK that email is marquette email address
@@ -79,7 +80,8 @@ class RegisterViewController: UIViewController {
                                      "city":city,
                                      "stateCountry":stateCountry,
                                      "searchOrderNumber":searchOrderNumber,
-                                     "lastOpened":lastOpened]
+                                     "lastOpened":lastOpened,
+                                     "emailNotifications":emailNotifications]
                                 self.userNodeRef.child((user?.uid)!).updateChildValues(userValues, withCompletionBlock: {(userDBError, userDBRef) in
                                 })
                                 

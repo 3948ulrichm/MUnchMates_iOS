@@ -39,37 +39,6 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     var fromUserMessage = UserInConversations()
     
     
-    //text field and send button
-    //var messages: [Message]?
-
-//    let messageInputContainerView: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = UIColor.white
-//        return view
-//    }()
-//
-//    let inputTextField: UITextField = {
-//        let textField = UITextField()
-//        textField.placeholder = "Enter message..."
-//        return textField
-//    }()
-//
-//    let sendButton: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.setTitle("Send", for: .normal)
-//        let titleColor = UIColor(red: 0, green: 137/255, blue: 249/255, alpha: 1)
-//        button.setTitleColor(titleColor, for: .normal)
-//        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-//        return button
-//    }()
-//
-//    var bottomConstraint: NSLayoutConstraint?
-    
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        textField.resignFirstResponder()
-//        return true
-//    }
-    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         scrollView.setContentOffset(CGPoint(x:0, y:290),animated: true)
     }
@@ -87,18 +56,10 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         textField.autocapitalizationType = .sentences
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
-        
-//        if textField.text! == "" {
-//            btnSend.setTitleColor(UIColor.darkGray, for: .normal)
-////            btnSend.isEnabled = false
-//        }
-//        else if textField.text! != "" {
-//            btnSend.setTitleColor(UIColor.MUnchMatesBlue, for: .normal)
-////            btnSend.isEnabled = true
-//        }
-
+        viewWillAppearFunc()
+    }
+        func viewWillAppearFunc() {
         
         //hide table view lines
         self.tableView.separatorStyle = .none
@@ -126,49 +87,53 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
             // get the entire snapshot dictionary
             if let dictionary = snapshot.value as? [String: Any]
             {
-                var fullNameElse = (dictionary["firstName"] as? String)! + " " + (dictionary["lastName"] as? String)!
+                var fullNameIf = (dictionary["firstName"] as? String)! + " " + (dictionary["lastName"] as? String)!
+                self.lblNavBarTitle!.text = fullNameIf
+            }
+            else {
+                var fullNameElse = ""
                 self.lblNavBarTitle!.text = fullNameElse
             }
         })
         
         //load messages
-        Constants.refs.databaseRoot.child("USERS/\(uidSelf!)/conversations/messageList/\(conversationID)/messages").queryOrdered(byChild:"timeStamp").observe(.value, with:
-            { snapshot in
-                var fireAccountArray: [messagesStruct] = []
-                
-                for fireAccount in snapshot.children {
-                    let fireAccount = messagesStruct(snapshot: fireAccount as! DataSnapshot)
-                    fireAccountArray.append(fireAccount)
-                }
-                
-                self.messagesArray = fireAccountArray
-                
-                self.tableView.delegate = self
-                self.tableView.dataSource = self
-                self.tableView.reloadData()
-        })
-        
+            Constants.refs.databaseRoot.child("USERS/\(uidSelf!)/conversations/messageList/\(conversationID)/messages").queryOrdered(byChild:"timeStamp").observe(.value, with:
+                    { snapshot in
+                        var fireAccountArray: [messagesStruct] = []
+                        
+                        for fireAccount in snapshot.children {
+                            let fireAccount = messagesStruct(snapshot: fireAccount as! DataSnapshot)
+                            fireAccountArray.append(fireAccount)
+                        }
+                        
+                        self.messagesArray = fireAccountArray
+                        
+                        self.tableView.delegate = self
+                        self.tableView.dataSource = self
+                        self.tableView.reloadData()
+                })
 
         
-        print(messagesArray.count)
-    
+
         tableView.estimatedRowHeight = 1000
         tableView.rowHeight = UITableViewAutomaticDimension
-        
-        //this disables / enables btn based on if there is text in the field
-//        if textField.text != nil {
-//            btnSend.isEnabled = true
-//            //CHANGE COLOR TO GRAY
-//            //btnSend.currentTitleColor = .gray
-//        }
-//        else {
-//            btnSend.isEnabled = false
-//        }
         
     }
     
     
     @IBAction func btnSendAction(_ sender: Any) {
+//        do {
+//            try btnSendFunc()
+//        }
+//        catch {
+//            let alertController = UIAlertController(title: "Error!", message: "Looks like something is wrong in our database. Either delete the current conversation by swiping left on the other user's name in the conversations list and start a new one or email MUnchMatesHelpDesk@gmail.com and we will help!", preferredStyle: UIAlertControllerStyle.alert)
+//            let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
+//            }
+//            alertController.addAction(okAction)
+//            self.present(alertController, animated: true, completion: nil)
+//        }
+//    }
+//    func btnSendFunc() {
 
                 var conversationID: String = toUser.uid
                 var userDisplayName:String = fromUserMessage.userDisplayName
@@ -296,6 +261,8 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
  
 
                 //change ref to point to correct conversation
+
+                
                 let senderRef = Constants.refs.databaseRoot.child("USERS/\(uidSelf!)/conversations/messageList/\(conversationID)/messages/").childByAutoId()
                 let senderMessage = ["sender_id": senderId, "name": senderDisplayName, "text": text, "dateTime":dateTime,"timeStamp":timeStampPos] as [String : Any]
                 senderRef.setValue(senderMessage)
@@ -305,7 +272,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
                 receiverRef.setValue(receiverMessage)
         
                 let ref = Constants.refs.databaseRoot.child("USERS/\(uidSelf!)/conversations/senderList/\(conversationID)")
-                let toUserIDValue = ["uid": conversationID, "userDisplayName": toUser.firstName + " " + toUser.lastName,"timeStamp":timeStampNeg,"read":readTrue] as [String : Any]
+                let toUserIDValue = ["uid": conversationID, "userDisplayName": self.toUser.firstName + " " + self.toUser.lastName,"timeStamp":timeStampNeg,"read":readTrue] as [String : Any]
                 ref.setValue(toUserIDValue)
         
                 let ref2 = Constants.refs.databaseRoot.child("USERS/\(conversationID)/conversations/senderList/\(uidSelf!)")
@@ -339,7 +306,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
                 })
 
                 //count messages in convo and delete if over 20 - RECEIVING USER
-                Constants.refs.databaseRoot.child("USERS/\(conversationID)/conversations/messageList/\(uidSelf!)/messages/").observe(.value, with:
+                Constants.refs.databaseRoot.child("USERS/\(conversationID)/conversations/messageList/\(self.uidSelf!)/messages/").observe(.value, with:
                     { snapshot in
                         var fireAccountArray: [messagesStruct] = []
 
@@ -364,7 +331,61 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
                         }
                 })
         
-        textField.text = nil
+                self.textField.text = nil
+        
+        //send email notification if enabled
+        Database.database().reference().child("USERS/\(conversationID)/").observe(.value, with: { snapshot in
+            // get the entire snapshot dictionary
+            if let dictionary = snapshot.value as? [String: Any]
+            {
+                var email = (dictionary["email"] as? String)!
+                var emailNotifications = (dictionary["emailNotifications"] as! Bool)
+                var timeStampPosCurrent = NSDate().timeIntervalSince1970 - 1.00
+
+                print("timeStampPos: \(timeStampPos) -- timeStampPosCurrent: \(timeStampPosCurrent)")
+                if  emailNotifications == true && timeStampPos >= timeStampPosCurrent {
+                    print("*************\(emailNotifications) this SHOULD send an email")
+                    let smtpSession = MCOSMTPSession()
+                    smtpSession.hostname = "smtp.gmail.com"
+                    smtpSession.username = "MUnchMatesHelpDesk@gmail.com"
+                    smtpSession.password = "GoldenEagles1881!"
+                    smtpSession.port = 465
+                    smtpSession.authType = MCOAuthType.saslPlain
+                    smtpSession.connectionType = MCOConnectionType.TLS
+                    smtpSession.connectionLogger = {(connectionID, type, data) in
+                        if data != nil {
+                            if let string = NSString(data: data!, encoding: String.Encoding.utf8.rawValue){
+                                NSLog("Connectionlogger: \(string)")
+                            }
+                        }
+                    }
+                    let builder = MCOMessageBuilder()
+                    builder.header.to = [MCOAddress(displayName: "MUnchMates User", mailbox: email)]
+                    builder.header.from = MCOAddress(displayName: "MUnchMates", mailbox: "MUnchMatesHelpDesk@gmail.com")
+                    builder.header.subject = "New MUnchMates Message from \(senderDisplayName!)!"
+                    let emailFont = "arial"
+                            builder.htmlBody="<font face=\(emailFont)><p><b>\(senderDisplayName!):</b> \(text!)</p><br><i><p>To disable MUnchMates Message notifications, follow this path within the app:</p></br><p>Home Page → Profile → Edit Profile → Turn off 'Notifications'</p></i></font>"
+                    
+                    
+                    let rfc822Data = builder.data()
+                    let sendOperation = smtpSession.sendOperation(with: rfc822Data)
+                    sendOperation?.start { (error) -> Void in
+                        if (error != nil) {
+                            NSLog("Error sending email: \(error)")
+                            
+                            
+                        } else {
+                            NSLog("Successfully sent email!")
+                        }
+                    }
+                            }
+                    else {
+                    print("****\(emailNotifications) - this should not send an email")
+                    //do not send email
+                    }
+            }
+        })
+        
     }
     
     
@@ -389,22 +410,24 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //what is displayed
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "message") as! MessageTableViewCell
-        
-
-        
-        //flip cell and table --> this puts first cell at bottom of tableView
-//        cell.transform = CGAffineTransform(scaleX: 1, y: -1)
-//        self.tableView.transform = CGAffineTransform(scaleX: 1, y: -1)
-
-
         
         //set variable values
+//        if self.messagesArray[indexPath.row].dateTime == nil {
+//            performSegue(withIdentifier: "Message2ConversationTable", sender: self)
+//            print("****ERROR********")
+//        }
+
+        print(self.messagesArray[indexPath.row].dateTime)
+        
         let senderName = self.messagesArray[indexPath.row].name
         let text = self.messagesArray[indexPath.row].text
         let dateTime = self.messagesArray[indexPath.row].dateTime
         let sender_id = self.messagesArray[indexPath.row].sender_id
+        let timeStamp = self.messagesArray[indexPath.row].timeStamp
 
+        let cell = tableView.dequeueReusableCell(withIdentifier: "message") as! MessageTableViewCell
+
+        
         //assign variable values to labels
         cell.lblSenderName?.text = senderName
         cell.lblText?.text = text

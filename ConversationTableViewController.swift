@@ -149,19 +149,20 @@ class ConversationTableViewController: UIViewController, UITableViewDelegate, UI
         fromUserConversation = UserInConversations(read:toUserRead!, timeStamp:toUserTimeStamp!, uid: selfUid!, userDisplayName: selfName!)
         
         performSegue(withIdentifier: "Conversation2Message", sender: self)
-        
-        }
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
         if segue.identifier == "Conversation2Message" {
             let vc = segue.destination as! MessageViewController
             vc.toUser = userDetailsConversation
             vc.fromUserMessage = fromUserConversation
-            
         }
+        
         if segue.identifier == "Conversation2Filter" {
             _ = segue.destination as! FilterViewController
         }
+        
     }
     
     override func didReceiveMemoryWarning() {
