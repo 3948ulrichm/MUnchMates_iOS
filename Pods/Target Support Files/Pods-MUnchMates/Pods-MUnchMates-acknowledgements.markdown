@@ -23,11 +23,11 @@ Copyright 2018 Google
 
 ## FirebaseInstanceID
 
-Copyright 2017 Google
+Copyright 2018 Google
 
 ## FirebaseMessaging
 
-Copyright 2017 Google
+Copyright 2018 Google
 
 ## FirebaseStorage
 
@@ -569,6 +569,10 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+
+## mailcore2-ios
+
+<html><body>You are being <a href="https://raw.githubusercontent.com/MailCore/mailcore2/master/LICENSE">redirected</a>.</body></html>
 
 ## nanopb
 
