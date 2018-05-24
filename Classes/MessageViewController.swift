@@ -348,7 +348,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
                     let smtpSession = MCOSMTPSession()
                     smtpSession.hostname = "smtp.gmail.com"
                     smtpSession.username = "MUnchMatesHelpDesk@gmail.com"
-                    smtpSession.password = "GoldenEagles1881!"
+                    smtpSession.password = "vcjSqrL6eBevXsV!"
                     smtpSession.port = 465
                     smtpSession.authType = MCOAuthType.saslPlain
                     smtpSession.connectionType = MCOConnectionType.TLS

@@ -6,9 +6,11 @@
 //  Copyright © 2018 Michael Ulrich. All rights reserved.
 //
 
+// Michael: This file has extensions that can be called 
 import UIKit
 import CoreFoundation
 
+//this is
 extension UIColor {
     
     // Setup custom colours we can use throughout the app using hex values
