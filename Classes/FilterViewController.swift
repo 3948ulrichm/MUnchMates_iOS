@@ -112,7 +112,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let entitySearchLoad = filterData.entitySearch!
         let attributeSearchLoad = filterData.attributeSearch!
         let entitySearchPlaceholder = "club / organization"
-        let attributeSearchPlaceholder = "all"
+        let attributeSearchPlaceholder = "(select)"
         
         if entitySearchLoad != "" && attributeSearchLoad != "" {
             self.btnFilterEntity.setTitle(entitySearchLoad, for: .normal)
@@ -135,11 +135,20 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBAction func btnSearch(_ sender: Any) {
         var entitySearch:String = self.btnFilterEntity.currentTitle!
         var attributeSearch:String = self.btnFilterAttribute.currentTitle!
+        if attributeSearch == "(select)" {
+            let alertController = UIAlertController(title: "Please select a specific \(entitySearch)", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction(title: "Aye aye!", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else {
                 filterData = FilterVCToSearchVCStruct(
                     entitySearch:entitySearch,
                     attributeSearch:attributeSearch
                 )
         performSegue(withIdentifier: "FilterToSearchList", sender: self)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -331,11 +340,11 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
             mealPlanBool == true ||
             clubsOrgsBool == true
             {
-            btnFilterAttribute.setTitle("all", for: .normal)
+            btnFilterAttribute.setTitle("(select)", for: .normal)
             viewPickerView.isHidden = true
         }
         else if filterEntityBool == true {
-            btnFilterEntity.setTitle("all", for: .normal)
+            btnFilterEntity.setTitle("(select)", for: .normal)
             viewPickerView.isHidden = true
         }
         else {
@@ -350,16 +359,30 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     //sign out
     @IBAction func btnSignOut(_ sender: UIBarButtonItem) {
-        do {
-            try Auth.auth().signOut()
-        } catch let error as NSError {
-            print(error.localizedDescription)
+      
+        //alert message
+        let alertController = UIAlertController(title: "Logout", message: "Are you sure you want to logout?", preferredStyle: .alert)
+        //delete btn in alert (variable)
+        let logoutAction = UIAlertAction(title: "Logout", style: .destructive,
+            handler: { action in
+                do {
+                    try Auth.auth().signOut()
+                } catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+                
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
+                self.present(vc!, animated: true, completion: nil)
+        })
+        //cancel btn in alert (variable)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        { (result: UIAlertAction) -> Void in
         }
-        
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
-        self.present(vc!, animated: true, completion: nil)
-        
-        
+        //create buttons using varibles above
+        alertController.addAction(cancelAction)
+        alertController.addAction(logoutAction)
+        self.present(alertController, animated: true, completion: nil)
+    
     }
     
     //TableView
@@ -431,9 +454,9 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if filterEntityBool == true {
             filterEntityName = self.entityStruct[indexPath.row].filterEntityName!
             selectedFilterValueEntity = FilterStructEntity(filterEntityName:filterEntityName)
-            //if a new entity is selected, change the name of the attribute btn to "all"
+            //if a new entity is selected, change the name of the attribute btn to "(select)"
                 if filterEntityName != btnFilterEntity.currentTitle! {
-                    btnFilterAttribute.setTitle("all", for: .normal)
+                    btnFilterAttribute.setTitle("(select)", for: .normal)
                 }
             btnFilterEntity.setTitle(filterEntityName, for: .normal)
             //change label to reflect entity selected

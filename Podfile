@@ -13,6 +13,5 @@ target 'MUnchMates' do
   pod 'Firebase/Storage'
   pod 'Firebase/Messaging'
   pod 'JSQMessagesViewController'
-  pod 'mailcore2-ios'
 
 end

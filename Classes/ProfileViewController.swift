@@ -31,6 +31,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     var clubsOrgsProfile: [clubsOrgsStruct] = []
     var selfUserClubsOrgsProfile = clubsOrgsStruct()
 
+    var profileClubsOrgsStruct = FilterStructClubsOrgs()
+
     //MARK - outlets
     @IBOutlet weak var lblNameProfileSearch: UILabel!
     @IBOutlet weak var lblMealPlanSearch: UILabel!
@@ -241,6 +243,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         if segue.identifier == "ProfileToSearchList" {
             let vc = segue.destination as! SearchListViewController
             vc.filterDataSearch = filterDataProfile
+            vc.clubsOrgsArray2 = profileClubsOrgsStruct
         }
     }
     override func didReceiveMemoryWarning() {

@@ -443,7 +443,7 @@ Cg
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezC-Pf-GqI">
                                 <rect key="frame" x="10" y="318" width="355" height="95"/>
-                                <string key="text">A verification email has been sent to your Marquette email. You must verify your email address before logging in! If you did not receive an email, let us know at MUnchMatesHelpDesk@gmail.com!</string>
+                                <string key="text">A verification email has been sent to your Marquette email. You must verify your email address before logging in! If you did not receive an email, let us know at MUnchMates@marquette.edu!</string>
                                 <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -487,7 +487,7 @@ Cg
                                 <color key="barTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
                                     <navigationItem id="KJ9-QI-oK3">
-                                        <barButtonItem key="leftBarButtonItem" title="Log Out" id="ygG-bh-uFs" customClass="BarButtonFont" customModule="MUnchMates" customModuleProvider="target">
+                                        <barButtonItem key="leftBarButtonItem" title="Logout" id="ygG-bh-uFs" customClass="BarButtonFont" customModule="MUnchMates" customModuleProvider="target">
                                             <connections>
                                                 <action selector="btnSignOut:" destination="sy3-qQ-5Gs" id="511-Fr-HKx"/>
                                             </connections>
@@ -544,10 +544,10 @@ Cg
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="aHU-1p-LrT"/>
                                             <barButtonItem style="plain" id="V4W-nR-IU9">
                                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pML-Uq-Aa7">
-                                                    <rect key="frame" x="297" y="7.5" width="62" height="29"/>
+                                                    <rect key="frame" x="257" y="7.5" width="102" height="29"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="15"/>
-                                                    <state key="normal" title="Select All">
+                                                    <state key="normal" title="Clear Selection">
                                                         <color key="titleColor" red="0.027913076803088188" green="0.10906790941953659" blue="0.69176191091537476" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     </state>
                                                     <connections>
@@ -1960,19 +1960,6 @@ your
                                 <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="12"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="CXP-qY-U5Q">
-                                <rect key="frame" x="290" y="216" width="51" height="31"/>
-                                <color key="onTintColor" red="0.95596736669540405" green="0.71264821290969849" blue="0.24539121985435486" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <connections>
-                                    <action selector="switchNotifications:" destination="qGN-jU-sOB" eventType="valueChanged" id="etn-5Y-khF"/>
-                                </connections>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLD-z8-btf">
-                                <rect key="frame" x="185.5" y="223" width="91" height="17"/>
-                                <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -1983,8 +1970,6 @@ your
                             <constraint firstItem="VFr-P5-AXB" firstAttribute="centerY" secondItem="rGq-Ad-MX6" secondAttribute="centerY" id="2zX-O3-Z1m"/>
                             <constraint firstItem="JJ5-rd-12i" firstAttribute="leading" secondItem="vY7-EP-O8w" secondAttribute="trailing" constant="10" id="3Rb-e9-Etf"/>
                             <constraint firstItem="7PF-gE-pgJ" firstAttribute="leading" secondItem="1gg-DR-zlV" secondAttribute="leading" id="3nI-UK-eai"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="CXP-qY-U5Q" secondAttribute="trailing" constant="20" id="5gx-2b-sq3"/>
-                            <constraint firstItem="MLD-z8-btf" firstAttribute="top" secondItem="7Q7-fj-Uu3" secondAttribute="bottom" constant="25" id="5op-3x-H96"/>
                             <constraint firstItem="f40-3p-Q0x" firstAttribute="trailing" secondItem="1gg-DR-zlV" secondAttribute="trailingMargin" id="5wF-Su-qly"/>
                             <constraint firstItem="HIY-2E-1gT" firstAttribute="top" secondItem="Xz7-ml-BvO" secondAttribute="bottom" constant="3" id="6wU-f8-wnh"/>
                             <constraint firstAttribute="trailing" secondItem="qoL-ve-w2h" secondAttribute="trailing" id="81e-75-FXk"/>
@@ -2008,9 +1993,7 @@ your
                             <constraint firstItem="93Q-2W-9CE" firstAttribute="leading" secondItem="7Q7-fj-Uu3" secondAttribute="trailing" constant="20" id="S77-Vq-rEi"/>
                             <constraint firstItem="sTF-0i-pdV" firstAttribute="top" secondItem="QX8-5Y-wEq" secondAttribute="bottom" id="SoD-CR-hg0"/>
                             <constraint firstItem="7Q7-fj-Uu3" firstAttribute="centerY" secondItem="93Q-2W-9CE" secondAttribute="centerY" id="Sqb-hL-ng8"/>
-                            <constraint firstItem="CXP-qY-U5Q" firstAttribute="centerY" secondItem="MLD-z8-btf" secondAttribute="centerY" id="SvD-KP-qOp"/>
                             <constraint firstItem="Xz7-ml-BvO" firstAttribute="centerX" secondItem="bKg-KT-JDS" secondAttribute="centerX" id="Vvo-Uz-KPO"/>
-                            <constraint firstItem="MLD-z8-btf" firstAttribute="centerX" secondItem="7Q7-fj-Uu3" secondAttribute="centerX" id="Wd0-jh-rOH"/>
                             <constraint firstItem="lB8-Mf-iZ8" firstAttribute="leading" secondItem="1gg-DR-zlV" secondAttribute="leadingMargin" id="XqI-PF-HrR"/>
                             <constraint firstAttribute="trailing" secondItem="QX8-5Y-wEq" secondAttribute="trailing" id="YNi-6G-btA"/>
                             <constraint firstItem="TEa-70-6hp" firstAttribute="leading" secondItem="1gg-DR-zlV" secondAttribute="leading" id="ZQq-nV-ejA"/>
@@ -2050,7 +2033,6 @@ your
                         <outlet property="lblSaving" destination="f3m-FO-HTb" id="eN3-pc-RDj"/>
                         <outlet property="switchMealPlanOutlet" destination="93Q-2W-9CE" id="YKj-sY-mbh"/>
                         <outlet property="switchMuteModeOutlet" destination="wkw-mX-18j" id="hvm-Wv-TlP"/>
-                        <outlet property="switchNotificationsOutlet" destination="CXP-qY-U5Q" id="Hqh-19-mKC"/>
                         <outlet property="tableView" destination="2Yc-j0-a5N" id="eAv-LJ-ZJj"/>
                         <outlet property="tbCity" destination="vY7-EP-O8w" id="95G-mm-rdr"/>
                         <outlet property="tbFirstName" destination="lB8-Mf-iZ8" id="3ZZ-z1-IIw"/>
@@ -2274,7 +2256,7 @@ your
         <segue reference="3qf-10-6FH"/>
         <segue reference="2mJ-XA-uGh"/>
         <segue reference="oPy-WT-l6F"/>
-        <segue reference="cPF-Fd-TB2"/>
+        <segue reference="Lyc-lU-9cv"/>
         <segue reference="0jO-RF-aqg"/>
         <segue reference="h3Z-0Z-ekf"/>
     </inferredMetricsTieBreakers>

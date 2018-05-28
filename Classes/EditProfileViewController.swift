@@ -61,7 +61,7 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
         composeVC.mailComposeDelegate = self
         
         // Configure the fields of the interface.
-        composeVC.setToRecipients(["MUnchMatesHelpDesk@gmail.com"])
+        composeVC.setToRecipients(["MUnchMates@marquette.edu"])
         composeVC.setSubject("Help Desk Inquiry")
         composeVC.setMessageBody("<b>If you have questions, comments, or concerns about the app, let us know:</b><br>", isHTML: true)
         

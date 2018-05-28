@@ -342,47 +342,6 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
                 var emailNotifications = (dictionary["emailNotifications"] as! Bool)
                 var timeStampPosCurrent = NSDate().timeIntervalSince1970 - 1.00
 
-                print("timeStampPos: \(timeStampPos) -- timeStampPosCurrent: \(timeStampPosCurrent)")
-                if  emailNotifications == true && timeStampPos >= timeStampPosCurrent {
-                    print("*************\(emailNotifications) this SHOULD send an email")
-                    let smtpSession = MCOSMTPSession()
-                    smtpSession.hostname = "smtp.gmail.com"
-                    smtpSession.username = "MUnchMatesHelpDesk@gmail.com"
-                    smtpSession.password = "vcjSqrL6eBevXsV!"
-                    smtpSession.port = 465
-                    smtpSession.authType = MCOAuthType.saslPlain
-                    smtpSession.connectionType = MCOConnectionType.TLS
-                    smtpSession.connectionLogger = {(connectionID, type, data) in
-                        if data != nil {
-                            if let string = NSString(data: data!, encoding: String.Encoding.utf8.rawValue){
-                                NSLog("Connectionlogger: \(string)")
-                            }
-                        }
-                    }
-                    let builder = MCOMessageBuilder()
-                    builder.header.to = [MCOAddress(displayName: "MUnchMates User", mailbox: email)]
-                    builder.header.from = MCOAddress(displayName: "MUnchMates", mailbox: "MUnchMatesHelpDesk@gmail.com")
-                    builder.header.subject = "New MUnchMates Message from \(senderDisplayName!)!"
-                    let emailFont = "arial"
-                            builder.htmlBody="<font face=\(emailFont)><p><b>\(senderDisplayName!):</b> \(text!)</p><br><i><p>To disable MUnchMates Message notifications, follow this path within the app:</p></br><p>Home Page → Profile → Edit Profile → Turn off 'Notifications'</p></i></font>"
-                    
-                    
-                    let rfc822Data = builder.data()
-                    let sendOperation = smtpSession.sendOperation(with: rfc822Data)
-                    sendOperation?.start { (error) -> Void in
-                        if (error != nil) {
-                            NSLog("Error sending email: \(error)")
-                            
-                            
-                        } else {
-                            NSLog("Successfully sent email!")
-                        }
-                    }
-                            }
-                    else {
-                    print("****\(emailNotifications) - this should not send an email")
-                    //do not send email
-                    }
             }
         })
         

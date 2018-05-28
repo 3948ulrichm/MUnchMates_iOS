@@ -76,33 +76,12 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
 //FILTERING...FILTERING...FILTERING...FILTERING...FILTERING...FILTERING!!!
         
         let clubsOrgsIdRef = clubsOrgsArray2.clubsOrgsId!
-        print(clubsOrgsIdRef)
-        
-        if attributeSearch == "all" {
-        dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"searchOrderNumber").observeSingleEvent(of: .value, with:
-            { snapshot in
-                var fireAccountArray: [SearchUsers] = []
-                
-                for fireAccount in snapshot.children {
-                    let fireAccount = SearchUsers(snapshot: fireAccount as! DataSnapshot)
-                    
-                    //let clubsOrgsNames = fireAccount.map(){$0.clubsOrgsName}
-                    
-                    fireAccountArray.append(fireAccount)
-                }
 
-                self.users = fireAccountArray
-                
-                self.tableView.delegate = self
-                self.tableView.dataSource = self
-                self.tableView.reloadData()
-                super.viewDidLoad()
-            })
-        }
-            
         //Filter by clubs orgs
-        else if entitySearch == "club / organization" {
-            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"clubsOrgs/\(String(describing: clubsOrgsIdRef))/clubsOrgsName").queryEqual(toValue: attributeSearch).observeSingleEvent(of: .value, with:
+        if entitySearch == "club / organization" {
+            print(clubsOrgsIdRef)
+            print(attributeSearch)
+            dataRef.reference(withPath: "USERS/").queryOrdered(byChild:"clubsOrgs/\(clubsOrgsIdRef)/clubsOrgsName").queryEqual(toValue: attributeSearch).observeSingleEvent(of: .value, with:
                 { snapshot in
                     var fireAccountArray: [SearchUsers] = []
                     
@@ -334,10 +313,12 @@ class SearchListViewController: UIViewController, UITableViewDelegate, UITableVi
             let vc = segue.destination as! ProfileViewController
             vc.userDetails = selectedUser
             vc.filterDataProfile = filterDataSearch
+            vc.profileClubsOrgsStruct = clubsOrgsArray2
         }
         if segue.identifier == "SearchList2Filter" {
             let vc = segue.destination as! FilterViewController
             vc.filterData = filterDataSearch
+            vc.selectedFilterValueClubsOrgs = clubsOrgsArray2
         }
         
     }
