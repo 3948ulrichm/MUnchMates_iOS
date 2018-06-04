@@ -25,7 +25,7 @@ class AddDeleteClubsOrgsViewController: UIViewController, UITableViewDelegate, U
         // Configure the fields of the interface.
         composeVC.setToRecipients(["MUnchMates@marquette.edu"])
         composeVC.setSubject("Add or Edit Club/Org")
-        composeVC.setMessageBody("<b>Would you like to ADD a club/org or EDIT a club/org?</b><br><br><br><b>What is the club/org you would like to add or edit?</b><br><br><br><b>Additional comments:</b><br><br>", isHTML: true)
+        composeVC.setMessageBody("<b>Would you like to ADD a club/org or EDIT a club/org?</b><br><br><br><b>What is the club/org that you would like to add or edit?</b><br><br><br><b>Additional comments:</b><br><br>", isHTML: true)
         
         // Present the view controller modally.
         self.present(composeVC, animated: true, completion: nil)

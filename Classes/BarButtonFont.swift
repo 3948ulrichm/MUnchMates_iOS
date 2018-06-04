@@ -6,6 +6,8 @@
 //  Copyright © 2018 Michael Ulrich. All rights reserved.
 //
 
+// This class is used for the font of bar buttons throughout the app. It uses the MUnchMatesBlue extension created in UIExtensions.swift. If you select a bar button in main.storyboard and look at the right side helper bar, you will see that the class is "BarButtonFont".
+
 import UIKit
 
 class BarButtonFont: UIBarButtonItem {

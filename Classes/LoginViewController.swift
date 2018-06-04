@@ -11,14 +11,12 @@ import Firebase
 
 class LoginViewController: UIViewController {
     
+    // In this class, there is an autologin feature for users already logged into their MUnchMates account. Previously, this autologin feature would login users coming from the welcome page, whether or not they had verified their email address. The struct below will FINISH
     var doNotAutoLoginLoginPage = FromWelcomePageStruct()
 
     @IBOutlet weak var txtEmail: UITextField!
-    
     @IBOutlet weak var txtPassword: UITextField!
-    
     @IBOutlet weak var btnLoginOutlet: UIButton!
-    
     @IBAction func btnForgotPassword(_ sender: Any) {
         
         if txtEmail.text == "" {

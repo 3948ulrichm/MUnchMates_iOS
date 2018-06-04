@@ -343,15 +343,6 @@ class EditProfileViewController: UIViewController,  UITableViewDelegate, UITable
                         self.muteModeBool = false
                     }
                 
-                    //notifications switch
-                    if emailNotifications == true {
-                        self.switchNotificationsOutlet.setOn(true, animated: false)
-                        self.notificationsBool = true
-                    }
-                    else {
-                        self.switchNotificationsOutlet.setOn(false, animated: false)
-                        self.notificationsBool = false
-                    }
                 //String assignments
                     self.tbFirstName.text = "\(firstName)"
                     self.tbLastName.text = "\(lastName)"

@@ -6,14 +6,15 @@
 //  Copyright © 2018 Michael Ulrich. All rights reserved.
 //
 
-// Michael: This file has extensions that can be called 
+// This file has extensions that can be called throughout the app.
+
 import UIKit
 import CoreFoundation
 
-//this is
+// This extension is for font color. It is the exact gold and blue colors that are in our logo.
 extension UIColor {
     
-    // Setup custom colours we can use throughout the app using hex values
+    // Setup custom colors we can use throughout the app using hex values
     static let MUnchMatesBlue = UIColor(hex: 0x001CB8)
     static let MUnchMatesGold = UIColor(hex: 0xFCB723)
     
@@ -38,6 +39,7 @@ extension UIColor {
     }
 }
 
+// This extension dismisses the keyboard when any area of the screen, other than the keyboard, is touched.
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))

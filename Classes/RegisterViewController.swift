@@ -11,15 +11,21 @@ import Firebase
 
 class RegisterViewController: UIViewController {
     
+    // This is used to shorten code later in the class (to see an example of this, command + f and search "userNodeRef.")
     let userNodeRef = Database.database().reference().child("USERS")
 
+    // Outlets
     @IBOutlet weak var txtFirstName: UITextField!
     @IBOutlet weak var txtLastName: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var switchMealPlan: UISwitch!
+    
+    // Global variables
     var mealPlanBool: Bool = false
     let userT = Auth.auth().currentUser
+    
+    // Whether or not a user has a meal plan is set when registering. This is expressed by toggling a switch. If the switch is on, mealPlanBool is true and the user does have a meal plan. If the switch is off, mealPlanBool is false and the user does not have a meal plan. When the register button is clicked, this bool gets sent to the database.
     @IBAction func switchMealPlanAction(_ sender: Any) {
         if (sender as AnyObject).isOn == true {
             mealPlanBool = true
@@ -29,12 +35,13 @@ class RegisterViewController: UIViewController {
         }
     }
 
+    // When this is pressed, the user will be registered if the checks below pass. The user still will need to verify their email address in order to login. From this view controller, the user is sent to a pledge.
     @IBAction func btnRegister(_ sender: Any) {
    
-        //CHECK that no fields are nil
+        // CHECK that no text fields are nil
         if txtFirstName.text != "" && txtLastName.text != "" && txtEmail.text != "" && txtPassword.text != "" {
             
-            //put text field values into strings
+            // Put text field values into strings, set placholder values, and get meal plan bool value.
             if
                 let firstName = txtFirstName.text?.trimmingCharacters(in: .whitespacesAndNewlines),
                 let lastName = txtLastName.text?.trimmingCharacters(in: .whitespacesAndNewlines),
@@ -49,24 +56,25 @@ class RegisterViewController: UIViewController {
                 let emailNotifications:Bool = true
             {
 
-                //CHECK that email is marquette email address
+                // CHECK that email is marquette email address
                 if email.lowercased().hasSuffix("marquette.edu") || email.lowercased().hasSuffix("mu.edu") {
                     
-                    //ADD: CHECK if email is already in database
-                    //var fbEmail = Auth.auth().fetchProviders(email)
-                    //if email != fbEmail {
+                    // ADD: CHECK if email is already in database
+                    // Currently, if all of the checks pass but the account fails to get created, we assume the email being used is already in the database. So, a popup displays that says the email is already in our database, but that check will not always be correct. It will be helpful to add a check here to see if the email address being used is already in the database.
                         
                     
-                        //CHECK that password has more than five characters
+                        // CHECK that password has more than five characters. Firebase requires more than 5 characters or the accounts will not get created.
                         if password.count > 5 {
                         
-                        //add user to Firebase
+                        // Add user to Firebase Authentication
                             Auth.auth().createUser(withEmail:email, password: password, completion: {user,error in
                             
-                            //add user to Firebase Database
+                            // Add user to Firebase Database
                             if user != nil {
                                 let uid: String? = (Auth.auth().currentUser?.uid)!
+                                //  SearchOrderNumber is randomly generated every time a user opens the filter view controller (home page). The purpose of the number was to randomly order search results when users searched "all" but bc we have changed the search "all" to forcing a user to select a specific attribute for their search this number is not used. It might be able to be used in the future though!
                                 let searchOrderNumber = Int(arc4random_uniform(UInt32(100000)))
+                                // lastOpened is refreshed every time a user opens the filter view controller (home page). The purpose of this user attribute is to see how long it has been since a user has last used the app. This gets overwritten each time a user opens the app, so we don't see how often someone uses the app, but in the future we can query users that haven't used the app since X date and use it to help us minimize inactive accounts.
                                 let lastOpened = NSDate().timeIntervalSince1970
                                 let userValues:[String:Any] =
                                     ["firstName": firstName,
@@ -90,16 +98,18 @@ class RegisterViewController: UIViewController {
                                 changeRequest?.commitChanges { (error) in
                                     // ...
                                 }
+                                
+                                // Email verification email sent to user
                                 Auth.auth().currentUser?.sendEmailVerification { (error) in
                                     // ...
                                 }
                                 
-                                //segue to PledgeViewController
+                                // If all checks pass, user is segued to PledgeViewController
                                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "PledgeViewController")
                                 self.present(vc!, animated: true, completion: nil)
                             }
                             else {
-                                //NOTE - While this message will display for any error, for now this is the message that will be displayed because it will be the most common reason for a registration error
+                                // NOTE - This message will display for any error (outside of what we already check for). For now, this is the message that will be displayed because it will be the most common reason for a registration error but in the future, we should add a check that checks if an email is already registered in our database and make this an "Unknown Error", bc we don't truly know the root cause of the error for this alert.
                                 let alertController = UIAlertController(title: "Registration Error!", message: "This email already exists in our database! If you have not previously made an account with this address, contact MUnchMatesHelpDesk@gmail.com", preferredStyle: UIAlertControllerStyle.alert)
                                 let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
                                 }
@@ -108,7 +118,7 @@ class RegisterViewController: UIViewController {
                             }
                         })}
                             
-                        //ALERT for password needing more than 5 characters
+                        // ALERT for password needing more than 5 characters
                         else {
                             let alertController = UIAlertController(title: "Registration Error!", message: "Password must be greater than 5 characters!", preferredStyle: UIAlertControllerStyle.alert)
                             let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
@@ -120,17 +130,10 @@ class RegisterViewController: UIViewController {
                 
                     
                     
-                //ALERT for email already being in the Db
-//                else{
-//                    let alertController = UIAlertController(title: "Registration Error!", message: "Email already exists in database! If you have not previously made an account with this address contact MUnchMatesMarquette@gmail.com", preferredStyle: UIAlertControllerStyle.alert)
-//                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
-//                    }
-//                    alertController.addAction(okAction)
-//                    self.present(alertController, animated: true, completion: nil)
-//                }
-            //}
+                    // ADD - ALERT for email already being in the Db
+
                     
-            //ALERT for needing a marquette email address
+                // ALERT for needing a marquette email address
                 else {
                     let alertController = UIAlertController(title: "Registration Error!", message: "Must contain marquette.edu or mu.edu email address!", preferredStyle: UIAlertControllerStyle.alert)
                     let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
@@ -142,7 +145,7 @@ class RegisterViewController: UIViewController {
         }
 
             
-        //ALERT for needing all text fields populated
+        // ALERT for needing all text fields populated
         else {
             let alertController = UIAlertController(title: "Registration Error!", message: "All text fields must be filled!", preferredStyle: UIAlertControllerStyle.alert)
             let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result: UIAlertAction) -> Void in
@@ -150,18 +153,16 @@ class RegisterViewController: UIViewController {
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
         }
-        
-        
-        
     }
     
+    // This is the function that gets called to add "done" button for dismissing the keyboard
     @objc func doneClicked() {
         view.endEditing(true)
     }
         
     override func viewDidLoad() {
         
-        //add done function on keyboard
+        // Add done function on keyboard
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
         
@@ -176,31 +177,27 @@ class RegisterViewController: UIViewController {
         txtEmail.inputAccessoryView = toolBar
         txtPassword.inputAccessoryView = toolBar
 
-        //disable autocorrect
+        // Disable autocorrect for email and password textbox
         txtEmail.autocorrectionType = .no
         txtPassword.autocorrectionType = .no
 
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
     }
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    // This prevents the app from automatically selecting any of the textboxes when loading.
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         txtFirstName.resignFirstResponder()
         txtLastName.resignFirstResponder()
         txtEmail.resignFirstResponder()
         txtPassword.resignFirstResponder()
     }
-
 }
-    
 
     /*
     // MARK: - Navigation
@@ -211,7 +208,3 @@ class RegisterViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
-
-//TODO
-    //convert emails to all lowercase when they enter db
