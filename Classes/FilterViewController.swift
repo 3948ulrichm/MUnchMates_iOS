@@ -415,7 +415,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     // TABLE VIEW
-    // how many sections of table view (left to right)?
+    // how many sections of table view (this will create mutilple results. for example, if you return 2 and have five results, ten results will show up with with 1st being the same as the 6th, the 2nd being the same as the 7th, etc.)?
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

@@ -8,8 +8,10 @@
 
 import UIKit
 
+// class for cell in tableView for FilterViewController
 class FilterTableViewCell: UITableViewCell {
     
+    // outlets
     @IBOutlet weak var lblFilterButtonName: UILabel!
     
     override func awakeFromNib() {

@@ -19,7 +19,6 @@
 		9434BDAC2069E37D00A06ED5 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9434BDAB2069E37D00A06ED5 /* MessageTableViewCell.swift */; };
 		943A16152060666400989C9D /* BarButtonFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943A16142060666400989C9D /* BarButtonFont.swift */; };
 		943DF9572057704200414977 /* FilterStructEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943DF9562057704200414977 /* FilterStructEntity.swift */; };
-		9447308E2042624000E13DC0 /* saveClubsOrgsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9447308D2042624000E13DC0 /* saveClubsOrgsStruct.swift */; };
 		944730902042731A00E13DC0 /* clubsOrgsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9447308F2042731A00E13DC0 /* clubsOrgsStruct.swift */; };
 		945BC85320394D42000538D9 /* FilterStructMateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945BC85220394D42000538D9 /* FilterStructMateType.swift */; };
 		945BC85520395130000538D9 /* FilterStructMealPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945BC85420395130000538D9 /* FilterStructMealPlan.swift */; };
@@ -42,7 +41,6 @@
 		94BEB51F205B0752001E345E /* DelayedImageLoadStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BEB51E205B0752001E345E /* DelayedImageLoadStruct.swift */; };
 		94C3877420391539007D9436 /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C3877320391539007D9436 /* FilterTableViewCell.swift */; };
 		94CDC3A5201AC8E9008BEE25 /* SelfProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CDC3A4201AC8E9008BEE25 /* SelfProfileTableViewCell.swift */; };
-		94CDC3A7201ADFD6008BEE25 /* userClubsOrgsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CDC3A6201ADFD6008BEE25 /* userClubsOrgsStruct.swift */; };
 		94CFD68E2054CB65009786FD /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CFD68D2054CB65009786FD /* UIExtensions.swift */; };
 		94DF213D2040E036000AD624 /* FilterVCToSearchVCStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DF213C2040E036000AD624 /* FilterVCToSearchVCStruct.swift */; };
 		94E3F34120206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3F34020206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift */; };
@@ -74,7 +72,6 @@
 		9434BDAB2069E37D00A06ED5 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		943A16142060666400989C9D /* BarButtonFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BarButtonFont.swift; path = Classes/BarButtonFont.swift; sourceTree = "<group>"; };
 		943DF9562057704200414977 /* FilterStructEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterStructEntity.swift; sourceTree = "<group>"; };
-		9447308D2042624000E13DC0 /* saveClubsOrgsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveClubsOrgsStruct.swift; sourceTree = "<group>"; };
 		9447308F2042731A00E13DC0 /* clubsOrgsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clubsOrgsStruct.swift; sourceTree = "<group>"; };
 		945BC85220394D42000538D9 /* FilterStructMateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterStructMateType.swift; sourceTree = "<group>"; };
 		945BC85420395130000538D9 /* FilterStructMealPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterStructMealPlan.swift; sourceTree = "<group>"; };
@@ -98,7 +95,6 @@
 		94BEB51E205B0752001E345E /* DelayedImageLoadStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayedImageLoadStruct.swift; sourceTree = "<group>"; };
 		94C3877320391539007D9436 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
 		94CDC3A4201AC8E9008BEE25 /* SelfProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelfProfileTableViewCell.swift; path = Classes/SelfProfileTableViewCell.swift; sourceTree = "<group>"; };
-		94CDC3A6201ADFD6008BEE25 /* userClubsOrgsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userClubsOrgsStruct.swift; sourceTree = "<group>"; };
 		94CFD68D2054CB65009786FD /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		94DF213C2040E036000AD624 /* FilterVCToSearchVCStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterVCToSearchVCStruct.swift; sourceTree = "<group>"; };
 		94E3F34020206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddDeleteClubsOrgsViewController.swift; path = Classes/AddDeleteClubsOrgsViewController.swift; sourceTree = "<group>"; };
@@ -189,8 +185,8 @@
 			isa = PBXGroup;
 			children = (
 				49658F372052259300FED586 /* ConversationTableViewCell.swift */,
-				94B2DDCC2058DF2B00217B21 /* ProfileMessageTableViewCell.swift */,
 				9434BDAB2069E37D00A06ED5 /* MessageTableViewCell.swift */,
+				94B2DDCC2058DF2B00217B21 /* ProfileMessageTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -231,8 +227,6 @@
 				94F487F4202824B000E3444F /* SearchUsersProfilePic.swift */,
 				94F487F720282FE100E3444F /* SearchUsersUid.swift */,
 				9447308F2042731A00E13DC0 /* clubsOrgsStruct.swift */,
-				94CDC3A6201ADFD6008BEE25 /* userClubsOrgsStruct.swift */,
-				9447308D2042624000E13DC0 /* saveClubsOrgsStruct.swift */,
 				943DF9562057704200414977 /* FilterStructEntity.swift */,
 				94188B9F2039185100AE5F9A /* FilterStructCollege.swift */,
 				945BC85220394D42000538D9 /* FilterStructMateType.swift */,
@@ -468,9 +462,7 @@
 				49C08FF81FEB45B700AFB599 /* MessageViewController.swift in Sources */,
 				94606EA01FE8B6DA00C0AA8E /* RegisterViewController.swift in Sources */,
 				94F487F820282FE100E3444F /* SearchUsersUid.swift in Sources */,
-				9447308E2042624000E13DC0 /* saveClubsOrgsStruct.swift in Sources */,
 				94A6479E20573B090013F27B /* messagesStruct.swift in Sources */,
-				94CDC3A7201ADFD6008BEE25 /* userClubsOrgsStruct.swift in Sources */,
 				94F8FCD41F8B406100663F8C /* MUnchMates.xcdatamodeld in Sources */,
 				94C3877420391539007D9436 /* FilterTableViewCell.swift in Sources */,
 				94B2DDCB2058DD3E00217B21 /* ProfileMessageViewController.swift in Sources */,

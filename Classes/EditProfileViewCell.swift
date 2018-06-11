@@ -8,20 +8,21 @@
 
 import UIKit
 
+// class for cell in tableView for EditProfileViewController
 class EditProfileViewCell: UITableViewCell {
 
+    // outlets
     @IBOutlet weak var lblEditProfileButtonName: UILabel!
     
-    
-override func awakeFromNib() {
-    super.awakeFromNib()
-    // Initialization code
-}
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
 
-override func setSelected(_ selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
-    
-    // Configure the view for the selected state
-}
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
 }
 

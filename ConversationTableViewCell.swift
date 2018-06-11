@@ -8,11 +8,12 @@
 
 import UIKit
 
+// class for cell in tableView for ConversationTableViewController
 class ConversationTableViewCell: UITableViewCell {
 
+    // outlets
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblUnread: UILabel!
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()

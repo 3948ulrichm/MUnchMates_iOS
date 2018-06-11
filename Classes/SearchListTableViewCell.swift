@@ -9,15 +9,14 @@
 import UIKit
 import Firebase
 
+// class for cell in tableView for SearchListViewController
 class SearchListTableViewCell: UITableViewCell {
 
-    
+    // outlets
     @IBOutlet weak var lblNameSearchList: UILabel!
     @IBOutlet weak var lblMealPlan: UILabel!
-    @IBOutlet weak var imgProfilePic: UIImageView!
     @IBOutlet weak var lblMateTypeCollege: UILabel!
     @IBOutlet weak var lblMUteMode: UILabel!
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,7 +25,6 @@ class SearchListTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
 

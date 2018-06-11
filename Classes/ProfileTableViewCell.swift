@@ -8,8 +8,10 @@
 
 import UIKit
 
+// class for cell in tableView for ProfileViewController
 class ProfileTableViewCell: UITableViewCell {
     
+    // outlets
     @IBOutlet weak var lblClubsOrgs: UILabel!
     
     override func awakeFromNib() {

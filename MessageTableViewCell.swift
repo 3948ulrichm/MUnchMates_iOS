@@ -8,13 +8,13 @@
 
 import UIKit
 
+// class for cell in tableView for MessageViewController
 class MessageTableViewCell: UITableViewCell {
     
-    //put labels here
+    // outlets
     @IBOutlet weak var lblSenderName: UILabel!
     @IBOutlet weak var lblText: UILabel!
     @IBOutlet weak var lblDateTime: UILabel!
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,6 +25,4 @@ class MessageTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
-    
 }
-
