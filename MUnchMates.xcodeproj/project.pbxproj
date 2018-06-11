@@ -164,8 +164,8 @@
 				94606E961FE8B6D900C0AA8E /* EditProfileViewController.swift */,
 				94606E9A1FE8B6DA00C0AA8E /* SelfProfileViewController.swift */,
 				94606E971FE8B6D900C0AA8E /* FilterViewController.swift */,
-				94606E941FE8B6D900C0AA8E /* ProfileViewController.swift */,
 				94606E931FE8B6D900C0AA8E /* SearchListViewController.swift */,
+				94606E941FE8B6D900C0AA8E /* ProfileViewController.swift */,
 				94E3F34020206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift */,
 				94492C692053722C00E14022 /* Cells */,
 			);

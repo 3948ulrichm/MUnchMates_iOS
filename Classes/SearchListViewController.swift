@@ -11,31 +11,23 @@ import Firebase
 
 class SearchListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
-        
+    
+    // global variable
     let storageRef = Storage.storage()
     let dataRef = Database.database()
     let cellId = "SearchListTableViewCell"
     let uidSelf = Auth.auth().currentUser?.uid
-//    let uid:String = ""
     var userProfileImage: UIImage?
     var mealPlanAttribute:Bool?
     
-    //filterData struct
-    //var filterSearch: [FilterVCToSearchVCStruct] = []
+    // STRUCTS
+    // HERE
     var filterDataSearch = FilterVCToSearchVCStruct()
     var filterDataProfile = FilterVCToSearchVCStruct()
 
     //SearchUsers Struct
     var users: [SearchUsers] = []
     var selectedUser = SearchUsers()
-    
-    //SearchUsersProfilePic Struct
-    //var usersProfilePic: [SearchUsersProfilePic] = []
-    //var selectedUserProfilePic = SearchUsersProfilePic()
-    
-    //SearchUsersUid Struct
-    //var usersUid: [SearchUsersUid] = []
-    //var selectedUserUid = SearchUsersUid()
     
     //get clubs orgs data from filter
     var clubsOrgsArray: [FilterStructClubsOrgs]=[]

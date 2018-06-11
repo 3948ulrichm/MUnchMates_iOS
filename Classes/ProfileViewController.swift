@@ -246,10 +246,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             vc.clubsOrgsArray2 = profileClubsOrgsStruct
         }
     }
+    
+    // sent to the view controller when the app receives a memory warning
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 }
-
