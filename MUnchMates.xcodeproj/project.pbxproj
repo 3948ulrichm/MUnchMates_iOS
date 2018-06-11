@@ -48,7 +48,6 @@
 		94F487F5202824B000E3444F /* SearchUsersProfilePic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F487F4202824B000E3444F /* SearchUsersProfilePic.swift */; };
 		94F487F820282FE100E3444F /* SearchUsersUid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F487F720282FE100E3444F /* SearchUsersUid.swift */; };
 		94F8FCCC1F8B406100663F8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F8FCCB1F8B406100663F8C /* AppDelegate.swift */; };
-		94F8FCCE1F8B406100663F8C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F8FCCD1F8B406100663F8C /* ViewController.swift */; };
 		94F8FCD11F8B406100663F8C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94F8FCCF1F8B406100663F8C /* Main.storyboard */; };
 		94F8FCD41F8B406100663F8C /* MUnchMates.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 94F8FCD21F8B406100663F8C /* MUnchMates.xcdatamodeld */; };
 		94F8FCD61F8B406100663F8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94F8FCD51F8B406100663F8C /* Assets.xcassets */; };
@@ -103,7 +102,6 @@
 		94F487F720282FE100E3444F /* SearchUsersUid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUsersUid.swift; sourceTree = "<group>"; };
 		94F8FCC81F8B406100663F8C /* MUnchMates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MUnchMates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94F8FCCB1F8B406100663F8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		94F8FCCD1F8B406100663F8C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		94F8FCD01F8B406100663F8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		94F8FCD31F8B406100663F8C /* MUnchMates.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MUnchMates.xcdatamodel; sourceTree = "<group>"; };
 		94F8FCD51F8B406100663F8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -266,7 +264,6 @@
 				49A41BC7206B368E00B8C7AE /* MUnchMates.entitlements */,
 				94A4F4231F8C564E00A82C0E /* GoogleService-Info.plist */,
 				94F8FCCB1F8B406100663F8C /* AppDelegate.swift */,
-				94F8FCCD1F8B406100663F8C /* ViewController.swift */,
 				94F8FCCF1F8B406100663F8C /* Main.storyboard */,
 				94F8FCD51F8B406100663F8C /* Assets.xcassets */,
 				94F8FCD71F8B406100663F8C /* LaunchScreen.storyboard */,
@@ -480,7 +477,6 @@
 				94E3F34120206ACF00CF2FFD /* AddDeleteClubsOrgsViewController.swift in Sources */,
 				9434BDAC2069E37D00A06ED5 /* MessageTableViewCell.swift in Sources */,
 				94DF213D2040E036000AD624 /* FilterVCToSearchVCStruct.swift in Sources */,
-				94F8FCCE1F8B406100663F8C /* ViewController.swift in Sources */,
 				945BC85720395786000538D9 /* FilterStructClubsOrgs.swift in Sources */,
 				944730902042731A00E13DC0 /* clubsOrgsStruct.swift in Sources */,
 				94F8FCCC1F8B406100663F8C /* AppDelegate.swift in Sources */,

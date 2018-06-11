@@ -6,6 +6,8 @@
 //  Copyright © 2017 Michael Ulrich. All rights reserved.
 //
 
+// the only update (I believe) that Andrew and I made to this was configuring Firebase and UserNotifications.
+
 import UIKit
 import CoreData
 import Firebase

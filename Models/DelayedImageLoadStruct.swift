@@ -8,6 +8,7 @@
 
 import Foundation
 
+// structs are used to get data to and from a database and pass data between view controllers. the structs in the "Models" folders are used throughout the app.
 struct DelayedImageLoadStruct {
     let savedImage: Bool?
     

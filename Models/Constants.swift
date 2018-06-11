@@ -9,6 +9,8 @@
 import Foundation
 import Firebase
 
+// structs are used to get data to and from a database and pass data between view controllers. the structs in the "Models" folders are used throughout the app.
+// THIS STRUCT IS UNIQUE BC IT IS USED AS A DATABASE REFERENCE AND CAN BE CALLED THROUGHOUT THE APP.
 struct Constants
 {
     struct refs

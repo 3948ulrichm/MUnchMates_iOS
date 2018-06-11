@@ -9,31 +9,20 @@
 import Foundation
 import Firebase
 
-
-//populate this struct with the buttons from FilterViewController. When "Search" is hit, send value to SearchListViewController. Use values to filter search. NOTE: try clubsOrgsSearch last as it might take extra steps because it will be an extra node down the Db.
+// structs are used to get data to and from a database and pass data between view controllers. the structs in the "Models" folders are used throughout the app.
 struct FilterVCToSearchVCStruct {
     let entitySearch: String?
     let attributeSearch: String?
-    //let ref: DatabaseReference?
     
     init() {
         self.entitySearch = ""
         self.attributeSearch = ""
-       // self.ref = nil
     }
     
     init(entitySearch:String, attributeSearch:String) {
         self.entitySearch = entitySearch
         self.attributeSearch = attributeSearch
-        //self.ref = nil
     }
-    
-//    init(snapshot: DataSnapshot) {
-//        let snapshotValue = snapshot.value as! [String: AnyObject]
-//        entitySearch = (snapshotValue[""] as? String)!
-//        attributeSearch = (snapshotValue[""] as? String)!
-//        ref = snapshot.ref
-//    }
     
     func toAnyObject() -> Any {
         return [

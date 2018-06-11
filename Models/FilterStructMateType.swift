@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 
+// structs are used to get data to and from a database and pass data between view controllers. the structs in the "Models" folders are used throughout the app.
 struct FilterStructMateType {
     let mateTypeName: String?
     let ref: DatabaseReference?
